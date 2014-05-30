@@ -9,18 +9,19 @@
     using System.Threading.Tasks;
 
     using EpamTask.MyBlog.Entities;
-    interface IRolesDao
-    {
-        bool AddRoleToAccount(System.Guid AccountID, System.Guid RoleID);
 
-        System.Collections.Generic.IEnumerable<Role> GetAccountRoles(System.Guid AccountID);
+    public interface IRolesDao
+    {
+        bool AddRoleToAccount(System.Guid accountID, System.Guid roleID);
+
+        System.Collections.Generic.IEnumerable<Role> GetAccountRoles(System.Guid accountID);
 
         System.Collections.Generic.IEnumerable<Role> GetAllRoles();
 
         Role GetRole(System.Guid id);
 
-        bool DeleteRoleFromAccount(System.Guid AccountID, System.Guid RoleID);
+        bool DeleteRoleFromAccount(System.Guid accountID, System.Guid roleID);
 
-        System.Collections.Generic.IEnumerable<Role> GetNoAccountRoles(System.Guid AccountID);
+        System.Collections.Generic.IEnumerable<Role> GetNoAccountRoles(System.Guid accountID);
     }
 }

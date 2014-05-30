@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EpamTask.MyBlog.DAL.Abstract;
-using EpamTask.MyBlog.Entities;
+﻿namespace EpamTask.MyBlog.DAL.DB
+{
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Data.SqlClient;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using EpamTask.MyBlog.DAL.Abstract;
+    using EpamTask.MyBlog.Entities;
 
-namespace EpamTask.MyBlog.DAL.DB
-{    
     public class PostsDao : IPostsDao
     {
-     private static string connectionString;
+        private static string connectionString;
 
         public PostsDao()
         {
@@ -26,7 +26,7 @@ namespace EpamTask.MyBlog.DAL.DB
             }
         }
 
-        bool AddPost(BlogPost post)
+        public bool AddPost(BlogPost post)
         {
             using (var con = new SqlConnection(connectionString))
             {
@@ -40,8 +40,7 @@ namespace EpamTask.MyBlog.DAL.DB
                 command.Parameters.Add(new SqlParameter("@Title", post.PostTitle));
                 command.Parameters.Add(new SqlParameter("@CreationTime", post.PostCreationTime));
                 command.Parameters.Add(new SqlParameter("@Content", post.PostContent));
-                command.Parameters.Add(new SqlParameter("@Privacy", post.Privacy));
-                
+                command.Parameters.Add(new SqlParameter("@Privacy", post.Privacy));                
 
                 con.Open();
                 var reader = command.ExecuteNonQuery();
@@ -49,7 +48,7 @@ namespace EpamTask.MyBlog.DAL.DB
             }
         }
 
-        bool UpdatePost(BlogPost post)
+        public bool UpdatePost(BlogPost post)
         {
             using (var con = new SqlConnection(connectionString))
             {
@@ -65,19 +64,18 @@ namespace EpamTask.MyBlog.DAL.DB
                 command.Parameters.Add(new SqlParameter("@Content", post.PostContent));
                 command.Parameters.Add(new SqlParameter("@Privacy", post.Privacy));
 
-
                 con.Open();
                 var reader = command.ExecuteNonQuery();
                 return reader > 0 ? true : false;
             }
         }
 
-        bool DeletePost(Guid id)
+        public bool DeletePost(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        BlogPost GetPost(Guid id)
+        public BlogPost GetPost(Guid id)
         {
             using (var con = new SqlConnection(connectionString))
             {
@@ -110,7 +108,7 @@ namespace EpamTask.MyBlog.DAL.DB
             }
         }
 
-        IEnumerable<BlogPost> GetAllPosts()
+        public IEnumerable<BlogPost> GetAllPosts()
         {
             using (var con = new SqlConnection(connectionString))
             {
@@ -138,7 +136,7 @@ namespace EpamTask.MyBlog.DAL.DB
             }
         }
 
-        IEnumerable<BlogPost> GetUserPosts(Guid id)
+        public IEnumerable<BlogPost> GetUserPosts(Guid id)
         {
             using (var con = new SqlConnection(connectionString))
             {

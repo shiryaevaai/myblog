@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommentsDao.cs" />
     <Compile Include="PostsDao.cs" />
     <Compile Include="RolesDao.cs" />
     <Compile Include="UsersDao.cs" />

@@ -70,16 +70,6 @@
             }
         }
 
-        public void AddTag(string tag)
-        {
-            this.postTagList.Add(tag);
-        }
-
-        public void AddComment(string comment)
-        {
-            this.postCommentList.Add(comment);
-        }
-
         public string Privacy
         {
             get
@@ -101,6 +91,16 @@
         public void DislikePost(Guid userID)
         {
             this.dislikesList.Add(userID);
+        }
+
+        public void AddTag(string tag)
+        {
+            this.postTagList.Add(tag);
+        }
+
+        public void AddComment(string comment)
+        {
+            this.postCommentList.Add(comment);
         }
     }
 }

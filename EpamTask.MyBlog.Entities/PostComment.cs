@@ -19,10 +19,11 @@
         {
         }
 
-        public PostComment(Guid userID, string text)
+        public PostComment(Guid userID, Guid postID, string text)
         {
             this.CommentID = Guid.NewGuid();
             this.AuthorID = userID;
+            this.PostID = postID;
             this.CommentText = text;
             this.CommentCreationTime = DateTime.Now;
         }
@@ -34,7 +35,10 @@
         public Guid AuthorID { get; set; }
 
         [Required]
-        public DateTime CommentCreationTime { get; private set; }
+        public Guid PostID { get; set; }
+
+        [Required]
+        public DateTime CommentCreationTime { get; set; }
 
         public string CommentText
         {

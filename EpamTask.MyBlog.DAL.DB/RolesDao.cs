@@ -10,23 +10,23 @@
 
     using EpamTask.MyBlog.DAL.Abstract;
     using EpamTask.MyBlog.Entities;
-    public class RolesDao
+
+    public class RolesDao : IRolesDao
     {
         private static string connectionString;
 
         public RolesDao()
         {
             connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["MyBlogDBConnection"].ConnectionString;
-       
         }        
 
-        public bool AddRoleToAccount(System.Guid AccountID, System.Guid RoleID)
+        public bool AddRoleToAccount(System.Guid accountID, System.Guid roleID)
         {
             using (var con = new SqlConnection(connectionString))
             {
                 var command = new SqlCommand("INSERT INTO dbo.UserRoles (UserID, RoleID) VALUES (@UserID, @RoleID)", con);
-                command.Parameters.Add(new SqlParameter("@UserID", AccountID));
-                command.Parameters.Add(new SqlParameter("@RoleID", RoleID));
+                command.Parameters.Add(new SqlParameter("@UserID", accountID));
+                command.Parameters.Add(new SqlParameter("@RoleID", roleID));
 
                 con.Open();
                 var reader = command.ExecuteNonQuery();
@@ -65,8 +65,9 @@
             using (var con = new SqlConnection(connectionString))
             {
                 ///!!!!
-                var command = new SqlCommand("SELECT dbo.AppRoles.ID, dbo.AppRoles.RoleName "+
-                    "FROM dbo.AppRoles INNER JOIN dbo.AppUserRoles "+
+                var command = new SqlCommand(
+                    "SELECT dbo.AppRoles.ID, dbo.AppRoles.RoleName " +
+                    "FROM dbo.AppRoles INNER JOIN dbo.AppUserRoles " +
                     "ON dbo.AppRoles.ID = dbo.AppUserRoles.RoleID " +
                     "WHERE dbo.AppUserRoles.UserID = @UserID", con);
                 command.Parameters.Add(new SqlParameter("@UserID", id));
@@ -136,13 +137,13 @@
             }  
         }       
 
-        public bool DeleteRoleFromAccount(System.Guid AccountID, System.Guid RoleID)
+        public bool DeleteRoleFromAccount(System.Guid accountID, System.Guid roleID)
         {
             using (var con = new SqlConnection(connectionString))
             {
                 var command = new SqlCommand("DELETE FROM dbo.UserRoles WHERE UserID=@UserID AND RoleID=@RoleID", con);
-                command.Parameters.Add(new SqlParameter("@UserID", AccountID));
-                command.Parameters.Add(new SqlParameter("@RoleID", RoleID));
+                command.Parameters.Add(new SqlParameter("@UserID", accountID));
+                command.Parameters.Add(new SqlParameter("@RoleID", roleID));
 
                 con.Open();
                 var reader = command.ExecuteNonQuery();

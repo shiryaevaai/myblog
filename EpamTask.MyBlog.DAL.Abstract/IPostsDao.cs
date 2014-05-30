@@ -20,6 +20,6 @@
 
         IEnumerable<BlogPost> GetAllPosts();
 
-        IEnumerable<BlogPost> GetUserPosts(Guid id);
+        IEnumerable<BlogPost> GetUserPosts(Guid userID);
     }
 }

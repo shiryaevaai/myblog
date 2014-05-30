@@ -1,5 +1,4 @@
-﻿
-namespace EpamTask.MyBlog.Entities
+﻿namespace EpamTask.MyBlog.Entities
 {
     using System;
     using System.Collections.Generic;

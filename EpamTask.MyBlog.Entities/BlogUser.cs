@@ -30,6 +30,7 @@
         private List<string> tagCloud;
 
         private List<Role> roleList;
+
         public BlogUser() 
         { 
         }
