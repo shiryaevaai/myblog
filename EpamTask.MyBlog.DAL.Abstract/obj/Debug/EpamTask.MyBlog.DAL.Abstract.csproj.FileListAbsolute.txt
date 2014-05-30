@@ -1,0 +1,7 @@
+c:\users\user\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyBlog.DAL.Abstract\bin\Debug\EpamTask.MyBlog.DAL.Abstract.dll
+c:\users\user\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyBlog.DAL.Abstract\bin\Debug\EpamTask.MyBlog.DAL.Abstract.pdb
+c:\users\user\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyBlog.DAL.Abstract\bin\Debug\EpamTask.MyBlog.Entities.dll
+c:\users\user\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyBlog.DAL.Abstract\bin\Debug\EpamTask.MyBlog.Entities.pdb
+c:\users\user\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyBlog.DAL.Abstract\obj\Debug\EpamTask.MyBlog.DAL.Abstract.csprojResolveAssemblyReference.cache
+c:\users\user\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyBlog.DAL.Abstract\obj\Debug\EpamTask.MyBlog.DAL.Abstract.dll
+c:\users\user\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyBlog.DAL.Abstract\obj\Debug\EpamTask.MyBlog.DAL.Abstract.pdb

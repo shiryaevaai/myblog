@@ -1,5 +1,4 @@
-﻿
-namespace EpamTask.MyBlog.Entities
+﻿namespace EpamTask.MyBlog.Entities
 {
     using System;
     using System.Collections.Generic;
@@ -7,7 +6,8 @@ namespace EpamTask.MyBlog.Entities
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    class BlogPost
+
+    public class BlogPost
     {
         private string postTitle;
 
@@ -23,25 +23,26 @@ namespace EpamTask.MyBlog.Entities
 
         private string privacy;
 
-         public BlogPost() 
+        public BlogPost() 
         { 
         }
 
-        public BlogPost(string login, string password, DateTime birth, string e_mail)
+        public BlogPost(Guid userID, string title, string content)
         {
-            //this.BlogUserLogin = login;
-            //this.BlogUserPassword = password;
-            //this.BirthDate = birth;
-            //this.Email = e_mail;
-            //this.RegistrationTime = DateTime.Now;
-            //this.HasAvatar = false;
+            this.PostID = Guid.NewGuid();
+            this.AuthorID = userID;
+            this.PostTitle = title;
+            this.PostContent = content;
+            this.PostCreationTime = DateTime.Now;
         }
 
-        public DateTime PostCreationTime { get; private set; }
         [Required]
-        public Guid PostID { get; private set; }
+        public DateTime PostCreationTime { get; set; }
+        [Required]
+        public Guid PostID { get; set; }
 
-        public Guid AuthorID { get; private set; }
+        [Required]
+        public Guid AuthorID { get; set; }
 
         public string PostTitle 
         {
@@ -56,7 +57,7 @@ namespace EpamTask.MyBlog.Entities
             }
         }
 
-        private string PostContent
+        public string PostContent
         {
             get
             {
@@ -79,16 +80,6 @@ namespace EpamTask.MyBlog.Entities
             this.postCommentList.Add(comment);
         }
 
-        public void LikePost(Guid userID)
-        {
-            this.likesList.Add(userID);
-        }
-
-        public void DislikePost(Guid userID)
-        {
-            this.dislikesList.Add(userID);
-        }
-
         public string Privacy
         {
             get
@@ -100,6 +91,16 @@ namespace EpamTask.MyBlog.Entities
             {
                 this.privacy = value;
             }
+        }
+
+        public void LikePost(Guid userID)
+        {
+            this.likesList.Add(userID);
+        }
+
+        public void DislikePost(Guid userID)
+        {
+            this.dislikesList.Add(userID);
         }
     }
 }

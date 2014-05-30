@@ -29,6 +29,7 @@
 
         private List<string> tagCloud;
 
+        private List<Role> roleList;
         public BlogUser() 
         { 
         }
@@ -88,7 +89,7 @@
         }
 
         [Required]
-        public DateTime RegistrationTime { get; private set; }
+        public DateTime RegistrationTime { get; set; }
 
         public string BlogUserEpigraph
         {
@@ -129,20 +130,29 @@
             }
         }
 
+        public string About
+        {
+            get
+            {
+                return this.about;
+            }
+
+            set
+            {
+                this.about = value;
+            }
+        }
+
         public int Age { get; set; }
 
         public bool Sex { get; set; }
 
-        //public void CreatePost(string content, List<string> taglist)
+        // public void CreatePost(string content, List<string> taglist)
         //{
-
-
         //}
 
-        //public void UpdatePost(Guid postID, string content, List<string> taglist)
+        // public void UpdatePost(Guid postID, string content, List<string> taglist)
         //{
-
-
         //}
     }
 }
