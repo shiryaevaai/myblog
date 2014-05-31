@@ -7,7 +7,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public class BlogUser
+    public class BlogUser : IEquatable<BlogUser>
     {
         [Required]
         private string blogUserLogin;
@@ -155,5 +155,51 @@
         // public void UpdatePost(Guid postID, string content, List<string> taglist)
         //{
         //}
+
+        bool IEquatable<BlogUser>.Equals(BlogUser other)
+        {
+            return Equals(other);
+        }
+
+        public override bool Equals(Object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+
+            BlogUser userObj = obj as BlogUser;
+            if (userObj == null)
+            {
+                return false;
+            }
+            else
+            {
+
+                if (this.ID == userObj.ID)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            int res = 0;
+            string g = this.ID.ToString();
+            for (int i = 0; i < g.Length; i++)
+            {
+                if (Char.IsDigit(g[i]))
+                {
+                    res += Int16.Parse(g[i].ToString());
+                }
+            }
+
+            return res;
+        }
     }
 }

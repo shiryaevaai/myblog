@@ -30,16 +30,21 @@
         {
             using (var con = new SqlConnection(connectionString))
             {
-                var command = new SqlCommand("dbo.AddPost", con)
-                {
-                    CommandType = System.Data.CommandType.StoredProcedure,
-                };
+                //var command = new SqlCommand("dbo.AddPost", con)
+                //{
+                //    CommandType = System.Data.CommandType.StoredProcedure,
+                //};
+
+                var command = new SqlCommand(
+                   "INSERT INTO dbo.[BlogPosts] ([ID], [AuthorID], [Text], " +
+                   "[CreationTime], [Title], [Privacy]) " +
+                   "VALUES (@ID, @AuthorID, @Text, @BCreationTime, @Title, @Privacy)", con);
 
                 command.Parameters.Add(new SqlParameter("@ID", post.PostID));
                 command.Parameters.Add(new SqlParameter("@AuthorID", post.AuthorID));
                 command.Parameters.Add(new SqlParameter("@Title", post.PostTitle));
                 command.Parameters.Add(new SqlParameter("@CreationTime", post.PostCreationTime));
-                command.Parameters.Add(new SqlParameter("@Content", post.PostContent));
+                command.Parameters.Add(new SqlParameter("@Text", post.PostContent));
                 command.Parameters.Add(new SqlParameter("@Privacy", post.Privacy));                
 
                 con.Open();

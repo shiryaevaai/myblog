@@ -24,7 +24,7 @@
         {
             using (var con = new SqlConnection(connectionString))
             {
-                var command = new SqlCommand("INSERT INTO dbo.UserRoles (UserID, RoleID) VALUES (@UserID, @RoleID)", con);
+                var command = new SqlCommand("INSERT INTO dbo.[UserRoles] ([UserID], [RoleID]) VALUES (@UserID, @RoleID)", con);
                 command.Parameters.Add(new SqlParameter("@UserID", accountID));
                 command.Parameters.Add(new SqlParameter("@RoleID", roleID));
 
@@ -66,10 +66,10 @@
             {
                 ///!!!!
                 var command = new SqlCommand(
-                    "SELECT dbo.AppRoles.ID, dbo.AppRoles.RoleName " +
-                    "FROM dbo.AppRoles INNER JOIN dbo.AppUserRoles " +
-                    "ON dbo.AppRoles.ID = dbo.AppUserRoles.RoleID " +
-                    "WHERE dbo.AppUserRoles.UserID = @UserID", con);
+                    "SELECT dbo.[Roles].[ID], dbo.[Roles].[RoleName] " +
+                    "FROM dbo.[Roles] INNER JOIN dbo.[UserRoles] " +
+                    "ON dbo.[Roles].[ID] = dbo.[UserRoles].[RoleID] " +
+                    "WHERE dbo.[UserRoles].[UserID] = @UserID", con);
                 command.Parameters.Add(new SqlParameter("@UserID", id));
                 
                 con.Open();
@@ -90,39 +90,21 @@
         {
             var allRoles = this.GetAllRoles().ToList();
             var userRoles = this.GetAccountRoles(id).ToList();
-            if (userRoles.Count() == 0)
+
+            foreach (var role in allRoles)
             {
-                foreach (var role in allRoles)
+                if (!userRoles.Contains(role))
                 {
                     yield return role;
                 }
-            }
-            else
-            {
-                foreach (var role in allRoles)
-                {
-                    bool contains = false;
-                    foreach (var other in userRoles)
-                    {
-                        if ((role.ID == other.ID))
-                        {
-                            contains = true;
-                        }
-                    }
-
-                    if (!contains)
-                    {
-                        yield return role;
-                    }
-                }   
-            }
+            }  
         }
 
         public System.Collections.Generic.IEnumerable<Role> GetAllRoles()
         {
             using (var con = new SqlConnection(connectionString))
             {
-                var command = new SqlCommand("SELECT ID, RoleName FROM dbo.Roles", con);
+                var command = new SqlCommand("SELECT [ID], [RoleName] FROM dbo.[Roles]", con);
                 con.Open();
                 var reader = command.ExecuteReader();
 
@@ -141,7 +123,7 @@
         {
             using (var con = new SqlConnection(connectionString))
             {
-                var command = new SqlCommand("DELETE FROM dbo.UserRoles WHERE UserID=@UserID AND RoleID=@RoleID", con);
+                var command = new SqlCommand("DELETE FROM dbo.[UserRoles] WHERE [UserID]=@UserID AND [RoleID]=@RoleID", con);
                 command.Parameters.Add(new SqlParameter("@UserID", accountID));
                 command.Parameters.Add(new SqlParameter("@RoleID", roleID));
 

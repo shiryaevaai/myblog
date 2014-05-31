@@ -7,7 +7,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public class BlogPost
+    public class BlogPost : IEquatable<BlogPost>
     {
         private string postTitle;
 
@@ -101,6 +101,52 @@
         public void AddComment(string comment)
         {
             this.postCommentList.Add(comment);
+        }
+
+        bool IEquatable<BlogPost>.Equals(BlogPost other)
+        {
+            return Equals(other);
+        }
+
+        public override bool Equals(Object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }                
+
+            BlogPost postObj = obj as BlogPost;
+            if (postObj == null)
+            {
+                return false;
+            }
+            else
+            {
+
+                if (this.PostID == postObj.PostID)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            int res = 0;
+            string g = this.PostID.ToString();
+            for (int i = 0; i < g.Length; i++)
+            {
+                if (Char.IsDigit(g[i]))
+                {
+                    res += Int16.Parse(g[i].ToString());
+                }
+            }
+
+            return res;
         }
     }
 }
