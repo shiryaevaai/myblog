@@ -57,10 +57,15 @@
         {
             using (var con = new SqlConnection(connectionString))
             {
-                var command = new SqlCommand("dbo.UpdatePost", con)
-                {
-                    CommandType = System.Data.CommandType.StoredProcedure,
-                };
+                //var command = new SqlCommand("dbo.UpdatePost", con)
+                //{
+                //    CommandType = System.Data.CommandType.StoredProcedure,
+                //};
+                var command = new SqlCommand(
+                   "UPDATE dbo.[BlogPosts] " +
+                   "SET [AuthorID]=@AuthorID, [Title]=@Title, " +
+                   "[CreationTime]=@CreationTime, [Content]=@Content, [Privacy]=@Privacy " +
+                   "WHERE [ID]=@ID", con);
 
                 command.Parameters.Add(new SqlParameter("@ID", post.PostID));
                 command.Parameters.Add(new SqlParameter("@AuthorID", post.AuthorID));
@@ -77,17 +82,31 @@
 
         public bool DeletePost(Guid id)
         {
-            throw new NotImplementedException();
+            using (var con = new SqlConnection(connectionString))
+            {
+                var command = new SqlCommand("DELETE FROM dbo.[BlogPosts] WHERE [ID] = @ID", con);
+
+                command.Parameters.Add(new SqlParameter("@ID", id));
+
+                con.Open();
+                var reader = command.ExecuteNonQuery();
+
+                return reader > 0 ? true : false;
+            }
         }
 
         public BlogPost GetPost(Guid id)
         {
             using (var con = new SqlConnection(connectionString))
             {
-                var command = new SqlCommand("dbo.GetPost", con)
-                {
-                    CommandType = System.Data.CommandType.StoredProcedure,
-                };
+                //var command = new SqlCommand("dbo.GetPost", con)
+                //{
+                //    CommandType = System.Data.CommandType.StoredProcedure,
+                //};
+
+                var command = new SqlCommand("SELECT TOP 1 [ID], [AuthorID], [Title], " +
+                    "[CreationTime], [Content], [Privacy] " +
+                    "FROM dbo.[BlogPosts] WHERE [ID] = @id", con);
 
                 command.Parameters.Add(new SqlParameter("@id", id));
 
@@ -117,11 +136,14 @@
         {
             using (var con = new SqlConnection(connectionString))
             {
-                // var command = new SqlCommand("SELECT [ID], [Name], [DateOfBirth] FROM dbo.[Users]", con);
-                var command = new SqlCommand("dbo.GetAllPosts", con)
-                {
-                    CommandType = System.Data.CommandType.StoredProcedure,
-                };
+                var command = new SqlCommand("SELECT [ID], [AuthorID], [Title], " +
+                    "[CreationTime], [Content], [Privacy] " +
+                    "FROM dbo.[BlogPosts]", con);
+
+                //var command = new SqlCommand("dbo.GetAllPosts", con)
+                //{
+                //    CommandType = System.Data.CommandType.StoredProcedure,
+                //};
 
                 con.Open();
                 var reader = command.ExecuteReader();
@@ -145,11 +167,14 @@
         {
             using (var con = new SqlConnection(connectionString))
             {
-                // var command = new SqlCommand("SELECT [ID], [Name], [DateOfBirth] FROM dbo.[Users]", con);
-                var command = new SqlCommand("dbo.GetUserPosts", con)
-                {
-                    CommandType = System.Data.CommandType.StoredProcedure,
-                };
+                var command = new SqlCommand("SELECT TOP 1 [ID], [AuthorID], [Title], " +
+                    "[CreationTime], [Content], [Privacy] " +
+                    "FROM dbo.[BlogPosts] WHERE [AuthorID] = @id", con);
+
+                //var command = new SqlCommand("dbo.GetUserPosts", con)
+                //{
+                //    CommandType = System.Data.CommandType.StoredProcedure,
+                //};
                 command.Parameters.Add(new SqlParameter("@ID", id));
 
                 con.Open();

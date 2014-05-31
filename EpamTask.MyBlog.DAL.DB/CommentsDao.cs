@@ -30,10 +30,15 @@
         {
             using (var con = new SqlConnection(connectionString))
             {
-                var command = new SqlCommand("dbo.AddComment", con)
-                {
-                    CommandType = System.Data.CommandType.StoredProcedure,
-                };
+                //var command = new SqlCommand("dbo.AddComment", con)
+                //{
+                //    CommandType = System.Data.CommandType.StoredProcedure,
+                //};
+
+                var command = new SqlCommand(
+                   "INSERT INTO dbo.[Comments] ([ID], [AuthorID], [PostID], " +
+                   "[Text], [CreationTime] " +
+                   "VALUES (@ID, @AuthorID, @PostID, @Text, @BCreationTime)", con);
 
                 command.Parameters.Add(new SqlParameter("@ID", comment.CommentID));
                 command.Parameters.Add(new SqlParameter("@AuthorID", comment.AuthorID));
@@ -51,10 +56,16 @@
         {
             using (var con = new SqlConnection(connectionString))
             {
-                var command = new SqlCommand("dbo.UpdateComment", con)
-                {
-                    CommandType = System.Data.CommandType.StoredProcedure,
-                };
+                //var command = new SqlCommand("dbo.UpdateComment", con)
+                //{
+                //    CommandType = System.Data.CommandType.StoredProcedure,
+                //};
+
+                var command = new SqlCommand(
+                   "UPDATE dbo.[BlogPosts] " +
+                   "SET [AuthorID]=@AuthorID, [PostID]=@PostID, " +
+                   "[CreationTime]=@CreationTime, [Text]=@Text " +
+                   "WHERE [ID]=@ID", con);
 
                 command.Parameters.Add(new SqlParameter("@ID", comment.CommentID));
                 command.Parameters.Add(new SqlParameter("@AuthorID", comment.AuthorID));
@@ -70,17 +81,30 @@
 
         public bool DeleteComment(Guid commentID)
         {
-            throw new NotImplementedException();
+            using (var con = new SqlConnection(connectionString))
+            {
+                var command = new SqlCommand("DELETE FROM dbo.[Comments] WHERE [ID] = @ID", con);
+
+                command.Parameters.Add(new SqlParameter("@ID", commentID));
+
+                con.Open();
+                var reader = command.ExecuteNonQuery();
+
+                return reader > 0 ? true : false;
+            }
         }
 
         public PostComment GetComment(Guid commentID)
         {
             using (var con = new SqlConnection(connectionString))
             {
-                var command = new SqlCommand("dbo.GetComment", con)
-                {
-                    CommandType = System.Data.CommandType.StoredProcedure,
-                };
+                //var command = new SqlCommand("dbo.GetComment", con)
+                //{
+                //    CommandType = System.Data.CommandType.StoredProcedure,
+                //};
+                var command = new SqlCommand("SELECT TOP 1 [ID], [AuthorID], [PostID], " +
+                    "[CreationTime], [Text] " +
+                    "FROM dbo.[Comments] WHERE [ID] = @id", con);
 
                 command.Parameters.Add(new SqlParameter("@id", commentID));
 
@@ -109,11 +133,15 @@
         {
             using (var con = new SqlConnection(connectionString))
             {              
-                var command = new SqlCommand("dbo.GetPostComments", con)
-                {
-                    CommandType = System.Data.CommandType.StoredProcedure,
-                };
-                command.Parameters.Add(new SqlParameter("@ID", postID));
+                //var command = new SqlCommand("dbo.GetPostComments", con)
+                //{
+                //    CommandType = System.Data.CommandType.StoredProcedure,
+                //};
+                var command = new SqlCommand("SELECT [ID], [AuthorID], [PostID], " +
+                   "[CreationTime], [Text] " +
+                   "FROM dbo.[Comments] WHERE [PostID]=@PostID", con);
+
+                command.Parameters.Add(new SqlParameter("@PostID", postID));
 
                 con.Open();
                 var reader = command.ExecuteReader();
