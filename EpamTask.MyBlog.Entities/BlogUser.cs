@@ -37,6 +37,7 @@
 
         public BlogUser(string login, string password, DateTime birth, string e_mail)
         {
+            this.ID = Guid.NewGuid();
             this.BlogUserLogin = login;
             this.BlogUserPassword = password;
             this.BirthDate = birth;

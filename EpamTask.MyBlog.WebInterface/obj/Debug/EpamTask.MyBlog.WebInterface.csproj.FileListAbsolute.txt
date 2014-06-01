@@ -22,3 +22,12 @@ C:\Users\User\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyB
 C:\Users\User\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyBlog.WebInterface\obj\Debug\EpamTask.MyBlog.WebInterface.csprojResolveAssemblyReference.cache
 C:\Users\User\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyBlog.WebInterface\obj\Debug\EpamTask.MyBlog.WebInterface.dll
 C:\Users\User\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyBlog.WebInterface\obj\Debug\EpamTask.MyBlog.WebInterface.pdb
+C:\Users\User\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyBlog.WebInterface\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\User\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyBlog.WebInterface\bin\EpamTask.MyBlog.Entities.dll
+C:\Users\User\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyBlog.WebInterface\bin\EpamTask.MyBlog.Logic.dll
+C:\Users\User\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyBlog.WebInterface\bin\EpamTask.MyBlog.DAL.Abstract.dll
+C:\Users\User\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyBlog.WebInterface\bin\EpamTask.MyBlog.DAL.DB.dll
+C:\Users\User\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyBlog.WebInterface\bin\EpamTask.MyBlog.Entities.pdb
+C:\Users\User\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyBlog.WebInterface\bin\EpamTask.MyBlog.Logic.pdb
+C:\Users\User\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyBlog.WebInterface\bin\EpamTask.MyBlog.DAL.Abstract.pdb
+C:\Users\User\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyBlog.WebInterface\bin\EpamTask.MyBlog.DAL.DB.pdb

@@ -1,0 +1,16 @@
+﻿@model EpamTask.MyBlog.WebInterface.Models.ConfirmationModel
+
+@{
+    ViewBag.Title = "Logout";
+}
+
+<h2>Вы точно хотите выйти?</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <button name="Confirm" value="true">Yes</button>
+    <button name="Confirm" value="false">No</button>
+}
+
+

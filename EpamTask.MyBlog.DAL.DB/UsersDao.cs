@@ -152,6 +152,44 @@
             }
         }
 
+        public BlogUser GetUserByLogin(string login)
+        {
+            using (var con = new SqlConnection(connectionString))
+            {
+                var command = new SqlCommand("SELECT TOP 1 [ID], [Login], [Password], " +
+                    "[BirthDate], [Email], [RegistrationTime], [HasAvatar], " +
+                    "[Epigraph], [About], [Sex], [Skype] " +
+                    "FROM dbo.[Users] WHERE [Login] = @Login", con);
+                
+                command.Parameters.Add(new SqlParameter("@Login", login));
+
+                con.Open();
+                var reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    return new BlogUser()
+                    {
+                        ID = (Guid)reader["ID"],
+                        BlogUserLogin = (string)reader["Login"],
+                        BlogUserPassword = (string)reader["Password"],
+                        BirthDate = (DateTime)reader["BirthDate"],
+                        Email = (string)reader["Email"],
+                        RegistrationTime = (DateTime)reader["RegistrationTime"],
+                        BlogUserEpigraph = (string)reader["Epigraph"],
+                        About = (string)reader["About"],
+                        Sex = (bool)reader["Sex"],
+                        Skype = (string)reader["Skype"],
+                        HasAvatar = (bool)reader["HasAvatar"],
+                    };
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
         public IEnumerable<BlogUser> GetAllUsers()
         {
             using (var con = new SqlConnection(connectionString))

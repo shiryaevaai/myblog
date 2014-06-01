@@ -1,0 +1,31 @@
+﻿@model EpamTask.MyBlog.WebInterface.Models.BlogUserModel
+
+@{
+    ViewBag.Title = "Login";
+    string returnUrl = ViewBag.ReturnUrl;
+}
+
+<h2>Login</h2>
+
+@using (Html.BeginForm())
+{
+    if (!string.IsNullOrWhiteSpace(returnUrl))
+    {
+        @Html.Hidden("returnUrl", returnUrl)
+
+    }
+
+    <div>
+        @Html.LabelFor(m => m.BlogUserLogin)
+        @Html.EditorFor(m => m.BlogUserLogin)
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.BlogUserPassword)
+        @Html.EditorFor(m => m.BlogUserPassword)
+    </div>
+
+    @Html.AntiForgeryToken()
+    <input type="submit" value="Log in" />
+}
+

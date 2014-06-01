@@ -7,42 +7,44 @@
 
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
-    <script src="~/Scripts/modernizr-2.6.2.js"></script>
 
-    <script src="~/Scripts/jquery-ui-1.10.4.min.js"></script>
+    <script src="~/Scripts/modernizr-2.7.2.js"></script>
+
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    <link href="../../Content/themes/base/jquery.ui.all.css" rel="stylesheet" />
+    <link href="../../Content/themes/base/jquery.ui.datepicker.css" rel="stylesheet" />
+    <link href="../../Content/themes/base/jquery.ui.all.css" rel="stylesheet" />
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse  navbar-static-top">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+            <div class="navbar-inner">
                 @Html.ActionLink("MyBlog", "Index", "Home", null, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>1</li>
-                    <li>2</li>
-                    <li>3</li>
-                </ul>
-            </div>
+
+                <div class="navbar-brand">
+                    @Html.Action("UserInfo", "Account")
+                </div>
+
+                <ul class="nav nav-tabs pull-right">
+                    <li>@Html.ActionLink("Вход", "Login", "Account")</li>
+                    <li>@Html.ActionLink("Регистрация", "Index", "Home")</li>
+                </ul>               
+            </div>           
         </div>
     </div>
 
     <div class="container body-content">
         @RenderBody()
+        <script src="~/Scripts/jquery-2.1.1.min.js"></script>
+        <script src="~/Scripts/jquery-ui-1.10.4.js"></script>
+        <script src="~/Scripts/bootstrap.js"></script>
+        @RenderSection("scripts", required: false)
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - MyBlog</p>
         </footer>
     </div>
 
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/jquery-ui-1.10.4.min.js"></script>
-    <script src="~/Scripts/bootstrap.js"></script>
 </body>
 </html>

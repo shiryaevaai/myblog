@@ -18,6 +18,8 @@
 
         BlogUser GetUser(Guid id);
 
+        BlogUser GetUserByLogin(string login);
+
         IEnumerable<BlogUser> GetAllUsers();
 
         bool SetUserAvatar(Guid id, byte[] img);

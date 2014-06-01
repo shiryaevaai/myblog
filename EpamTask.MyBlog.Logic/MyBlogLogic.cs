@@ -72,6 +72,11 @@
             return this._users_dao.GetUser(id);
         }
 
+        public BlogUser GetUserByLogin(string login)
+        {
+            return this._users_dao.GetUserByLogin(login);
+        }
+
         public IEnumerable<BlogUser> GetAllUsers()
         {
             return this._users_dao.GetAllUsers().ToList();
