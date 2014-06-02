@@ -3988,7 +3988,7 @@ jQuery.fn.extend({
 });
 var pnum = (/[+-]?(?:\d*\.|)\d+(?:[eE][+-]?\d+|)/).source;
 
-var cssExpand = [ "Top", "Right", "Bottom", "Left" ];
+var csGenderpand = [ "Top", "Right", "Bottom", "Left" ];
 
 var isHidden = function( elem, el ) {
 		// isHidden might be called from jQuery#filter function;
@@ -5751,26 +5751,26 @@ function augmentWidthOrHeight( elem, name, extra, isBorderBox, styles ) {
 	for ( ; i < 4; i += 2 ) {
 		// both box models exclude margin, so add it if we want it
 		if ( extra === "margin" ) {
-			val += jQuery.css( elem, extra + cssExpand[ i ], true, styles );
+			val += jQuery.css( elem, extra + csGenderpand[ i ], true, styles );
 		}
 
 		if ( isBorderBox ) {
 			// border-box includes padding, so remove it if we want content
 			if ( extra === "content" ) {
-				val -= jQuery.css( elem, "padding" + cssExpand[ i ], true, styles );
+				val -= jQuery.css( elem, "padding" + csGenderpand[ i ], true, styles );
 			}
 
 			// at this point, extra isn't border nor margin, so remove border
 			if ( extra !== "margin" ) {
-				val -= jQuery.css( elem, "border" + cssExpand[ i ] + "Width", true, styles );
+				val -= jQuery.css( elem, "border" + csGenderpand[ i ] + "Width", true, styles );
 			}
 		} else {
 			// at this point, extra isn't content, so add padding
-			val += jQuery.css( elem, "padding" + cssExpand[ i ], true, styles );
+			val += jQuery.css( elem, "padding" + csGenderpand[ i ], true, styles );
 
 			// at this point, extra isn't content nor padding, so add border
 			if ( extra !== "padding" ) {
-				val += jQuery.css( elem, "border" + cssExpand[ i ] + "Width", true, styles );
+				val += jQuery.css( elem, "border" + csGenderpand[ i ] + "Width", true, styles );
 			}
 		}
 	}
@@ -6063,7 +6063,7 @@ jQuery.each({
 				parts = typeof value === "string" ? value.split(" ") : [ value ];
 
 			for ( ; i < 4; i++ ) {
-				expanded[ prefix + cssExpand[ i ] + suffix ] =
+				expanded[ prefix + csGenderpand[ i ] + suffix ] =
 					parts[ i ] || parts[ i - 2 ] || parts[ 0 ];
 			}
 
@@ -6303,11 +6303,11 @@ function genFx( type, includeWidth ) {
 		i = 0,
 		attrs = { height: type };
 
-	// if we include width, step value is 1 to do all cssExpand values,
+	// if we include width, step value is 1 to do all csGenderpand values,
 	// if we don't include width, step value is 2 to skip over Left and Right
 	includeWidth = includeWidth ? 1 : 0;
 	for ( ; i < 4 ; i += 2 - includeWidth ) {
-		which = cssExpand[ i ];
+		which = csGenderpand[ i ];
 		attrs[ "margin" + which ] = attrs[ "padding" + which ] = type;
 	}
 
@@ -7498,7 +7498,7 @@ jQuery.parseJSON = function( data ) {
 
 
 // Cross-browser xml parsing
-jQuery.parseXML = function( data ) {
+jQuery.parGenderML = function( data ) {
 	var xml, tmp;
 	if ( !data || typeof data !== "string" ) {
 		return null;
@@ -7703,7 +7703,7 @@ function ajaxHandleResponses( s, jqXHR, responses ) {
 }
 
 /* Chain conversions given the request and the original response
- * Also sets the responseXXX fields on the jqXHR instance
+ * Also sets the responGenderXX fields on the jqXHR instance
  */
 function ajaxConvert( s, response, jqXHR, isSuccess ) {
 	var conv2, current, conv, tmp, prev,
@@ -7840,7 +7840,7 @@ jQuery.extend({
 		},
 
 		responseFields: {
-			xml: "responseXML",
+			xml: "responGenderML",
 			text: "responseText",
 			json: "responseJSON"
 		},
@@ -7859,7 +7859,7 @@ jQuery.extend({
 			"text json": jQuery.parseJSON,
 
 			// Parse text as xml
-			"text xml": jQuery.parseXML
+			"text xml": jQuery.parGenderML
 		},
 
 		// For options that shouldn't be deep extended:
@@ -8197,7 +8197,7 @@ jQuery.extend({
 				response = ajaxHandleResponses( s, jqXHR, responses );
 			}
 
-			// Convert no matter what (that way responseXXX fields are always set)
+			// Convert no matter what (that way responGenderXX fields are always set)
 			response = ajaxConvert( s, response, jqXHR, isSuccess );
 
 			// If successful, handle type chaining

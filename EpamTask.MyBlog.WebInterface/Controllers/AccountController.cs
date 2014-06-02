@@ -34,9 +34,7 @@
         public ActionResult Login(BlogUserModel model, string returnUrl)
         {
             // returnUrl
-            if (ModelState.IsValid)
-            {
-                if (model.TryToLogin(model.BlogUserLogin, model.BlogUserPassword))
+              if (model.TryToLogin(model.BlogUserLogin, model.BlogUserPassword))
                 {
                     try
                     {
@@ -48,7 +46,6 @@
                     }
                 }
 
-            }
             return View(model);
         }
 
@@ -77,7 +74,7 @@
 
         //
         // GET: /Account/Create
-        public ActionResult Create()
+        public ActionResult CreateAccount()
         {
             return View();
         }
@@ -85,17 +82,41 @@
         //
         // POST: /Account/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateAccount(BlogUserModel model)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                BlogUserModel.CreateAccount(model);
+                if (model.TryToLogin(model.BlogUserLogin, model.BlogUserPassword))
+                {
+                    try
+                    {
+                        return RedirectToAction("UserInfo", "User", new { id = model.ID });
+                    }
+                    catch
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                //return RedirectToAction("UserInfo", "User", new { id = model.ID });
             }
-            catch
+
+            return View(model);
+        }
+
+        [OutputCache(Location = OutputCacheLocation.None, NoStore = true)]
+        public JsonResult CheckAccountName(string BlogUserLogin)
+        {
+            var result = BlogUserModel.CheckAccountName(BlogUserLogin);
+
+            if (result)
             {
-                return View();
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("Этот логин уже занят.", JsonRequestBehavior.AllowGet);
             }
         }
 

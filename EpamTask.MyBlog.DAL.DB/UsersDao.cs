@@ -38,8 +38,10 @@
 
                 var command = new SqlCommand(
                     "INSERT INTO dbo.[Users] ([ID], [Login], [Password], " +
-                    "[BirthDate], [Email], [RegistrationTime], [HasAvatar]) " +
-                    "VALUES (@ID, @Login, @Password, @BirthDate, @Email, @RegistrationTime, @HasAvatar)", con);
+                    "[BirthDate], [Email], [RegistrationTime], " +
+                    "[Epigraph], [About], [Gender], [Skype], [HasAvatar] )" +
+                    "VALUES (@ID, @Login, @Password, @BirthDate, @Email, @RegistrationTime, @Epigraph, " +
+                    "@About, @Gender, @Skype, @HasAvatar)", con);
 
                 command.Parameters.Add(new SqlParameter("@ID", user.ID));
                 command.Parameters.Add(new SqlParameter("@Login", user.BlogUserLogin));
@@ -47,6 +49,10 @@
                 command.Parameters.Add(new SqlParameter("@BirthDate", user.BirthDate));
                 command.Parameters.Add(new SqlParameter("@Email", user.Email));
                 command.Parameters.Add(new SqlParameter("@RegistrationTime", user.RegistrationTime));
+                command.Parameters.Add(new SqlParameter("@Epigraph", ""));
+                command.Parameters.Add(new SqlParameter("@About", ""));
+                command.Parameters.Add(new SqlParameter("@Gender", user.Gender));
+                command.Parameters.Add(new SqlParameter("@Skype", ""));
                 command.Parameters.Add(new SqlParameter("@HasAvatar", false));
                 
                 con.Open();
@@ -67,7 +73,7 @@
                     "UPDATE dbo.[Users] " +
                     "SET [Login]=@Login, [Password]=@Password, " +
                     "[BirthDate]=@BirthDate, [Email]=@Email, [HasAvatar]=@HasAvatar, " +
-                    "[Epigraph]=@Epigraph, [About]=@About, [Sex]=@Sex, [Skype]=@Skype " +
+                    "[Epigraph]=@Epigraph, [About]=@About, [Gender]=@Gender, [Skype]=@Skype " +
                     "WHERE [ID]=@ID", con);
 
                 command.Parameters.Add(new SqlParameter("@ID", user.ID));
@@ -80,7 +86,7 @@
 
                 command.Parameters.Add(new SqlParameter("@Epigraph", user.BlogUserEpigraph));
                 command.Parameters.Add(new SqlParameter("@About", user.About));
-                command.Parameters.Add(new SqlParameter("@Sex", user.Sex));
+                command.Parameters.Add(new SqlParameter("@Gender", user.Gender));
                 command.Parameters.Add(new SqlParameter("@Skype", user.Skype));
               
 
@@ -116,7 +122,7 @@
             {
                 var command = new SqlCommand("SELECT TOP 1 [ID], [Login], [Password], " +
                     "[BirthDate], [Email], [RegistrationTime], [HasAvatar], " +
-                    "[Epigraph], [About], [Sex], [Skype] " +
+                    "[Epigraph], [About], [Gender], [Skype] " +
                     "FROM dbo.[Users] WHERE [ID] = @id", con);
                 //var command = new SqlCommand("dbo.GetUser", con)
                 //{
@@ -140,7 +146,7 @@
                         RegistrationTime = (DateTime)reader["RegistrationTime"],
                         BlogUserEpigraph = (string)reader["Epigraph"],
                         About = (string)reader["About"],
-                        Sex = (bool)reader["Sex"],
+                        Gender = (bool)reader["Gender"],
                         Skype = (string)reader["Skype"],
                         HasAvatar = (bool)reader["HasAvatar"],
                     };
@@ -158,7 +164,7 @@
             {
                 var command = new SqlCommand("SELECT TOP 1 [ID], [Login], [Password], " +
                     "[BirthDate], [Email], [RegistrationTime], [HasAvatar], " +
-                    "[Epigraph], [About], [Sex], [Skype] " +
+                    "[Epigraph], [About], [Gender], [Skype] " +
                     "FROM dbo.[Users] WHERE [Login] = @Login", con);
                 
                 command.Parameters.Add(new SqlParameter("@Login", login));
@@ -178,7 +184,7 @@
                         RegistrationTime = (DateTime)reader["RegistrationTime"],
                         BlogUserEpigraph = (string)reader["Epigraph"],
                         About = (string)reader["About"],
-                        Sex = (bool)reader["Sex"],
+                        Gender = (bool)reader["Gender"],
                         Skype = (string)reader["Skype"],
                         HasAvatar = (bool)reader["HasAvatar"],
                     };
@@ -196,7 +202,7 @@
             {
                  var command = new SqlCommand("SELECT [ID], [Login], [Password], " +
                     "[BirthDate], [Email], [RegistrationTime], [HasAvatar], " +
-                    "[Epigraph], [About], [Sex], [Skype] " + 
+                    "[Epigraph], [About], [Gender], [Skype] " + 
                     "FROM dbo.[Users]", con);
                 //var command = new SqlCommand("dbo.GetAllUsers", con)
                 //{
@@ -218,7 +224,7 @@
                         RegistrationTime = (DateTime)reader["RegistrationTime"],
                         BlogUserEpigraph = (string)reader["Epigraph"],
                         About = (string)reader["About"],
-                        Sex = (bool)reader["Sex"],
+                        Gender = (bool)reader["Gender"],
                         Skype = (string)reader["Skype"],
                         HasAvatar = (bool)reader["HasAvatar"],
                     };

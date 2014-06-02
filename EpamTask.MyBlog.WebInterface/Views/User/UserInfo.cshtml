@@ -1,0 +1,79 @@
+﻿@model EpamTask.MyBlog.WebInterface.Models.BlogUserModel
+
+@{
+    ViewBag.Title = "UserInfo";
+}
+
+<h2>Профиль</h2>
+
+<table class="table">
+    <tr>
+        @*<th>
+            @Html.H(model => model.HasAvatar)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.BlogUserLogin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BirthDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RegistrationTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Skype)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.About)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gender)
+        </th>
+        <th></th>
+    </tr>
+
+    <tr>
+
+            @Html.HiddenFor(model => model.HasAvatar)
+            @Html.HiddenFor(model => model.ID)
+            @Html.HiddenFor(model => model.BlogUserEpigraph)
+            @Html.HiddenFor(model => model.BlogUserPassword)
+
+        <td>
+            @Html.DisplayFor(model => model.BlogUserLogin)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.BirthDate)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.RegistrationTime)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Skype)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.About)
+        </td>
+        <td>
+            @if (Model.Gender)
+            {
+                 @Html.Label("male")
+            }
+            else
+            {
+                 @Html.Label("female")
+            }
+            
+            @*@Html.DisplayFor(modelItem => item.Gender)*@
+        </td>
+        <td>
+            @Html.ActionLink("Редактировать данные", "Edit", new { id = Model.ID }) 
+        </td>
+    </tr>
+</table>

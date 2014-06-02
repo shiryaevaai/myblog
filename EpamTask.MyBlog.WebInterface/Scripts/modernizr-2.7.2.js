@@ -2,7 +2,7 @@
  * Modernizr v2.7.2
  * www.modernizr.com
  *
- * Copyright (c) Faruk Ates, Paul Irish, Alex Sexton
+ * Copyright (c) Faruk Ates, Paul Irish, Alex Genderton
  * Available under the BSD and MIT licenses: www.modernizr.com/license/
  */
 
@@ -18,7 +18,7 @@
  * To get a build that includes Modernizr.load(), as well as choosing
  * which tests to include, go to www.modernizr.com/download/
  *
- * Authors        Faruk Ates, Paul Irish, Alex Sexton
+ * Authors        Faruk Ates, Paul Irish, Alex Genderton
  * Contributors   Ryan Seddon, Ben Alman
  */
 

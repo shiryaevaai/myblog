@@ -313,7 +313,7 @@ intellisense.annotate(jQuery, {
     ///   <returns type="Object" />
     /// </signature>
   },
-  'parseXML': function() {
+  'parGenderML': function() {
     /// <signature>
     ///   <summary>Parses a string into an XML document.</summary>
     ///   <param name="data" type="String">a well-formed XML string to be parsed</param>

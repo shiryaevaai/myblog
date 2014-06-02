@@ -18,14 +18,16 @@
         [Required]
         private DateTime birthDate;
 
-        private string blogUserEpigraph;
+        private string blogUserEpigraph="";
 
         [Required]
         private string email;
 
-        private string skype;
+        private string skype="";
 
-        private string about;
+        private string about="";
+
+        private bool hasAvatar = false;
 
         private List<string> tagCloud;
 
@@ -35,21 +37,32 @@
         { 
         }
 
-        public BlogUser(string login, string password, DateTime birth, string e_mail)
-        {
-            this.ID = Guid.NewGuid();
-            this.BlogUserLogin = login;
-            this.BlogUserPassword = password;
-            this.BirthDate = birth;
-            this.Email = e_mail;
-            this.RegistrationTime = DateTime.Now;
-            this.HasAvatar = false;
-        }
+        //public BlogUser(string login, string password, DateTime birth, string e_mail)
+        //{
+        //    this.ID = Guid.NewGuid();
+        //    this.BlogUserLogin = login;
+        //    this.BlogUserPassword = password;
+        //    this.BirthDate = birth;
+        //    this.Email = e_mail;
+        //    this.RegistrationTime = DateTime.Now;
+        //    this.HasAvatar = false;
+        //}
 
         [Required]
         public Guid ID { get; set; }
 
-        public bool HasAvatar { get; set; }
+        public bool HasAvatar
+        {
+            get
+            {
+                return this.hasAvatar;
+            }
+
+            set
+            {
+                this.hasAvatar = value;
+            }
+        }
 
         public string BlogUserLogin
         {
@@ -147,7 +160,7 @@
 
         public int Age { get; set; }
 
-        public bool Sex { get; set; }
+        public bool Gender { get; set; }
 
         // public void CreatePost(string content, List<string> taglist)
         //{

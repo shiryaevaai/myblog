@@ -6,33 +6,17 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using System.Web.Mvc;
     using System.Web.Security;
 
     using EpamTask.MyBlog.Logic;
     using EpamTask.MyBlog.Entities;
 
+
     public class BlogUserModel : IEquatable<BlogUserModel>
     {
         public static string DefaultImage = BlogUserAvatar.DefaultUserImage;
-
-        [Required]
-        private string blogUserLogin;
-
-        [Required]
-        private string blogUserPassword;
-
-        [Required]
-        private DateTime birthDate;
-
-        private string blogUserEpigraph;
-
-        [Required]
-        private string email;
-
-        private string skype;
-
-        private string about;
-
+               
         private List<string> tagCloud;
 
         // private List<RoleModel> roleList;
@@ -52,107 +36,54 @@
         }
 
         [Required]
+        [HiddenInput(DisplayValue = false)]
         public Guid ID { get; set; }
 
         public bool HasAvatar { get; set; }
 
-        public string BlogUserLogin
-        {
-            get
-            {
-                return this.blogUserLogin;
-            }
+        [Required(ErrorMessage = "Необходимо ввести имя пользователя!")]
+        [Display(Name = "Имя пользователя")]
+        [StringLength(16, MinimumLength = 3, ErrorMessage = "Длина имени пользователя должна быть от 3 до 16 символов")]
+        [Remote("CheckAccountName", "Account")]
+        public string BlogUserLogin { get; set; }
 
-            set
-            {
-                this.blogUserLogin = value;
-            }
-        }
-
-        public string BlogUserPassword
-        {
-            get
-            {
-                return this.blogUserPassword;
-            }
-
-            set
-            {
-                this.blogUserPassword = value;
-            }
-        }
-
-        public DateTime BirthDate
-        {
-            get
-            {
-                return this.birthDate;
-            }
-
-            set
-            {
-                this.birthDate = value;
-            }
-        }
-
+         [Display(Name = "Пароль")]
+        [DataType(DataType.Password)]
         [Required]
+        [StringLength(16, MinimumLength = 6, ErrorMessage = "Длина пароля должна быть от 6 до 16 символов")]
+        public string BlogUserPassword { get; set; }
+
+        [Required(ErrorMessage = "Необходимо ввести дату рождения пользователя!")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Дата рождения")]
+        public DateTime BirthDate { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Дата регистрации")]
         public DateTime RegistrationTime { get; set; }
 
-        public string BlogUserEpigraph
-        {
-            get
-            {
-                return this.blogUserEpigraph;
-            }
+        public string BlogUserEpigraph { get; set; }
 
-            set
-            {
-                this.blogUserEpigraph = value;
-            }
-        }
+        [Required(ErrorMessage = "Необходимо ввести адрес электронной почты!")]
+        //[StringLength(255, MinimumLength = 6, ErrorMessage = "Длина электронной почты должна быть от 6 до 255 символов")]
+        // Regex rgx5 = new Regex(@"([a-z0-9]([a-z_0-9\.\-]*[a-z0-9])?)@([a-z0-9]([a-z_0-9\-]*)[a-z0-9]\.)+([a-z]{2,6})");
+        [RegularExpression(@"([a-z0-9]([a-z_0-9\.\-]*[a-z0-9])?)@([a-z0-9]([a-z_0-9\-]*)[a-z0-9]\.)+([a-z]{2,6})", 
+            ErrorMessage = "Некорректный адрес электронной почты")]
+        public string Email { get; set; }
 
-        public string Email
-        {
-            get
-            {
-                return this.email;
-            }
+        [StringLength(32, MinimumLength = 6, ErrorMessage = "Длина логина в скайпе должна быть от 6 до 32 символов")]
+        public string Skype { get; set; }
 
-            set
-            {
-                this.email = value;
-            }
-        }
+        [Display(Name = "О себе")]
+        public string About { get; set; }
 
-        public string Skype
-        {
-            get
-            {
-                return this.skype;
-            }
-
-            set
-            {
-                this.skype = value;
-            }
-        }
-
-        public string About
-        {
-            get
-            {
-                return this.about;
-            }
-
-            set
-            {
-                this.about = value;
-            }
-        }
-
+        [Display(Name = "Возраст")]
         public int Age { get; set; }
 
-        public bool Sex { get; set; }
+        [Display(Name = "Пол")]
+        [Required(ErrorMessage = "Необходимо ввести пол!")]
+        public bool Gender { get; set; }
 
         bool IEquatable<BlogUserModel>.Equals(BlogUserModel other)
         {
@@ -233,14 +164,16 @@
             var account = new BlogUser()
             {
                 ID = Guid.NewGuid(),
-                BlogUserLogin = model.blogUserLogin,
+                BlogUserLogin = model.BlogUserLogin,
                 BlogUserPassword = model.BlogUserPassword,
                 BirthDate = model.BirthDate,
                 Email = model.Email,
                 RegistrationTime = DateTime.Now,
+                Gender = model.Gender,
                 HasAvatar = false,
             };
 
+            model.ID = account.ID;
             BusinessLogicHelper._logic.AddUser(account);
         }
 
@@ -255,6 +188,26 @@
                 }
             }
             return true;
+        }
+
+        public static BlogUserModel GetUser(Guid id)
+        {
+            var user = BusinessLogicHelper._logic.GetUserByID(id);
+            BlogUserModel model = new BlogUserModel()
+            {
+                ID = user.ID,
+                BlogUserLogin = user.BlogUserLogin,
+                BlogUserPassword = user.BlogUserPassword,
+                BirthDate = user.BirthDate,
+                Email = user.Email,
+                RegistrationTime = user.RegistrationTime,
+                Gender = user.Gender,
+                HasAvatar = user.HasAvatar,
+                About = user.About,
+                BlogUserEpigraph = user.BlogUserEpigraph,
+                Skype = user.Skype,
+            };
+            return model;
         }
     }
 }
