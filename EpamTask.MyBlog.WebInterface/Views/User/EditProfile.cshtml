@@ -1,27 +1,38 @@
-﻿@model EpamTask.MyBlog.WebInterface.Models.BlogUserModel
+﻿@model EpamTask.MyBlog.WebInterface.Models.EditUserModel
 
 @{
-    ViewBag.Title = "CreateAccount";
+    ViewBag.Title = "EditProfile";
 }
 
-<h2>Регистрация</h2>
+<h2>EditProfile</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        
+        <h4>BlogUserModel</h4>
         <hr />
         @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.ID)
 
-        <div class="form-group">
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.HasAvatar, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.HasAvatar)
+                @Html.ValidationMessageFor(model => model.HasAvatar)
+            </div>
+        </div>*@
+        @Html.HiddenFor(model => model.HasAvatar)
+
+        @*<div class="form-group">
             @Html.LabelFor(model => model.BlogUserLogin, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.BlogUserLogin)
                 @Html.ValidationMessageFor(model => model.BlogUserLogin)
             </div>
-        </div>
+        </div>*@
+        @Html.HiddenFor(model => model.BlogUserLogin)
 
         <div class="form-group">
             @Html.LabelFor(model => model.BlogUserPassword, new { @class = "control-label col-md-2" })
@@ -39,6 +50,16 @@
             </div>
         </div>
 
+        @Html.HiddenFor(model => model.RegistrationTime)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BlogUserEpigraph, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.BlogUserEpigraph)
+                @Html.ValidationMessageFor(model => model.BlogUserEpigraph)
+            </div>
+        </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -47,13 +68,21 @@
             </div>
         </div>
 
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.Gender, new { @class = "control-label col-md-2" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Skype, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Gender)
-                @Html.ValidationMessageFor(model => model.Gender)
+                @Html.EditorFor(model => model.Skype)
+                @Html.ValidationMessageFor(model => model.Skype)
             </div>
-        </div>*@
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.About, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.About)
+                @Html.ValidationMessageFor(model => model.About)
+            </div>
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Gender, new { @class = "control-label col-md-2" })
@@ -64,18 +93,17 @@
             </div>
         </div>
 
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Создать" class="btn btn-default" />
+                <input type="submit" value="Принять изменения" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink(linkText:"Назад", actionName:"Index", controllerName:"Home")
-</div>
+@*<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@
 
 @section scripts {
     <script src="~/Scripts/jquery.validate.min.js"></script>

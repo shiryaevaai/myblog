@@ -1,0 +1,17 @@
+﻿@model EpamTask.MyBlog.WebInterface.Models.BlogUserModel
+
+@{
+    ViewBag.Title = "UserNavBar";
+    var id = Model.ID;
+}
+
+@*<h2>UserNavBar</h2>*@
+
+<ul class="nav nav-tabs pull-right">
+    <li>@Html.ActionLink("Создать пост", "CreatePost", "Blog", new { id = Model.ID }, null)</li>
+    <li>@Html.ActionLink("Лента", "Feeds", "Blog", new { id = Model.ID }, null)</li>
+    <li>@Html.ActionLink("Избранное", "Favourite", "Blog", new { id = Model.ID }, null)</li>
+    <li>@Html.ActionLink("Профиль", "UserInfo", "User", new { id = Model.ID }, null)</li>
+</ul>
+
+

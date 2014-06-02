@@ -12,7 +12,6 @@
     using EpamTask.MyBlog.Logic;
     using EpamTask.MyBlog.Entities;
 
-
     public class BlogUserModel : IEquatable<BlogUserModel>
     {
         public static string DefaultImage = BlogUserAvatar.DefaultUserImage;
@@ -66,6 +65,7 @@
         public string BlogUserEpigraph { get; set; }
 
         [Required(ErrorMessage = "Необходимо ввести адрес электронной почты!")]
+        [Remote("CheckEmail", "Account")]
         //[StringLength(255, MinimumLength = 6, ErrorMessage = "Длина электронной почты должна быть от 6 до 255 символов")]
         // Regex rgx5 = new Regex(@"([a-z0-9]([a-z_0-9\.\-]*[a-z0-9])?)@([a-z0-9]([a-z_0-9\-]*)[a-z0-9]\.)+([a-z]{2,6})");
         [RegularExpression(@"([a-z0-9]([a-z_0-9\.\-]*[a-z0-9])?)@([a-z0-9]([a-z_0-9\-]*)[a-z0-9]\.)+([a-z]{2,6})", 
@@ -190,6 +190,19 @@
             return true;
         }
 
+        public static bool CheckEmail(string email)
+        {
+            var list = BusinessLogicHelper._logic.GetAllUsers();
+            foreach (var user in list)
+            {
+                if (user.Email == email)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         public static BlogUserModel GetUser(Guid id)
         {
             var user = BusinessLogicHelper._logic.GetUserByID(id);
@@ -208,6 +221,87 @@
                 Skype = user.Skype,
             };
             return model;
+        }
+
+        public static BlogUserModel GetUser(string username)
+        {
+            var user = BusinessLogicHelper._logic.GetUserByLogin(username);
+            BlogUserModel model = new BlogUserModel()
+            {
+                ID = user.ID,
+                BlogUserLogin = user.BlogUserLogin,
+                BlogUserPassword = user.BlogUserPassword,
+                BirthDate = user.BirthDate,
+                Email = user.Email,
+                RegistrationTime = user.RegistrationTime,
+                Gender = user.Gender,
+                HasAvatar = user.HasAvatar,
+                About = user.About,
+                BlogUserEpigraph = user.BlogUserEpigraph,
+                Skype = user.Skype,
+            };
+            return model;
+        }
+
+        public static bool EditProfile(EditUserModel model)
+        {
+            var ac = BusinessLogicHelper._logic.GetUserByID(model.ID);
+
+            model.RegistrationTime = ac.RegistrationTime;
+            model.HasAvatar = ac.HasAvatar;
+
+            if (String.IsNullOrWhiteSpace(model.About))
+            {
+                model.About = ac.About;
+            }
+
+            if (String.IsNullOrWhiteSpace(model.BlogUserEpigraph))
+            {
+                model.BlogUserEpigraph = ac.BlogUserEpigraph;
+            }
+
+            if (String.IsNullOrWhiteSpace(model.Email))
+            {
+                model.Email = ac.Email;
+            }
+
+            if (String.IsNullOrWhiteSpace(model.Skype))
+            {
+                model.Skype = ac.Skype;
+            }
+
+            if (String.IsNullOrWhiteSpace(model.BlogUserLogin))
+            {
+                model.BlogUserLogin = ac.BlogUserLogin;
+            }
+
+            if (String.IsNullOrWhiteSpace(model.BlogUserPassword))
+            {
+                model.BlogUserPassword = ac.BlogUserPassword;
+            }
+
+            if (DateTime.MinValue != model.BirthDate)
+            {
+                model.BirthDate = ac.BirthDate;
+            }
+
+            var account = new BlogUser()
+            {
+                ID = model.ID,
+                BlogUserLogin = model.BlogUserLogin,
+                BlogUserPassword = model.BlogUserPassword,
+                BirthDate = model.BirthDate,
+                Email = model.Email,
+                RegistrationTime = model.RegistrationTime,
+                Gender = model.Gender,
+                HasAvatar = model.HasAvatar,
+                Skype = model.Skype,
+                BlogUserEpigraph = model.BlogUserEpigraph,
+                About = model.About,
+            };
+
+            // model.ID = account.ID;
+            return BusinessLogicHelper._logic.UpdateUser(account);
         }
     }
 }

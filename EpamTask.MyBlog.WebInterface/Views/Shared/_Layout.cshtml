@@ -26,10 +26,18 @@
                     @Html.Action("UserInfo", "Account")
                 </div>
 
-                <ul class="nav nav-tabs pull-right">
+                @if (User.Identity != null && User.Identity.IsAuthenticated)
+                {
+                  @Html.Action("UserNavBar", "Account", new { username = User.Identity.Name })
+                }
+                else
+                {
+                   <ul class="nav nav-tabs pull-right">
                     <li>@Html.ActionLink("Вход", "Login", "Account")</li>
-                    <li>@Html.ActionLink("Регистрация", "Index", "Home")</li>
-                </ul>               
+                    <li>@Html.ActionLink("Регистрация", "CreateAccount", "Account")</li>
+                  </ul>  
+                }
+             
             </div>           
         </div>
     </div>

@@ -1,14 +1,14 @@
 ﻿@if (User.Identity != null && User.Identity.IsAuthenticated)
 {
     <span class="glyphicon glyphicon-user"></span>
-    <span class="label label-info"> Hello, @User.Identity.Name </span>
-    <span class="label label-important">@Html.ActionLink("Log out", "Logout", "Account") </span>
+    <span class="label label-info"> Добро пожаловать, @User.Identity.Name </span>
+    <span class="label label-important">@Html.ActionLink("Выйти", "Logout", "Account") </span>
 }
 else
 {
-    <span class="label label-info"> Hello, guest </span>
-    <span class="label label-important"> @Html.ActionLink("Log in", "Login", "Account") </span>
+    <span class="label label-info"> Добро пожаловать, гость! </span>
+    <span class="label label-important"> @Html.ActionLink("Войти", "Login", "Account") </span>
 }
 
-<span class="label label-info">@Html.ActionLink("Create Account", "CreateAccount", "Account")</span>
+@*<span class="label label-info">@Html.ActionLink("Create Account", "CreateAccount", "Account")</span>*@
 

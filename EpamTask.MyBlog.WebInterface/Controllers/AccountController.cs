@@ -49,10 +49,17 @@
             return View(model);
         }
 
-        [ChildActionOnly]
+       // [ChildActionOnly]
         public ActionResult UserInfo()
         {
             return PartialView();
+        }
+
+        [ChildActionOnly]
+        public ActionResult UserNavBar(string username)
+        {
+            var model = BlogUserModel.GetUser(username);
+            return PartialView(model);
         }
 
         public ActionResult Logout()
@@ -117,6 +124,36 @@
             else
             {
                 return Json("Этот логин уже занят.", JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [OutputCache(Location = OutputCacheLocation.None, NoStore = true)]
+        public JsonResult CheckEmail(string Email)
+        {
+            var result = BlogUserModel.CheckEmail(Email);
+
+            if (result)
+            {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("Этот адрес электронной почты уже использовался для регистрации.", JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [OutputCache(Location = OutputCacheLocation.None, NoStore = true)]
+        public JsonResult CheckEmail(string Email, Guid ID)
+        {
+            var result = EditUserModel.CheckEmail(Email, ID);
+
+            if (result)
+            {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("Этот адрес электронной почты уже использовался для регистрации.", JsonRequestBehavior.AllowGet);
             }
         }
 
