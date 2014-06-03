@@ -127,7 +127,7 @@
 
         public static IEnumerable<BlogPostModel> GetUserPosts(Guid id)
         {
-            var posts = BusinessLogicHelper._logic.GetUserPosts(id);
+            var posts = BusinessLogicHelper._logic.GetUserPosts(id).ToList();
             foreach (var item in posts)
             {
                 BlogPostModel post = new BlogPostModel()

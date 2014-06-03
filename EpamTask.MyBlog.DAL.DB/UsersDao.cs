@@ -256,18 +256,18 @@
                 { 
                     using (var con = new SqlConnection(connectionString))
                     {
-                        var command = new SqlCommand("INSERT INTO dbo.[UserAvatars] ([ID], [Image]) VALUES (@ID, @Image)", con);
+                        var command = new SqlCommand("INSERT INTO dbo.[UserAvatars] ([UserID], [Image]) VALUES (@ID, @Image)", con);
                         command.Parameters.Add(new SqlParameter("@ID", id));
                         command.Parameters.Add(new SqlParameter("@Image", img));
 
                         con.Open();
                         var reader = command.ExecuteNonQuery();
-
                         return reader > 0 ? true : false;
+                        
                     }
                 }
             }
-            catch
+            catch(Exception ex)
             {
                 return false;
             }
@@ -316,6 +316,24 @@
                 con.Open();
                 var reader = command.ExecuteNonQuery();
 
+                return reader > 0 ? true : false;
+            }
+        }
+
+        public bool UpdateUserAvatar(Guid id)
+        {
+            using (var con = new SqlConnection(connectionString))
+            {
+                var command = new SqlCommand(
+                    "UPDATE dbo.[Users] " +
+                    "SET [HasAvatar]=@HasAvatar " +
+                    "WHERE [ID]=@ID", con);
+
+                command.Parameters.Add(new SqlParameter("@ID", id));
+                command.Parameters.Add(new SqlParameter("@HasAvatar", true));
+
+                con.Open();
+                var reader = command.ExecuteNonQuery();
                 return reader > 0 ? true : false;
             }
         }

@@ -6,6 +6,24 @@
 
 <h2>Профиль</h2>
 
+@if (Model.HasAvatar)
+{
+    <div class="row-fluid show-grid">
+        <div class="span1">
+            <img src="@Url.Action("ShowAvatar","User", new { id = Model.ID })" class="img-details" />
+        </div>
+
+        <div class="span1"></div>
+        <div class="span2"></div>
+        <div class="span4"></div>
+        <div class="span4"></div>
+
+    </div>
+    @*@Html.Action("ShowAvatar", new { id=Model.ID})*@
+}
+
+
+
 <table class="table">
     <tr>
         @*<th>
@@ -36,7 +54,6 @@
     </tr>
 
     <tr>
-
             @Html.HiddenFor(model => model.HasAvatar)
             @Html.HiddenFor(model => model.ID)
             @Html.HiddenFor(model => model.BlogUserEpigraph)

@@ -307,6 +307,10 @@ figure {
 img {
   vertical-align: middle;
 }
+.img-details {
+  width: auto;
+  height: 200px;
+}
 .img-responsive,
 .thumbnail > img,
 .thumbnail a > img,
@@ -1096,6 +1100,8 @@ pre code {
   }
   .col-md-10 {
     width: 83.33333333%;
+    min-height: 200px;
+/**/
   }
   .col-md-9 {
     width: 75%;

@@ -1,0 +1,9 @@
+C:\Users\User\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyBlog.DAL.DB\bin\Release\EpamTask.MyBlog.DAL.DB.dll
+C:\Users\User\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyBlog.DAL.DB\bin\Release\EpamTask.MyBlog.DAL.DB.pdb
+C:\Users\User\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyBlog.DAL.DB\bin\Release\EpamTask.MyBlog.DAL.Abstract.dll
+C:\Users\User\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyBlog.DAL.DB\bin\Release\EpamTask.MyBlog.Entities.dll
+C:\Users\User\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyBlog.DAL.DB\bin\Release\EpamTask.MyBlog.DAL.Abstract.pdb
+C:\Users\User\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyBlog.DAL.DB\bin\Release\EpamTask.MyBlog.Entities.pdb
+C:\Users\User\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyBlog.DAL.DB\obj\Release\EpamTask.MyBlog.DAL.DB.csprojResolveAssemblyReference.cache
+C:\Users\User\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyBlog.DAL.DB\obj\Release\EpamTask.MyBlog.DAL.DB.dll
+C:\Users\User\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyBlog.DAL.DB\obj\Release\EpamTask.MyBlog.DAL.DB.pdb

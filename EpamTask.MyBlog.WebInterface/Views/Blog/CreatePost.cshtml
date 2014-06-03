@@ -27,7 +27,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.PostTitle, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-6">
                 @Html.EditorFor(model => model.PostTitle)
                 @Html.ValidationMessageFor(model => model.PostTitle)
             </div>
@@ -36,7 +36,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PostContent, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PostContent)
+                @Html.TextAreaFor(model => model.PostContent, new { @class = "col-md-10" })
                 @Html.ValidationMessageFor(model => model.PostContent)
             </div>
         </div>
@@ -50,7 +50,7 @@
         </div>*@
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <div class="col-md-offset-2 col-md-6">
                 <input type="submit" value="Создать" class="btn btn-default" />
             </div>
         </div>

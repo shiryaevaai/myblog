@@ -23,7 +23,7 @@
                 @Html.ActionLink("MyBlog", "Index", "Home", null, new { @class = "navbar-brand" })
 
                 <div class="navbar-brand">
-                    @Html.Action("UserInfo", "Account")
+                    @Html.Action("UserInformation", "Account")
                 </div>
 
                 @if (User.Identity != null && User.Identity.IsAuthenticated)

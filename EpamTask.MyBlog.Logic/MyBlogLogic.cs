@@ -103,7 +103,14 @@
 
             if (this._users_dao.SetUserAvatar(userID, img))
             {
-                return true;
+                if (this._users_dao.UpdateUserAvatar(userID))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {

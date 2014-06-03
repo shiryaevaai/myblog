@@ -32,6 +32,7 @@
             EditUserModel m = new EditUserModel()
             {
                ID = model.ID,
+               BirthDate = model.BirthDate,
             };
             return View(m);
         }
@@ -44,7 +45,7 @@
             {
                 if (BlogUserModel.EditProfile(model))
                 { 
-                     return RedirectToAction("UserInfo", new {id = model.ID});
+                     return RedirectToAction("UserInfo", "User", new {id = model.ID});
                 }
                 else
                 {
@@ -56,5 +57,41 @@
                 return View(model);
             }
         }
+
+        [ChildActionOnly]
+        public ActionResult UploadImage(Guid id)
+        {
+            Guid UserID = id;
+            return PartialView(UserID);
+        }
+
+        [HttpPost]
+       // [ValidateAntiForgeryToken]
+        public ActionResult UploadImage(Guid id, HttpPostedFileBase image)
+        {
+            Guid UserID = id;
+            try
+            {
+                BlogUserModel user = BlogUserModel.GetUser(id);
+                ImageHelper.SetUserAvatar(image, id);
+            }
+            catch
+            {
+                return RedirectToAction("EditProfile", new { id = UserID });
+            }
+
+            return RedirectToAction("UserInfo", "User", new { id = UserID });
+        }
+
+        [ChildActionOnly]
+        public ActionResult ShowAvatar(Guid id)
+        {
+            return File(ImageHelper.GetUserAvatar(id), "image/jpeg");
+        }
+
+        //public ActionResult GetUserImage(string path)
+        //{
+        //    return File(FileWorker.GetFile(path), "image/jpeg", path);
+        //}
 	}
 }

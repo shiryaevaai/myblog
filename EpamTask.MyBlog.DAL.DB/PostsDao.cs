@@ -167,9 +167,9 @@
         {
             using (var con = new SqlConnection(connectionString))
             {
-                var command = new SqlCommand("SELECT TOP 1 [ID], [AuthorID], [Title], " +
+                var command = new SqlCommand("SELECT [ID], [AuthorID], [Title], " +
                     "[CreationTime], [Text], [Privacy] " +
-                    "FROM dbo.[BlogPosts] WHERE [AuthorID] = @id", con);
+                    "FROM dbo.[BlogPosts] WHERE [AuthorID] = @id ORDER BY [CreationTime] DESC", con);
 
                 //var command = new SqlCommand("dbo.GetUserPosts", con)
                 //{

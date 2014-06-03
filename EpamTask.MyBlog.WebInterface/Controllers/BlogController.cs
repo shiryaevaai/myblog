@@ -24,7 +24,7 @@
         [ChildActionOnly]
         public ActionResult GetUserPosts(Guid id)
         {
-            var model = BlogPostModel.GetUserPosts(id);
+            var model = BlogPostModel.GetUserPosts(id).ToList();
             return PartialView(model);
         }
 

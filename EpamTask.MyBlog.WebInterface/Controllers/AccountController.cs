@@ -50,7 +50,7 @@
         }
 
        // [ChildActionOnly]
-        public ActionResult UserInfo()
+        public ActionResult UserInformation()
         {
             return PartialView();
         }

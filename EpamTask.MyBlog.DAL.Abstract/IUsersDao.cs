@@ -27,5 +27,7 @@
         byte[] GetUserAvatar(Guid id);
 
         bool RemoveUserAvatar(Guid id);
+
+        bool UpdateUserAvatar(Guid userID);
     }
 }
