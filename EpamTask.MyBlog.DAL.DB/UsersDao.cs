@@ -279,7 +279,7 @@
             {
                 using (var con = new SqlConnection(connectionString))
                 {
-                    var command = new SqlCommand("SELECT TOP 1 [ID], [Image] FROM dbo.[UserAvatars] WHERE [ID] = @id", con);
+                    var command = new SqlCommand("SELECT TOP 1 [UserID], [Image] FROM dbo.[UserAvatars] WHERE [UserID] = @id", con);
                     command.Parameters.Add(new SqlParameter("@id", id));
 
                     con.Open();
@@ -305,7 +305,7 @@
         {
             using (var con = new SqlConnection(connectionString))
             {
-                var command = new SqlCommand("DELETE FROM dbo.[UserAvatars] WHERE [ID] = @ID", con);
+                var command = new SqlCommand("DELETE FROM dbo.[UserAvatars] WHERE [UserID] = @ID", con);
                 //var command = new SqlCommand("dbo.RemoveUserAvatar", con)
                 //{
                 //    CommandType = System.Data.CommandType.StoredProcedure,

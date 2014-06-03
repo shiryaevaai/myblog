@@ -86,6 +86,12 @@
         [ChildActionOnly]
         public ActionResult ShowAvatar(Guid id)
         {
+            byte[] imgByteArr;
+            //что то там делаем...
+            ///в результате заполняем массив байтов imgByteArr
+            // 
+
+            
             return File(ImageHelper.GetUserAvatar(id), "image/jpeg");
         }
 
