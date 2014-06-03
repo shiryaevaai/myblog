@@ -38,7 +38,7 @@
                 var command = new SqlCommand(
                    "INSERT INTO dbo.[BlogPosts] ([ID], [AuthorID], [Text], " +
                    "[CreationTime], [Title], [Privacy]) " +
-                   "VALUES (@ID, @AuthorID, @Text, @BCreationTime, @Title, @Privacy)", con);
+                   "VALUES (@ID, @AuthorID, @Text, @CreationTime, @Title, @Privacy)", con);
 
                 command.Parameters.Add(new SqlParameter("@ID", post.PostID));
                 command.Parameters.Add(new SqlParameter("@AuthorID", post.AuthorID));
@@ -64,14 +64,14 @@
                 var command = new SqlCommand(
                    "UPDATE dbo.[BlogPosts] " +
                    "SET [AuthorID]=@AuthorID, [Title]=@Title, " +
-                   "[CreationTime]=@CreationTime, [Content]=@Content, [Privacy]=@Privacy " +
+                   "[CreationTime]=@CreationTime, [Text]=@Text, [Privacy]=@Privacy " +
                    "WHERE [ID]=@ID", con);
 
                 command.Parameters.Add(new SqlParameter("@ID", post.PostID));
                 command.Parameters.Add(new SqlParameter("@AuthorID", post.AuthorID));
                 command.Parameters.Add(new SqlParameter("@Title", post.PostTitle));
                 command.Parameters.Add(new SqlParameter("@CreationTime", post.PostCreationTime));
-                command.Parameters.Add(new SqlParameter("@Content", post.PostContent));
+                command.Parameters.Add(new SqlParameter("@Text", post.PostContent));
                 command.Parameters.Add(new SqlParameter("@Privacy", post.Privacy));
 
                 con.Open();
@@ -105,7 +105,7 @@
                 //};
 
                 var command = new SqlCommand("SELECT TOP 1 [ID], [AuthorID], [Title], " +
-                    "[CreationTime], [Content], [Privacy] " +
+                    "[CreationTime], [Text], [Privacy] " +
                     "FROM dbo.[BlogPosts] WHERE [ID] = @id", con);
 
                 command.Parameters.Add(new SqlParameter("@id", id));
@@ -120,8 +120,8 @@
                         PostID = (Guid)reader["ID"],
                         AuthorID = (Guid)reader["AuthorID"],
                         PostTitle = (string)reader["Title"],
-                        PostCreationTime = (DateTime)reader["CreationTime"],                      
-                        PostContent = (string)reader["Content"],
+                        PostCreationTime = (DateTime)reader["CreationTime"],
+                        PostContent = (string)reader["Text"],
                         Privacy = (string)reader["Privacy"],
                     };
                 }
@@ -137,7 +137,7 @@
             using (var con = new SqlConnection(connectionString))
             {
                 var command = new SqlCommand("SELECT [ID], [AuthorID], [Title], " +
-                    "[CreationTime], [Content], [Privacy] " +
+                    "[CreationTime], [Text], [Privacy] " +
                     "FROM dbo.[BlogPosts]", con);
 
                 //var command = new SqlCommand("dbo.GetAllPosts", con)
@@ -156,7 +156,7 @@
                         AuthorID = (Guid)reader["AuthorID"],
                         PostTitle = (string)reader["Title"],
                         PostCreationTime = (DateTime)reader["CreationTime"],
-                        PostContent = (string)reader["Content"],
+                        PostContent = (string)reader["Text"],
                         Privacy = (string)reader["Privacy"],
                     };
                 }
@@ -168,7 +168,7 @@
             using (var con = new SqlConnection(connectionString))
             {
                 var command = new SqlCommand("SELECT TOP 1 [ID], [AuthorID], [Title], " +
-                    "[CreationTime], [Content], [Privacy] " +
+                    "[CreationTime], [Text], [Privacy] " +
                     "FROM dbo.[BlogPosts] WHERE [AuthorID] = @id", con);
 
                 //var command = new SqlCommand("dbo.GetUserPosts", con)
@@ -188,7 +188,7 @@
                         AuthorID = (Guid)reader["AuthorID"],
                         PostTitle = (string)reader["Title"],
                         PostCreationTime = (DateTime)reader["CreationTime"],
-                        PostContent = (string)reader["Content"],
+                        PostContent = (string)reader["Text"],
                         Privacy = (string)reader["Privacy"],
                     };
                 }
