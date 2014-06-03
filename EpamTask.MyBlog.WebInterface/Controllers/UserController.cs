@@ -83,7 +83,7 @@
             return RedirectToAction("UserInfo", "User", new { id = UserID });
         }
 
-        [ChildActionOnly]
+       // [ChildActionOnly]
         public ActionResult ShowAvatar(Guid id)
         {
             return File(ImageHelper.GetUserAvatar(id), "image/jpeg");
