@@ -231,6 +231,8 @@
     <Content Include="Views\Account\UserInformation.cshtml" />
     <Content Include="Views\User\ShowAvatarOrDefault.cshtml" />
     <Content Include="Views\Account\CreateAccount.cshtml" />
+    <Content Include="Views\Blog\GetAllPosts.cshtml" />
+    <Content Include="Views\User\ShowThumbnailAvatarOrDefault.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

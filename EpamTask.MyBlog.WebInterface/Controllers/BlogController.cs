@@ -28,6 +28,13 @@
             return PartialView(model);
         }
 
+        [ChildActionOnly]
+        public ActionResult GetAllPosts()
+        {
+            var model = BlogPostModel.GetAllPosts().ToList();
+            return PartialView(model);
+        }
+
         public ActionResult CreatePost(Guid id)
         {
             BlogPostModel model = new BlogPostModel()

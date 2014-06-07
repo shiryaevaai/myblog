@@ -325,7 +325,8 @@ img {
 }
 .img-thumbnail {
   display: inline-block;
-  max-width: 100%;
+  width: 50px;
+  /*max-height: 100px;*/
   height: auto;
   padding: 4px;
   line-height: 1.42857143;

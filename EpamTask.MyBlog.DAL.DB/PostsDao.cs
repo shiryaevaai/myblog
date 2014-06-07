@@ -138,7 +138,7 @@
             {
                 var command = new SqlCommand("SELECT [ID], [AuthorID], [Title], " +
                     "[CreationTime], [Text], [Privacy] " +
-                    "FROM dbo.[BlogPosts]", con);
+                    "FROM dbo.[BlogPosts] ORDER BY [CreationTime] DESC", con);
 
                 //var command = new SqlCommand("dbo.GetAllPosts", con)
                 //{

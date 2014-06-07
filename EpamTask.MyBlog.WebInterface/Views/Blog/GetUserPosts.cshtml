@@ -7,25 +7,7 @@
 else
 {
     <table class="table">
-        <tr>
-            <th>
-                @*@Html.DisplayNameFor(model => model.PostID)*@
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PostCreationTime)
-            </th>
-            <th>
-                @*@Html.DisplayNameFor(model => model.AuthorID)*@
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PostTitle)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PostContent)
-            </th>
-            <th>
-                @*@Html.DisplayNameFor(model => model.Privacy)*@
-            </th>
+        <tr>            
             <th></th>
         </tr>
 
@@ -33,28 +15,42 @@ else
         {
             <tr>
                 <td>
-                    @Html.HiddenFor(modelItem => item.PostID)
+                    <div class="container-fluid">
+                        @Html.HiddenFor(modelItem => item.PostID)
+                        @Html.HiddenFor(modelItem => item.Privacy)
+                        @Html.HiddenFor(modelItem => item.AuthorID)                        
+
+                        <div class="container-fluid">
+
+                            <div class="col-xs-9">
+                                <h4>
+                                    @Html.DisplayFor(modelItem => item.PostTitle)
+                                </h4>                   
+                            </div>
+                        </div>
+
+                        <div class="container-fluid">
+                            <div class="col-xs-9 pull-left">
+                                @Html.DisplayFormattedData(item.PostContent)
+                            </div>
+                        </div>
+
+                        <div class="container-fluid">
+                             <div class="col-xs-9">
+                                @Html.DisplayFor(modelItem => item.PostCreationTime)
+                            </div>
+                        </div>
+
+                    </div>
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PostCreationTime)
-                </td>
-                <td>
-                    @Html.HiddenFor(modelItem => item.AuthorID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PostTitle)
-                </td>
-                <td>
-                    @Html.DisplayFormattedData(item.PostContent)
-                </td>
-                <td>
-                    @Html.HiddenFor(modelItem => item.Privacy)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                </td>
+
+                @if (User.Identity.Name == BlogUserModel.GetUser(item.AuthorID).BlogUserLogin)
+                {
+                     <td>
+                        @Html.ActionLink("Редактировать", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Удалить", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                }
             </tr>
         }
 

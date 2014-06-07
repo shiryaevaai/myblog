@@ -5,16 +5,23 @@
     
 }
 
-<h2>Мой блог</h2>
+@if (User.Identity.Name == BlogUserModel.GetUser(Model).BlogUserLogin)
+{
+     <h2>Мой блог</h2>
+}
+else
+{
+    <h2>@BlogUserModel.GetUser(Model).BlogUserLogin</h2>   
+}
 
 <div class="container-fluid">
-    <div class="col-xs-4">Здесь будет аватар, 
+    <div class="col-xs-3">Здесь будет аватар, 
     облако тэгов <br />
        
            @Html.Action("ShowAvatarOrDefault", "User", new { id=Model})
 
     </div>
-    <div class="col-xs-8">
+    <div class="col-xs-9">
     @Html.Action("GetUserPosts", "Blog", new { id = Model })
     </div>
 </div>

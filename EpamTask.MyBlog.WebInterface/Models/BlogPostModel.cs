@@ -143,5 +143,24 @@
                 yield return post;
             }
         }
+
+        public static IEnumerable<BlogPostModel> GetAllPosts()
+        {
+            var posts = BusinessLogicHelper._logic.GetAllPosts().ToList();
+            foreach (var item in posts)
+            {
+                BlogPostModel post = new BlogPostModel()
+                {
+                    PostID = item.PostID,
+                    AuthorID = item.AuthorID,
+                    PostTitle = item.PostTitle,
+                    PostContent = item.PostContent,
+                    PostCreationTime = item.PostCreationTime,
+                    Privacy = item.Privacy,
+                };
+
+                yield return post;
+            }
+        }
     }
 }

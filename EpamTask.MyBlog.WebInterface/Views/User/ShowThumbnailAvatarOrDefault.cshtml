@@ -1,0 +1,12 @@
+﻿@model EpamTask.MyBlog.WebInterface.Models.BlogUserModel
+
+<div class="span2">
+    @if (Model.HasAvatar)
+    {
+        <img src="/User/ShowAvatar?id=@Model.ID" class="img-thumbnail" />
+    }
+    else
+    {
+        <img src="/Content/DefaultUserAvatar.jpg" class="img-thumbnail" />
+    }
+ </div>

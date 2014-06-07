@@ -1,0 +1,48 @@
+﻿@model IEnumerable<EpamTask.MyBlog.WebInterface.Models.BlogPostModel>
+
+
+<table class="table">
+    <tr>
+        <th></th>
+    </tr>
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+            <div class="container-fluid">
+                @Html.HiddenFor(modelItem => item.PostID)
+                @Html.HiddenFor(modelItem => item.PostContent)
+                @Html.HiddenFor(modelItem => item.Privacy)
+
+                <div class="container-fluid">
+                    <div class="col-xs-2">
+                        @Html.Action("ShowThumbnailAvatarOrDefault", "User", new { id = item.AuthorID })
+                    </div>
+
+                    <div class="col-xs-3">
+                        @Html.HiddenFor(modelItem => item.AuthorID)
+                        @Html.ActionLink(BlogUserModel.GetUser(item.AuthorID).BlogUserLogin, "Index", "Blog", new { id = item.AuthorID }, null)
+                    </div>
+
+                    <div class="col-xs-3">
+                        @Html.DisplayFor(modelItem => item.PostCreationTime)
+                    </div>
+
+                    <div class="container-fluid">
+                        <div class="col-xs-8 pull-left">
+                            @Html.HiddenFor(modelItem => item.PostTitle)
+                            @Html.ActionLink(item.PostTitle, "FullPost", "Blog", new { id = item.PostID }, null)
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </td>
+        </tr>
+    }
+
+
+
+</table>

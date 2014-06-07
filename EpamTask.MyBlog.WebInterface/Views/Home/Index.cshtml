@@ -22,7 +22,9 @@
 
 <div class="container-fluid">
         <div class="col-xs-4">Здесь будет поиск(по тэгам, по тексту, по имени)</div>
-        <div class="col-xs-8">Здесь будет лента</div>
+        <div class="col-xs-8">
+            @Html.Action("GetAllPosts", "Blog")
+        </div>
     </div>
 
 .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1

@@ -19,12 +19,49 @@ namespace EpamTask.MyBlog.WebInterface.Models
                 return MvcHtmlString.Empty;
             }
 
+            var firstEdit = data
+                    .Split(new[] { Environment.NewLine }, StringSplitOptions.None).ToArray();
+
+            List<string> secondEdit = new List<string>();
+
+            for (int i = 0; i < firstEdit.Count(); i++)
+            {
+                if (firstEdit[i].Length <= 50)
+                {
+                    secondEdit.Add(firstEdit[i]);
+                }
+                else
+                {
+                    string input = firstEdit[i];
+                    string part;
+
+                    while (input.Length>50)
+                    {
+                        part = input.Substring(0, 50);
+                        secondEdit.Add(part);
+                        input = input.Substring(50);
+                    }
+
+                    secondEdit.Add(input);
+                }
+            }
+
             var result = string.Join(
                 "<br/>",
-                data
-                    .Split(new[] { Environment.NewLine }, StringSplitOptions.None)
+                secondEdit
                     .Select(htmlHelper.Encode)
             );
+
+            //var firstEdit = string.Join(
+            //    "<br/>",
+            //    data
+            //        .Split(new[] { Environment.NewLine }, StringSplitOptions.None)
+            //        .Select(htmlHelper.Encode)
+            //);
+
+
+
+            //string result="";
 
             return new HtmlString(result);
         }

@@ -95,6 +95,13 @@
             return PartialView(model);
         }
 
+        [ChildActionOnly]
+        public ActionResult ShowThumbnailAvatarOrDefault(Guid id)
+        {
+            var model = BlogUserModel.GetUser(id);
+            return PartialView(model);
+        }
+
         //public ActionResult GetUserImage(string path)
         //{
         //    return File(FileWorker.GetFile(path), "image/jpeg", path);
