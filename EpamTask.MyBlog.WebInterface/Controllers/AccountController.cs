@@ -12,6 +12,7 @@
     using EpamTask.MyBlog.Logic;
     using EpamTask.MyBlog.Entities;
 
+    [EnableCors("*", "*", "POST")]
     public class AccountController : Controller
     {
         //
