@@ -83,10 +83,16 @@
             return RedirectToAction("UserInfo", "User", new { id = UserID });
         }
 
-       // [ChildActionOnly]
         public ActionResult ShowAvatar(Guid id)
         {
             return File(ImageHelper.GetUserAvatar(id), "image/jpeg");
+        }
+
+        [ChildActionOnly]
+        public ActionResult ShowAvatarOrDefault(Guid id)
+        {
+            var model = BlogUserModel.GetUser(id);
+            return PartialView(model);
         }
 
         //public ActionResult GetUserImage(string path)

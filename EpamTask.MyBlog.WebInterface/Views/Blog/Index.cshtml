@@ -2,12 +2,18 @@
 
 @{
     ViewBag.Title = "Index";
+    
 }
 
 <h2>Мой блог</h2>
 
 <div class="container-fluid">
-    <div class="col-xs-4">Здесь будет аватар, облако тэгов</div>
+    <div class="col-xs-4">Здесь будет аватар, 
+    облако тэгов <br />
+       
+           @Html.Action("ShowAvatarOrDefault", "User", new { id=Model})
+
+    </div>
     <div class="col-xs-8">
     @Html.Action("GetUserPosts", "Blog", new { id = Model })
     </div>

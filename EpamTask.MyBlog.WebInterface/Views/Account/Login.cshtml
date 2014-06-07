@@ -5,27 +5,39 @@
     string returnUrl = ViewBag.ReturnUrl;
 }
 
-<h2>Login</h2>
+<h2>Вход</h2>
 
 @using (Html.BeginForm())
 {
-    if (!string.IsNullOrWhiteSpace(returnUrl))
-    {
-        @Html.Hidden("returnUrl", returnUrl)
+    <div class="form-horizontal">
 
-    }
+        @if (!string.IsNullOrWhiteSpace(returnUrl))
+        {
+          @Html.Hidden("returnUrl", returnUrl)
+        }
 
-    <div>
-        @Html.LabelFor(m => m.BlogUserLogin)
-        @Html.EditorFor(m => m.BlogUserLogin)
+        <div class="form-group">
+            @Html.LabelFor(m => m.BlogUserLogin, new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                @Html.EditorFor(m => m.BlogUserLogin)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.BlogUserPassword, new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                @Html.EditorFor(m => m.BlogUserPassword)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.AntiForgeryToken()
+            <input type="submit" value="Log in" class="btn btn-default" />
+        </div>
     </div>
-
-    <div>
-        @Html.LabelFor(m => m.BlogUserPassword)
-        @Html.EditorFor(m => m.BlogUserPassword)
-    </div>
-
-    @Html.AntiForgeryToken()
-    <input type="submit" value="Log in" />
 }
 
+@section scripts {
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+}

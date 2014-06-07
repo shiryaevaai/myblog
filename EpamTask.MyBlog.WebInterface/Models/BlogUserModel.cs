@@ -34,57 +34,67 @@
             this.HasAvatar = false;
         }
 
-        [Required]
+        //==================================
         [HiddenInput(DisplayValue = false)]
         public Guid ID { get; set; }
 
+        //==================================
         public bool HasAvatar { get; set; }
 
+        //==================================
         [Required(ErrorMessage = "Необходимо ввести имя пользователя!")]
         [Display(Name = "Имя пользователя")]
         [StringLength(16, MinimumLength = 3, ErrorMessage = "Длина имени пользователя должна быть от 3 до 16 символов")]
         [Remote("CheckAccountName", "Account")]
         public string BlogUserLogin { get; set; }
 
-         [Display(Name = "Пароль")]
+        //==================================
+        [Display(Name = "Пароль")]
         [DataType(DataType.Password)]
         [Required]
         [StringLength(16, MinimumLength = 6, ErrorMessage = "Длина пароля должна быть от 6 до 16 символов")]
         public string BlogUserPassword { get; set; }
 
+        //==================================
         [Required(ErrorMessage = "Необходимо ввести дату рождения пользователя!")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Дата рождения")]
         public DateTime BirthDate { get; set; }
 
+        //==================================
         [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Дата регистрации")]
         public DateTime RegistrationTime { get; set; }
 
+        //==================================
         public string BlogUserEpigraph { get; set; }
 
+        //==================================
         [Required(ErrorMessage = "Необходимо ввести адрес электронной почты!")]
         [Remote("CheckEmail", "Account")]
-        //[StringLength(255, MinimumLength = 6, ErrorMessage = "Длина электронной почты должна быть от 6 до 255 символов")]
-        // Regex rgx5 = new Regex(@"([a-z0-9]([a-z_0-9\.\-]*[a-z0-9])?)@([a-z0-9]([a-z_0-9\-]*)[a-z0-9]\.)+([a-z]{2,6})");
         [RegularExpression(@"([a-z0-9]([a-z_0-9\.\-]*[a-z0-9])?)@([a-z0-9]([a-z_0-9\-]*)[a-z0-9]\.)+([a-z]{2,6})", 
             ErrorMessage = "Некорректный адрес электронной почты")]
         public string Email { get; set; }
 
+        //==================================
         [StringLength(32, MinimumLength = 6, ErrorMessage = "Длина логина в скайпе должна быть от 6 до 32 символов")]
         public string Skype { get; set; }
 
+        //==================================
         [Display(Name = "О себе")]
         public string About { get; set; }
 
+        //==================================
         [Display(Name = "Возраст")]
         public int Age { get; set; }
 
+        //==================================
         [Display(Name = "Пол")]
         [Required(ErrorMessage = "Необходимо ввести пол!")]
         public bool Gender { get; set; }
 
+        //==================================
         bool IEquatable<BlogUserModel>.Equals(BlogUserModel other)
         {
             return Equals(other);
@@ -159,13 +169,13 @@
             FormsAuthentication.SignOut();
         }
 
-        public static void CreateAccount(BlogUserModel model)
+        public static void CreateAccount(RegistrationModel model)
         {
             var account = new BlogUser()
             {
                 ID = Guid.NewGuid(),
-                BlogUserLogin = model.BlogUserLogin,
-                BlogUserPassword = model.BlogUserPassword,
+                BlogUserLogin = model.Login,
+                BlogUserPassword = model.Password,
                 BirthDate = model.BirthDate,
                 Email = model.Email,
                 RegistrationTime = DateTime.Now,
@@ -173,35 +183,35 @@
                 HasAvatar = false,
             };
 
-            model.ID = account.ID;
+           // model.ID = account.ID;
             BusinessLogicHelper._logic.AddUser(account);
         }
 
-        public static bool CheckAccountName(string Username)
-        {
-            var list = BusinessLogicHelper._logic.GetAllUsers();
-            foreach (var user in list)
-            {
-                if (user.BlogUserLogin == Username)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
+        //public static bool CheckAccountName(string Username)
+        //{
+        //    var list = BusinessLogicHelper._logic.GetAllUsers();
+        //    foreach (var user in list)
+        //    {
+        //        if (user.BlogUserLogin == Username)
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    return true;
+        //}
 
-        public static bool CheckEmail(string email)
-        {
-            var list = BusinessLogicHelper._logic.GetAllUsers();
-            foreach (var user in list)
-            {
-                if (user.Email == email)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
+        //public static bool CheckEmail(string email)
+        //{
+        //    var list = BusinessLogicHelper._logic.GetAllUsers();
+        //    foreach (var user in list)
+        //    {
+        //        if (user.Email == email)
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    return true;
+        //}
 
         public static BlogUserModel GetUser(Guid id)
         {

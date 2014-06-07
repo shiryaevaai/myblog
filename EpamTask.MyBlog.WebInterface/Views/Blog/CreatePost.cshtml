@@ -15,14 +15,6 @@
         <hr />
         @Html.ValidationSummary(true)
 
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.AuthorID, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.AuthorID)
-                @Html.ValidationMessageFor(model => model.AuthorID)
-            </div>
-        </div>*@
-
         @Html.HiddenFor(model => model.AuthorID)
 
         <div class="form-group">
@@ -57,3 +49,7 @@
     </div>
 }
 
+@section scripts {
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}

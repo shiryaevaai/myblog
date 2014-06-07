@@ -79,34 +79,29 @@
             return RedirectToAction("Index", "Home");
         }
 
-        //
-        // GET: /Account/Create
+        [HttpGet]
         public ActionResult CreateAccount()
         {
+            //RegistrationModel model = new BlogUserModel() { };
             return View();
         }
 
-        //
-        // POST: /Account/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateAccount(BlogUserModel model)
+        public ActionResult CreateAccount(RegistrationModel model)
         {
-            if (ModelState.IsValid)
+            BlogUserModel.CreateAccount(model);
+            var user = BlogUserModel.GetUser(model.Login);
+            if (user.TryToLogin(user.BlogUserLogin, user.BlogUserPassword))
             {
-                BlogUserModel.CreateAccount(model);
-                if (model.TryToLogin(model.BlogUserLogin, model.BlogUserPassword))
+                try
                 {
-                    try
-                    {
-                        return RedirectToAction("UserInfo", "User", new { id = model.ID });
-                    }
-                    catch
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
+                    return RedirectToAction("UserInfo", "User", new { id = user.ID });
                 }
-                //return RedirectToAction("UserInfo", "User", new { id = model.ID });
+                catch
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
 
             return View(model);
@@ -115,7 +110,7 @@
         [OutputCache(Location = OutputCacheLocation.None, NoStore = true)]
         public JsonResult CheckAccountName(string BlogUserLogin)
         {
-            var result = BlogUserModel.CheckAccountName(BlogUserLogin);
+            var result = RegistrationModel.CheckAccountName(BlogUserLogin);
 
             if (result)
             {
@@ -130,7 +125,7 @@
         [OutputCache(Location = OutputCacheLocation.None, NoStore = true)]
         public JsonResult CheckEmail(string Email)
         {
-            var result = BlogUserModel.CheckEmail(Email);
+            var result = RegistrationModel.CheckEmail(Email);
 
             if (result)
             {
@@ -157,6 +152,20 @@
             }
         }
 
+        [OutputCache(Location = OutputCacheLocation.None, NoStore = true)]
+        public JsonResult ConfirmPassword(string PasswordConfirmation, string Password)
+        {
+            var result = RegistrationModel.ConfirmPassword(Password, PasswordConfirmation);
+
+            if (result)
+            {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("Подтверждение должно быть эквивалентно паролю!", JsonRequestBehavior.AllowGet);
+            }
+        }
         //
         // GET: /Account/Edit/5
         public ActionResult Edit(int id)
