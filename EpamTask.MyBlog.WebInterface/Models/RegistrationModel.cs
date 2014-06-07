@@ -47,7 +47,7 @@
 
         //==================================
         [Required(ErrorMessage = "Необходимо ввести адрес электронной почты!")]
-        [Remote("CheckEmail", "Account")]       
+        [Remote("CheckRegEmail", "Account")]       
         [RegularExpression(@"([a-z0-9]([a-z_0-9\.\-]*[a-z0-9])?)@([a-z0-9]([a-z_0-9\-]*)[a-z0-9]\.)+([a-z]{2,6})",
             ErrorMessage = "Некорректный адрес электронной почты")]
         public string Email { get; set; }

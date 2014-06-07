@@ -45,7 +45,7 @@
         [Required(ErrorMessage = "Необходимо ввести имя пользователя!")]
         [Display(Name = "Имя пользователя")]
         [StringLength(16, MinimumLength = 3, ErrorMessage = "Длина имени пользователя должна быть от 3 до 16 символов")]
-        [Remote("CheckAccountName", "Account")]
+        //[Remote("CheckAccountName", "Account")]
         public string BlogUserLogin { get; set; }
 
         //==================================
@@ -72,7 +72,7 @@
 
         //==================================
         [Required(ErrorMessage = "Необходимо ввести адрес электронной почты!")]
-        [Remote("CheckEmail", "Account")]
+        //[Remote("CheckEmail", "Account")]
         [RegularExpression(@"([a-z0-9]([a-z_0-9\.\-]*[a-z0-9])?)@([a-z0-9]([a-z_0-9\-]*)[a-z0-9]\.)+([a-z]{2,6})", 
             ErrorMessage = "Некорректный адрес электронной почты")]
         public string Email { get; set; }

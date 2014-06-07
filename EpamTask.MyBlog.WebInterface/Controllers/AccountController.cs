@@ -11,6 +11,7 @@
 
     using EpamTask.MyBlog.Logic;
     using EpamTask.MyBlog.Entities;
+    using System.Web.Http.Cors;
 
     [EnableCors("*", "*", "POST")]
     public class AccountController : Controller
@@ -109,9 +110,9 @@
         }
 
         [OutputCache(Location = OutputCacheLocation.None, NoStore = true)]
-        public JsonResult CheckAccountName(string BlogUserLogin)
+        public JsonResult CheckAccountName(string Login)
         {
-            var result = RegistrationModel.CheckAccountName(BlogUserLogin);
+            var result = RegistrationModel.CheckAccountName(Login);
 
             if (result)
             {
@@ -124,7 +125,7 @@
         }
 
         [OutputCache(Location = OutputCacheLocation.None, NoStore = true)]
-        public JsonResult CheckEmail(string Email)
+        public JsonResult CheckRegEmail(string Email)
         {
             var result = RegistrationModel.CheckEmail(Email);
 
