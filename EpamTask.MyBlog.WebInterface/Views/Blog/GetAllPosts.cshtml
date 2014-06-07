@@ -8,9 +8,9 @@
 
 
     @foreach (var item in Model)
-    {
-        <tr>
-            <td>
+{
+    <tr>
+        <td>
             <div class="container-fluid">
                 @Html.HiddenFor(modelItem => item.PostID)
                 @Html.HiddenFor(modelItem => item.PostContent)
@@ -33,15 +33,17 @@
                     <div class="container-fluid">
                         <div class="col-xs-8 pull-left">
                             @Html.HiddenFor(modelItem => item.PostTitle)
-                            @Html.ActionLink(item.PostTitle, "FullPost", "Blog", new { id = item.PostID }, null)
+                            @Html.ActionLink(item.PostTitle, "PostAndComments", "Blog", new { id = item.PostID }, null)
                         </div>
                     </div>
-                </div>
-                
+
             </div>
+
+        </div>
         </td>
-        </tr>
-    }
+
+    </tr>
+}
 
 
 

@@ -162,5 +162,36 @@
                 yield return post;
             }
         }
+
+        public static BlogPostModel GetPost(Guid postID)
+        {
+            var item = BusinessLogicHelper._logic.GetPost(postID);
+
+            return new BlogPostModel()
+            {
+                PostID = item.PostID,
+                AuthorID = item.AuthorID,
+                PostTitle = item.PostTitle,
+                PostContent = item.PostContent,
+                PostCreationTime = item.PostCreationTime,
+                Privacy = item.Privacy,
+            };             
+        }
+
+        public static IEnumerable<CommentModel> GetPostComments(Guid postID)
+        {
+            var comments = BusinessLogicHelper._logic.GetPostComments(postID).ToList();
+            foreach (var item in comments)
+            {
+                yield return new CommentModel()
+                {
+                    CommentID = item.CommentID,
+                    PostID = item.PostID,
+                    AuthorID = item.AuthorID,
+                    CommentCreationTime = item.CommentCreationTime,
+                    CommentText = item.CommentText, 
+                };
+            }
+        }
     }
 }

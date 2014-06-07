@@ -1,0 +1,58 @@
+﻿@model IEnumerable<EpamTask.MyBlog.WebInterface.Models.CommentModel>
+
+<table class="table">
+    <tr>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+
+            @Html.HiddenFor(modelItem => item.CommentID)
+
+            @Html.HiddenFor(modelItem => item.AuthorID)
+
+            @Html.HiddenFor(modelItem => item.PostID)
+
+        <td>
+            <div class="container-fluid">
+                <div class="col-xs-2">
+                    @Html.Action("ShowThumbnailAvatarOrDefault", "User", new { id = item.AuthorID })
+                </div>
+
+                <div class="col-xs-3">
+                    @Html.HiddenFor(modelItem => item.AuthorID)
+                    @Html.ActionLink(BlogUserModel.GetUser(item.AuthorID).BlogUserLogin, "Index", "Blog", new { id = item.AuthorID }, null)
+                </div>
+
+                <div class="col-xs-3">
+                    @Html.DisplayFor(modelItem => item.CommentCreationTime)
+                </div>
+
+                <div class="container-fluid">
+                    <div class="col-xs-8 pull-left">
+                        @Html.DisplayFormattedData(item.CommentText)
+                    </div>
+                </div>
+            </div>
+        </td>
+
+
+        @if (User.Identity.Name == BlogUserModel.GetUser(item.AuthorID).BlogUserLogin)
+        {
+        <td>
+            @Html.ActionLink("Редактировать", "EditComment", new { id = item.CommentID }) |
+            @Html.ActionLink("Удалить", "DeleteComment", new { id = item.CommentID })
+        </td>
+        }
+        else if (User.Identity.Name == BlogUserModel.GetUser(BlogPostModel.GetPost(item.PostID).AuthorID).BlogUserLogin)
+        {
+            <td>
+                @Html.ActionLink("Удалить", "DeleteComment", new { id = item.CommentID })
+            </td>
+        }
+        
+    </tr>
+}
+
+</table>

@@ -1,0 +1,37 @@
+﻿@model EpamTask.MyBlog.WebInterface.Models.CommentModel
+
+@{
+    ViewBag.Title = "DeleteComment";
+    Guid id = Model.CommentID;
+}
+
+<h3>Удалить?</h3>
+<div>
+    <hr />
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+             <fieldset>
+
+            @Html.HiddenFor(model => model.CommentID)
+
+              
+            @Html.HiddenFor(model => model.AuthorID)
+
+
+            @Html.HiddenFor(model => model.PostID)
+
+            
+            @Html.HiddenFor(model => model.CommentCreationTime)
+            
+
+            @Html.HiddenFor(model => model.CommentText)
+
+         </fieldset>
+        
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-default" />
+            @*@Html.ActionLink("Back to List", "Index")*@
+        </div>
+    }
+</div>

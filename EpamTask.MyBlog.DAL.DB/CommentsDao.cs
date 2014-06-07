@@ -37,14 +37,14 @@
 
                 var command = new SqlCommand(
                    "INSERT INTO dbo.[Comments] ([ID], [AuthorID], [PostID], " +
-                   "[Text], [CreationTime] " +
-                   "VALUES (@ID, @AuthorID, @PostID, @Text, @BCreationTime)", con);
+                   "[Text], [CreationDate]) " +
+                   "VALUES (@ID, @AuthorID, @PostID, @Text, @CreationDate)", con);
 
                 command.Parameters.Add(new SqlParameter("@ID", comment.CommentID));
                 command.Parameters.Add(new SqlParameter("@AuthorID", comment.AuthorID));
                 command.Parameters.Add(new SqlParameter("@PostID", comment.PostID));
                 command.Parameters.Add(new SqlParameter("@Text", comment.CommentText));
-                command.Parameters.Add(new SqlParameter("@CreationTime", comment.CommentCreationTime));
+                command.Parameters.Add(new SqlParameter("@CreationDate", comment.CommentCreationTime));
 
                 con.Open();
                 var reader = command.ExecuteNonQuery();
@@ -64,14 +64,14 @@
                 var command = new SqlCommand(
                    "UPDATE dbo.[BlogPosts] " +
                    "SET [AuthorID]=@AuthorID, [PostID]=@PostID, " +
-                   "[CreationTime]=@CreationTime, [Text]=@Text " +
+                   "[CreationDate]=@CreationDate, [Text]=@Text " +
                    "WHERE [ID]=@ID", con);
 
                 command.Parameters.Add(new SqlParameter("@ID", comment.CommentID));
                 command.Parameters.Add(new SqlParameter("@AuthorID", comment.AuthorID));
                 command.Parameters.Add(new SqlParameter("@PostID", comment.PostID));
                 command.Parameters.Add(new SqlParameter("@Text", comment.CommentText));
-                command.Parameters.Add(new SqlParameter("@CreationTime", comment.CommentCreationTime));
+                command.Parameters.Add(new SqlParameter("@CreationDate", comment.CommentCreationTime));
 
                 con.Open();
                 var reader = command.ExecuteNonQuery();
@@ -103,7 +103,7 @@
                 //    CommandType = System.Data.CommandType.StoredProcedure,
                 //};
                 var command = new SqlCommand("SELECT TOP 1 [ID], [AuthorID], [PostID], " +
-                    "[CreationTime], [Text] " +
+                    "[CreationDate], [Text] " +
                     "FROM dbo.[Comments] WHERE [ID] = @id", con);
 
                 command.Parameters.Add(new SqlParameter("@id", commentID));
@@ -119,7 +119,7 @@
                         AuthorID = (Guid)reader["AuthorID"],
                         PostID = (Guid)reader["PostID"],
                         CommentText = (string)reader["Text"],
-                        CommentCreationTime = (DateTime)reader["CreationTime"],                       
+                        CommentCreationTime = (DateTime)reader["CreationDate"],                       
                     };
                 }
                 else
@@ -137,9 +137,9 @@
                 //{
                 //    CommandType = System.Data.CommandType.StoredProcedure,
                 //};
-                var command = new SqlCommand("SELECT [ID], [AuthorID], [PostID], " +
-                   "[CreationTime], [Text] " +
-                   "FROM dbo.[Comments] WHERE [PostID]=@PostID", con);
+                var command = new SqlCommand("SELECT [ID], [PostID], [AuthorID], " +
+                   "[CreationDate], [Text] " +
+                   "FROM dbo.[Comments] WHERE [PostID]=@PostID ORDER BY [CreationDate]", con);
 
                 command.Parameters.Add(new SqlParameter("@PostID", postID));
 
@@ -154,7 +154,7 @@
                         AuthorID = (Guid)reader["AuthorID"],
                         PostID = (Guid)reader["PostID"],
                         CommentText = (string)reader["Text"],
-                        CommentCreationTime = (DateTime)reader["CreationTime"],
+                        CommentCreationTime = (DateTime)reader["CreationDate"],
                     };
                 }
             }

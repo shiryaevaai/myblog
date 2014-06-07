@@ -1,0 +1,64 @@
+﻿@model EpamTask.MyBlog.WebInterface.Models.BlogPostModel
+
+@{
+    ViewBag.Title = "PostAndComments";
+}
+
+<div>
+    <h4>BlogPostModel</h4>
+    <hr />
+
+    @Html.HiddenFor(model => model.PostID)
+    @Html.HiddenFor(model => model.Privacy)
+    @Html.HiddenFor(model => model.AuthorID)
+
+    <div class="container-fluid">
+
+        <div class="col-xs-12">
+            <h4>
+                @Html.DisplayFor(model => model.PostTitle)
+            </h4>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="col-xs-12 pull-left">
+            @Html.DisplayFormattedData(Model.PostContent)
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="col-xs-12">
+            @Html.DisplayFor(model => model.PostCreationTime)
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="col-xs-12">
+            @Html.Action("PostComments", new { id = Model.PostID })
+        </div>
+    </div>
+
+    @if (User.Identity != null && User.Identity.IsAuthenticated)
+    {
+        <div class="container-fluid">
+            <div class="col-xs-12">
+                @Html.Action("AddComment", "Blog", new { postID = Model.PostID, authorID = BlogUserModel.GetUser(User.Identity.Name).ID })
+            </div>
+        </div>
+    }
+
+</div>
+
+        @if (User.Identity.Name == BlogUserModel.GetUser(Model.AuthorID).BlogUserLogin)
+        {
+            <p>
+                @Html.ActionLink("Редактировать пост", "EditPost", "Blog", new { model = Model }, null) |
+                @Html.ActionLink("Удалить пост", "DeletePost", "Blog", new { model = Model }, null)
+            </p>
+        }
+
+        <p>
+            @Html.ActionLink("Назад", "Index", new { id = Model.AuthorID })
+        </p>
+

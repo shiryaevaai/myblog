@@ -69,6 +69,68 @@
             return View(model);
         }
 
+        public ActionResult PostAndComments(Guid id)
+        {
+            BlogPostModel model = BlogPostModel.GetPost(id);
+            return View(model);
+        }
+
+        [ChildActionOnly]
+        public ActionResult PostComments(Guid id)
+        {
+            var model = BlogPostModel.GetPostComments(id);
+            return PartialView(model);
+        }
+
+        [ChildActionOnly]
+        public ActionResult AddComment(Guid postID, Guid authorID)
+        {
+            var model = new CommentModel()
+            {
+                PostID = postID,
+                AuthorID = authorID,                
+            };
+
+            return PartialView(model);           
+        }
+
+        [HttpPost]
+        public ActionResult AddComment(CommentModel model)
+        {
+            try 
+            { 
+                CommentModel.AddComment(model);
+            }
+            catch
+            {
+                return RedirectToAction("Index", "Blog", new { id = BlogPostModel.GetPost( model.PostID).AuthorID });
+            }
+
+            return RedirectToAction("Index", "Blog", new { id = BlogPostModel.GetPost(model.PostID).AuthorID });
+        }
+
+        public ActionResult DeleteComment(Guid id)
+        {
+            var model = CommentModel.GetComment(id);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteComment(CommentModel model)
+        {
+            try
+            {
+                CommentModel.DeleteComment(model.CommentID);
+            }
+            catch
+            {
+                return RedirectToAction("PostAndComments", "Blog", new { id = BlogPostModel.GetPost(model.PostID).PostID });
+            }
+
+            return RedirectToAction("PostAndComments", "Blog", new { id = BlogPostModel.GetPost(model.PostID).PostID });
+        }
+
         public ActionResult Feeds(Guid id)
         {
             return View();
