@@ -39,6 +39,7 @@
         //=============================================
         [Required(ErrorMessage = "Необходимо ввести текст комментария!")]
         [Display(Name = "Комментарий:")]
+        [StringLength(250, MinimumLength = 3, ErrorMessage = "Длина текста комментария должна быть от 3 до 250 символов")]
         public string CommentText { get; set; }
 
         bool IEquatable<CommentModel>.Equals(CommentModel other)
@@ -117,6 +118,20 @@
                 CommentCreationTime = item.CommentCreationTime,
                 CommentText = item.CommentText,
             };
+        }
+
+        public static bool UpdateComment(CommentModel model)
+        {
+            var comment = new PostComment()
+            {
+                CommentID = model.CommentID,
+                PostID = model.PostID,
+                AuthorID = model.AuthorID,
+                CommentCreationTime = model.CommentCreationTime,
+                CommentText = model.CommentText,
+            };
+
+            return BusinessLogicHelper._logic.UpdateComment(comment);
         }
     }
 }

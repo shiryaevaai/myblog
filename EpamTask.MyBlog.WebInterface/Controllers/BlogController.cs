@@ -109,9 +109,37 @@
             return RedirectToAction("Index", "Blog", new { id = BlogPostModel.GetPost(model.PostID).AuthorID });
         }
 
-        public ActionResult DeleteComment(Guid id)
+        public ActionResult EditComment(Guid commentID)
         {
-            var model = CommentModel.GetComment(id);
+            var model = CommentModel.GetComment(commentID);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditComment(CommentModel model)
+        {
+            try
+            {
+                if (CommentModel.UpdateComment(model))
+                {
+                    return RedirectToAction("PostAndComments", "Blog", new { id = model.PostID });
+                }
+                else
+                {
+                    return View(model);
+                }
+            }
+            catch
+            {
+                return View(model);
+            }         
+        }
+
+        public ActionResult DeleteComment(Guid commentID)
+        {
+            var model = CommentModel.GetComment(commentID);
             return View(model);
         }
 
@@ -125,10 +153,10 @@
             }
             catch
             {
-                return RedirectToAction("PostAndComments", "Blog", new { id = BlogPostModel.GetPost(model.PostID).PostID });
+                return RedirectToAction("PostAndComments", "Blog", new { id = model.PostID});
             }
 
-            return RedirectToAction("PostAndComments", "Blog", new { id = BlogPostModel.GetPost(model.PostID).PostID });
+            return RedirectToAction("PostAndComments", "Blog", new { id = model.PostID});
         }
 
         [ChildActionOnly]
@@ -137,6 +165,56 @@
             int model = BlogPostModel.GetPostComments(postID).Count();
 
             return PartialView(model);
+        }
+
+        public ActionResult EditPost(Guid postID)
+        {
+            var model = new EditPostModel(postID);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPost(EditPostModel model)
+        {
+            try
+            {
+                if (EditPostModel.UpdatePost(model))
+                {
+                    return RedirectToAction("PostAndComments", "Blog", new { id = model.PostID });
+                }
+                else
+                {
+                    return View(model);
+                }
+            }
+            catch
+            {
+                return View(model);
+            }           
+        }
+
+        public ActionResult DeletePost(Guid postID)
+        {
+            var model = BlogPostModel.GetPost(postID);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeletePost(BlogPostModel model)
+        {
+            try
+            {
+                BlogPostModel.DeletePost(model.PostID);
+            }
+            catch
+            {
+                return RedirectToAction("PostAndComments", "Blog", new { id = model.PostID });
+            }
+
+            return RedirectToAction("Index", "Blog", new { id = model.AuthorID });
         }
 
         public ActionResult Feeds(Guid id)

@@ -62,7 +62,7 @@
                 //};
 
                 var command = new SqlCommand(
-                   "UPDATE dbo.[BlogPosts] " +
+                   "UPDATE dbo.[Comments] " +
                    "SET [AuthorID]=@AuthorID, [PostID]=@PostID, " +
                    "[CreationDate]=@CreationDate, [Text]=@Text " +
                    "WHERE [ID]=@ID", con);

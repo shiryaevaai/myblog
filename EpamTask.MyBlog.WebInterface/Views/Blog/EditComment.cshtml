@@ -1,36 +1,38 @@
 ﻿@model EpamTask.MyBlog.WebInterface.Models.CommentModel
 
-@using (Html.BeginForm("AddComment", "Blog", FormMethod.Post)) 
+@{
+    ViewBag.Title = "EditComment";
+}
+
+<h2>Редактировать комментарий</h2>
+
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
+
         <hr />
         @Html.ValidationSummary(true)
-
-        @Html.HiddenFor(model => model.CommentID)
-
-        @Html.HiddenFor(model => model.AuthorID)
-
+        
         @Html.HiddenFor(model => model.PostID)
+        @Html.HiddenFor(model => model.AuthorID)
+        @Html.HiddenFor(model => model.CommentCreationTime)
+      
 
         <div class="form-group">
             @Html.LabelFor(model => model.CommentText, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(model => model.CommentText)
+            <div class="col-md-8">
+                @Html.TextAreaFor(model => model.CommentText, new { @class = "col-md-8" })
                 @Html.ValidationMessageFor(model => model.CommentText)
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-8">
-                <input type="submit" value="Добавить комментарий" class="btn btn-default" />
+                <input type="submit" value="Принять изменения" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
-@*@section scripts {
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-}*@

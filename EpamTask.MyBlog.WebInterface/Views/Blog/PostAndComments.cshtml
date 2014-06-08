@@ -5,7 +5,6 @@
 }
 
 <div>
-    <h4>BlogPostModel</h4>
     <hr />
 
     @Html.HiddenFor(model => model.PostID)
@@ -53,7 +52,12 @@
 @if (User.Identity.Name == BlogUserModel.GetUser(Model.AuthorID).BlogUserLogin)
 {
     <p>
-        @Html.ActionLink("Редактировать пост", "EditPost", "Blog", new { model = Model }, null) |
-        @Html.ActionLink("Удалить пост", "DeletePost", "Blog", new { model = Model }, null)
+        @Html.ActionLink("Редактировать пост", "EditPost", "Blog", new { postID = Model.PostID }, null) |
+        @Html.ActionLink("Удалить пост", "DeletePost", "Blog", new { postID = Model.PostID }, null)
     </p>
+}
+
+@section scripts {
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 }

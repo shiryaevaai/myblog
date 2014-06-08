@@ -34,12 +34,14 @@
 
         [Required(ErrorMessage = "Необходимо ввести название записи!")]
         [Display(Name = "Название")]
+        [StringLength(100, MinimumLength = 3, ErrorMessage = "Длина названия должна быть от 3 до 100 символов")]
         public string PostTitle { get; set; }
 
         [Required(ErrorMessage = "Необходимо ввести содержание записи!")]
         [Display(Name = "Контент")]
         public string PostContent { get; set; }
 
+        [StringLength(20, MinimumLength = 3, ErrorMessage = "Длина должна быть от 3 до 20 символов")]
         public string Privacy { get; set; }
 
         public void LikePost(Guid userID)
@@ -192,6 +194,11 @@
                     CommentText = item.CommentText, 
                 };
             }
+        }
+
+        public static void DeletePost(Guid guid)
+        {
+            BusinessLogicHelper._logic.DeletePost(guid);
         }
     }
 }

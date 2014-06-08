@@ -1,0 +1,58 @@
+﻿@model EpamTask.MyBlog.WebInterface.Models.BlogPostModel
+
+@{
+    ViewBag.Title = "DeletePost";
+}
+
+<h3>Удалить?</h3>
+<div>
+    <hr />    
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <fieldset>
+
+       
+            @Html.HiddenFor(model => model.PostID)
+            @Html.HiddenFor(model => model.AuthorID)
+            @Html.HiddenFor(model => model.PostContent)
+            @Html.HiddenFor(model => model.Privacy)
+     
+            <div class="container-fluid">
+                <div class="col-xs-3">
+                    @Html.DisplayNameFor(model => model.PostCreationTime)
+                </div>
+
+                <div class="col-xs-3">
+                    @Html.DisplayFor(model => model.PostCreationTime)
+                </div>
+
+                <div class="col-xs-6">
+                   
+                </div>
+            </div>
+
+            <div class="container-fluid">
+                <div class="col-xs-3">
+                    @Html.DisplayNameFor(model => model.PostTitle)
+                </div>
+
+                <div class="col-xs-3">
+                   @Html.DisplayFor(model => model.PostTitle)
+                </div>
+
+                <div class="col-xs-6">
+
+                </div>
+            </div>
+</fieldset>
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Удалить" class="btn btn-default" />
+        <div class="col-xs-6">
+            @Html.ActionLink("Перейти к посту", "PostAndComments", "Blog", new { id = Model.PostID }, null)
+        </div>
+    </div>
+    }
+</div>

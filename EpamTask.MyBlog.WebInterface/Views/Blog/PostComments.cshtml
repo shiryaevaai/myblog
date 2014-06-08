@@ -41,14 +41,14 @@
         @if (User.Identity.Name == BlogUserModel.GetUser(item.AuthorID).BlogUserLogin)
         {
         <td>
-            @Html.ActionLink("Редактировать", "EditComment", new { id = item.CommentID }) |
-            @Html.ActionLink("Удалить", "DeleteComment", new { id = item.CommentID })
+            @Html.ActionLink("Редактировать", "EditComment", new { commentID = item.CommentID }) |
+            @Html.ActionLink("Удалить", "DeleteComment", new { commentID = item.CommentID })
         </td>
         }
         else if (User.Identity.Name == BlogUserModel.GetUser(BlogPostModel.GetPost(item.PostID).AuthorID).BlogUserLogin)
         {
             <td>
-                @Html.ActionLink("Удалить", "DeleteComment", new { id = item.CommentID })
+                @Html.ActionLink("Удалить", "DeleteComment", new { commentID = item.CommentID })
             </td>
         }
         
