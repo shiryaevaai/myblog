@@ -292,5 +292,30 @@
         {
             return this._comments_dao.GetPostComments(postID).ToList();
         }
+
+        public bool AddTagToPost(Tag tag)
+        {
+            return this._posts_dao.AddTagToPost(tag);
+        }
+
+        public IEnumerable<Tag> GetPostTags(Guid postID)
+        {
+            return this._posts_dao.GetPostTags(postID).ToList();
+        }
+
+        public IEnumerable<Tag> GetUserTags(Guid userID)
+        {
+            return this._posts_dao.GetUserTags(userID).ToList();
+        }
+
+        public IEnumerable<BlogPost> GetUserTags(string tag)
+        {
+            return this._posts_dao.GetPostsByTag(tag).ToList();
+        }
+
+        public bool DeletePostTags(Guid postID)
+        {
+            return this._posts_dao.DeletePostTags(postID);
+        }
     }
 }

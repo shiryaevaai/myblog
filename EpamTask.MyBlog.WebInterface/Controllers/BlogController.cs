@@ -95,6 +95,7 @@
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult AddComment(CommentModel model)
         {
             try 
@@ -208,6 +209,42 @@
             try
             {
                 BlogPostModel.DeletePost(model.PostID);
+            }
+            catch
+            {
+                return RedirectToAction("PostAndComments", "Blog", new { id = model.PostID });
+            }
+
+            return RedirectToAction("Index", "Blog", new { id = model.AuthorID });
+        }
+
+        [ChildActionOnly]
+        public ActionResult PostTags(Guid postID)
+        {
+            var model = BlogPostModel.GetPostTags(postID);
+
+            return PartialView(model);
+        }
+
+        [ChildActionOnly]
+        public ActionResult UpdateTags(Guid postID, Guid authorID)
+        {
+            TagString model = new TagString()
+            {
+                PostID = postID,
+                AuthorID = authorID,
+            };
+
+            return PartialView(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UpdateTags(TagString model)
+        {
+            try
+            {
+                BlogPostModel.UpdateTags(model);
             }
             catch
             {

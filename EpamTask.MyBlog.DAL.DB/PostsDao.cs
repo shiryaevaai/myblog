@@ -194,5 +194,116 @@
                 }
             }
         }
+
+        public bool AddTagToPost(Tag tag)
+        {
+            using (var con = new SqlConnection(connectionString))
+            {
+                var command = new SqlCommand(
+                   "INSERT INTO dbo.[Tags] ([UserID], [PostID], [Tag]) " +
+                   "VALUES (@UserID, @PostID, @Tag)", con);
+
+                command.Parameters.Add(new SqlParameter("@UserID", tag.AuthorID));
+                command.Parameters.Add(new SqlParameter("@PostID", tag.PostID));
+                command.Parameters.Add(new SqlParameter("@Tag", tag.Title));
+
+                con.Open();
+                var reader = command.ExecuteNonQuery();
+                return reader > 0 ? true : false;
+            }
+        }
+
+        public IEnumerable<Tag> GetPostTags(Guid postID)
+        {
+            using (var con = new SqlConnection(connectionString))
+            {
+                var command = new SqlCommand("SELECT [UserID], [PostID], [Tag] " +
+                   "FROM dbo.[Tags] WHERE [PostID] = @id ORDER BY [Tag]", con);
+
+                command.Parameters.Add(new SqlParameter("@id", postID));
+
+                con.Open();
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    yield return new Tag()
+                    {
+                        PostID = (Guid)reader["PostID"],
+                        AuthorID = (Guid)reader["UserID"],
+                        Title = (string)reader["Tag"],
+                    };
+                }
+            }
+        }
+
+        public IEnumerable<Tag> GetUserTags(Guid userID)
+        {
+            using (var con = new SqlConnection(connectionString))
+            {
+                var command = new SqlCommand("SELECT [UserID], [PostID], [Tag] " +
+                   "FROM dbo.[Tags] WHERE [UserID] = @id ORDER BY [Tag]", con);
+
+                command.Parameters.Add(new SqlParameter("@id", userID));
+
+                con.Open();
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    yield return new Tag()
+                    {
+                        PostID = (Guid)reader["PostID"],
+                        AuthorID = (Guid)reader["UserID"],
+                        Title = (string)reader["Tag"],
+                    };
+                }
+            }
+        }
+
+        public IEnumerable<BlogPost> GetPostsByTag(string tag)
+        {
+            using (var con = new SqlConnection(connectionString))
+            {
+                var command = new SqlCommand("SELECT [ID], [AuthorID], [Title], " +
+                    "[CreationTime], [Text], [Privacy] " +
+                    "FROM dbo.[BlogPosts] INNER JOIN dbo.[Tags] " +
+                    "ON dbo.[BlogPosts].[ID] = dbo.[Tags].[PostID] " +
+                    "WHERE [Tag] = @tag ORDER BY [CreationTime] DESC", con);
+
+                command.Parameters.Add(new SqlParameter("@tag", tag));
+
+                con.Open();
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    yield return new BlogPost()
+                    {
+                        PostID = (Guid)reader["ID"],
+                        AuthorID = (Guid)reader["AuthorID"],
+                        PostTitle = (string)reader["Title"],
+                        PostCreationTime = (DateTime)reader["CreationTime"],
+                        PostContent = (string)reader["Text"],
+                        Privacy = (string)reader["Privacy"],
+                    };
+                }
+            }
+        }
+
+        public bool DeletePostTags(Guid postID)
+        {
+            using (var con = new SqlConnection(connectionString))
+            {
+                var command = new SqlCommand("DELETE FROM dbo.[Tags] WHERE [PostID] = @ID", con);
+
+                command.Parameters.Add(new SqlParameter("@ID", postID));
+
+                con.Open();
+                var reader = command.ExecuteNonQuery();
+
+                return reader > 0 ? true : false;
+            }
+        }
     }
 }

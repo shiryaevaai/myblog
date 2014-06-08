@@ -1,0 +1,29 @@
+﻿@model EpamTask.MyBlog.WebInterface.Models.TagString
+
+@using (Html.BeginForm("UpdateTags", "Blog", FormMethod.Post)) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Тэги:</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Tags, new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.Tags)
+                @Html.ValidationMessageFor(model => model.Tags)
+            </div>
+        </div>
+
+        @Html.HiddenFor(model => model.AuthorID)
+        @Html.HiddenFor(model => model.PostID)
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-8">
+                <input type="submit" value="Редактировать тэги" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}

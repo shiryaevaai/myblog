@@ -34,6 +34,32 @@
 
     <div class="container-fluid">
         <div class="col-xs-12">
+            @Html.Action("PostTags", new { postID = Model.PostID })
+        </div>
+    </div>
+
+
+    @if (User.Identity.Name == BlogUserModel.GetUser(Model.AuthorID).BlogUserLogin)
+    {
+
+        <div class="container-fluid">
+            <div class="col-xs-12">
+                @Html.ActionLink("Редактировать пост", "EditPost", "Blog", new { postID = Model.PostID }, null) |
+                @Html.ActionLink("Удалить пост", "DeletePost", "Blog", new { postID = Model.PostID }, null)
+            </div>
+        </div>
+        
+        <div class="container-fluid">
+            <div class="col-xs-12">
+                @Html.Action("UpdateTags", new { postID = Model.PostID, authorID = Model.AuthorID })
+            </div>
+        </div>
+        
+    }
+
+
+    <div class="container-fluid">
+        <div class="col-xs-12">
             @Html.Action("PostComments", new { id = Model.PostID })
         </div>
     </div>
@@ -49,13 +75,6 @@
 
 </div>
 
-@if (User.Identity.Name == BlogUserModel.GetUser(Model.AuthorID).BlogUserLogin)
-{
-    <p>
-        @Html.ActionLink("Редактировать пост", "EditPost", "Blog", new { postID = Model.PostID }, null) |
-        @Html.ActionLink("Удалить пост", "DeletePost", "Blog", new { postID = Model.PostID }, null)
-    </p>
-}
 
 @section scripts {
     <script src="~/Scripts/jquery.validate.min.js"></script>

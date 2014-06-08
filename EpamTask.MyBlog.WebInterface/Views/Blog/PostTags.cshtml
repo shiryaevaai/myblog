@@ -1,0 +1,30 @@
+﻿@model IEnumerable<EpamTask.MyBlog.Entities.Tag>
+
+@{
+    ViewBag.Title = "PostTags";
+}
+
+<h6>Тэги:</h6>
+
+
+<div class="container-fluid pull-left">
+    <div class="col-xs-8">
+        <table class="table">
+            <tr>
+                <th></th>
+            </tr>
+
+            <tr>
+                @foreach (var item in Model)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+
+                    @Html.HiddenFor(modelItem => item.AuthorID)
+                    @Html.HiddenFor(modelItem => item.PostID)
+                }
+            </tr>
+        </table>
+    </div>
+</div>

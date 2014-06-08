@@ -216,6 +216,7 @@
     <Compile Include="Models\HtmlExtensions.cs" />
     <Compile Include="Models\ImageHelper.cs" />
     <Compile Include="Models\RegistrationModel.cs" />
+    <Compile Include="Models\TagString.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -243,6 +244,8 @@
     <Content Include="Views\Blog\EditPost.cshtml" />
     <Content Include="Views\Blog\EditComment.cshtml" />
     <Content Include="Views\Blog\DeletePost.cshtml" />
+    <Content Include="Views\Blog\UpdateTags.cshtml" />
+    <Content Include="Views\Blog\PostTags.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

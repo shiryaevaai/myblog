@@ -21,5 +21,15 @@
         IEnumerable<BlogPost> GetAllPosts();
 
         IEnumerable<BlogPost> GetUserPosts(Guid userID);
+
+        bool AddTagToPost(Tag tag);
+
+        bool DeletePostTags(Guid postID);
+
+        IEnumerable<Tag> GetPostTags(Guid postID);
+
+        IEnumerable<Tag> GetUserTags(Guid userID);
+
+        IEnumerable<BlogPost> GetPostsByTag(string tag);
     }
 }

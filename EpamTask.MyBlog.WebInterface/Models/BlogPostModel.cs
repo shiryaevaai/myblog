@@ -200,5 +200,38 @@
         {
             BusinessLogicHelper._logic.DeletePost(guid);
         }
+
+        public static void UpdateTags(TagString model)
+        {
+            if (!string.IsNullOrWhiteSpace(model.Tags))
+            {
+                var tagArray = model.Tags.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+                BusinessLogicHelper._logic.DeletePostTags(model.PostID);
+
+                if (tagArray.Count() != 0)
+                {
+                    foreach (string tag in tagArray)
+                    {
+                        Tag newTag = new Tag()
+                        {
+                            AuthorID = model.AuthorID,
+                            PostID = model.PostID,
+                            Title = tag,
+                        };
+
+                        BusinessLogicHelper._logic.AddTagToPost(newTag);
+                    }
+                }
+            }
+            else
+            {
+                BusinessLogicHelper._logic.DeletePostTags(model.PostID);
+            }            
+        }
+
+        public static IEnumerable<Tag> GetPostTags(Guid postID)
+        {
+            return BusinessLogicHelper._logic.GetPostTags(postID);
+        }
     }
 }
