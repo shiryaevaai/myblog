@@ -131,6 +131,14 @@
             return RedirectToAction("PostAndComments", "Blog", new { id = BlogPostModel.GetPost(model.PostID).PostID });
         }
 
+        [ChildActionOnly]
+        public ActionResult GetCommentsNumber(Guid postID)
+        {
+            int model = BlogPostModel.GetPostComments(postID).Count();
+
+            return PartialView(model);
+        }
+
         public ActionResult Feeds(Guid id)
         {
             return View();

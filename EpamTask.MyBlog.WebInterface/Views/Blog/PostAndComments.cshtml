@@ -50,15 +50,10 @@
 
 </div>
 
-        @if (User.Identity.Name == BlogUserModel.GetUser(Model.AuthorID).BlogUserLogin)
-        {
-            <p>
-                @Html.ActionLink("Редактировать пост", "EditPost", "Blog", new { model = Model }, null) |
-                @Html.ActionLink("Удалить пост", "DeletePost", "Blog", new { model = Model }, null)
-            </p>
-        }
-
-        <p>
-            @Html.ActionLink("Назад", "Index", new { id = Model.AuthorID })
-        </p>
-
+@if (User.Identity.Name == BlogUserModel.GetUser(Model.AuthorID).BlogUserLogin)
+{
+    <p>
+        @Html.ActionLink("Редактировать пост", "EditPost", "Blog", new { model = Model }, null) |
+        @Html.ActionLink("Удалить пост", "DeletePost", "Blog", new { model = Model }, null)
+    </p>
+}

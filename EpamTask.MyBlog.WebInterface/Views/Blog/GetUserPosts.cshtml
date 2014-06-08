@@ -47,7 +47,10 @@ else
                 @if (User.Identity.Name == BlogUserModel.GetUser(item.AuthorID).BlogUserLogin)
                 {
                      <td>
-                        @Html.ActionLink("Комментарии", "PostAndComments", new {  id=item.PostID  }) |
+                        @Html.ActionLink("Комментарии" , 
+                                         "PostAndComments", 
+                                         new { id = item.PostID })
+                        @Html.Action("GetCommentsNumber", new { postID = item.PostID })|
                         @Html.ActionLink("Редактировать", "Edit", new { id = item.PostID }) |
                         @Html.ActionLink("Удалить", "Delete", new { id = item.PostID })
                     </td>
@@ -55,7 +58,9 @@ else
                 else
                 {
                      <td>
-                         @Html.ActionLink("Комментарии", "PostAndComments", new { id = item.PostID }) 
+                         @Html.ActionLink("Комментарии",
+                                         "PostAndComments", 
+                                         new { id = item.PostID }) 
                     </td>
                 }
                 

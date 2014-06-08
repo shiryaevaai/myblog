@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
-    
+    var epigraph = BlogUserModel.GetUser(Model).BlogUserEpigraph;
 }
 
 @if (User.Identity.Name == BlogUserModel.GetUser(Model).BlogUserLogin)
@@ -15,13 +15,22 @@ else
 }
 
 <div class="container-fluid">
-    <div class="col-xs-3">Здесь будет аватар, 
-    облако тэгов <br />
+    <div class="col-xs-3">
+        @*Здесь будет аватар, 
+    облако тэгов <br />*@
        
            @Html.Action("ShowAvatarOrDefault", "User", new { id=Model})
+           @Html.ActionLink("О пользователе", "UserInfo", "User", new { id = Model }, null)
+           @*@Html.Action("BlogTags", "Blog", new { id = Model })*@
 
     </div>
     <div class="col-xs-9">
+        @if (!String.IsNullOrWhiteSpace(epigraph))
+        { 
+          <h4>epigraph</h4>  
+        }
+        
+         
     @Html.Action("GetUserPosts", "Blog", new { id = Model })
     </div>
 </div>

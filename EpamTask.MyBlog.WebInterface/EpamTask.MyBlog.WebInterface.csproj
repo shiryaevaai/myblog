@@ -238,6 +238,7 @@
     <Content Include="Views\Blog\PostComments.cshtml" />
     <Content Include="Views\Blog\AddComment.cshtml" />
     <Content Include="Views\Blog\DeleteComment.cshtml" />
+    <Content Include="Views\Blog\GetCommentsNumber.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
