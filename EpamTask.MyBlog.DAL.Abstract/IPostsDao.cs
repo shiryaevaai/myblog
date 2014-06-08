@@ -31,5 +31,9 @@
         IEnumerable<Tag> GetUserTags(Guid userID);
 
         IEnumerable<BlogPost> GetPostsByTag(string tag);
+
+        IEnumerable<BlogPost> GetUserPostsByTag(Tag tag);
+
+        IEnumerable<BlogPost> GetPostsByText(string text);
     }
 }

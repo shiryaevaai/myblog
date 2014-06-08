@@ -2,4 +2,3 @@ C:\Users\User\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyB
 C:\Users\User\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyBlog.Entities\bin\Release\EpamTask.MyBlog.Entities.pdb
 C:\Users\User\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyBlog.Entities\obj\Release\EpamTask.MyBlog.Entities.dll
 C:\Users\User\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyBlog.Entities\obj\Release\EpamTask.MyBlog.Entities.pdb
-C:\Users\User\documents\visual studio 2013\Projects\EpamTask.MyBlog\EpamTask.MyBlog.Entities\obj\Release\EpamTask.MyBlog.Entities.csprojResolveAssemblyReference.cache

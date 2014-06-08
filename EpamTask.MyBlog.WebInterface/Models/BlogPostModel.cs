@@ -233,5 +233,29 @@
         {
             return BusinessLogicHelper._logic.GetPostTags(postID);
         }
+
+        public static IEnumerable<Tag> GetUserTags(Guid userID)
+        {
+            return BusinessLogicHelper._logic.GetUserTags(userID);
+        }
+
+        public static IEnumerable<BlogPostModel> GetUserPostsByTag(Tag tag)
+        {
+            var posts = BusinessLogicHelper._logic.GetUserPostsByTag(tag).ToList();
+            foreach (var item in posts)
+            {
+                BlogPostModel post = new BlogPostModel()
+                {
+                    PostID = item.PostID,
+                    AuthorID = item.AuthorID,
+                    PostTitle = item.PostTitle,
+                    PostContent = item.PostContent,
+                    PostCreationTime = item.PostCreationTime,
+                    Privacy = item.Privacy,
+                };
+
+                yield return post;
+            }
+        }
     }
 }

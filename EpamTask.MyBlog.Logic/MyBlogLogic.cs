@@ -308,14 +308,24 @@
             return this._posts_dao.GetUserTags(userID).ToList();
         }
 
-        public IEnumerable<BlogPost> GetUserTags(string tag)
+        public IEnumerable<BlogPost> GetPostsByTag(string tag)
         {
             return this._posts_dao.GetPostsByTag(tag).ToList();
+        }
+
+        public IEnumerable<BlogPost> GetUserPostsByTag(Tag tag)
+        {
+            return this._posts_dao.GetUserPostsByTag(tag).ToList();
         }
 
         public bool DeletePostTags(Guid postID)
         {
             return this._posts_dao.DeletePostTags(postID);
+        }
+
+        public IEnumerable<BlogPost> GetPostsByText(string text)
+        {
+            return this._posts_dao.GetPostsByText(text).ToList();
         }
     }
 }

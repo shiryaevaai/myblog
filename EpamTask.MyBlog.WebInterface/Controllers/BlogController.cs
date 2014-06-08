@@ -227,6 +227,35 @@
         }
 
         [ChildActionOnly]
+        public ActionResult UserTags(Guid userID)
+        {
+            var model = BlogPostModel.GetUserTags(userID);
+
+            return PartialView(model);
+        }
+              
+        public ActionResult GetUserPostsByTag(Guid authorID, Guid postID, string title)
+        {
+            var tag = new Tag()
+            {
+                AuthorID = authorID,
+                PostID = postID,
+                Title = title,
+            };
+
+            var model = BlogPostModel.GetUserPostsByTag(tag).ToList();
+
+            if (model.Count != 0)
+            {
+                return View(model);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Blog", new { id = authorID });
+            }
+        }
+
+        [ChildActionOnly]
         public ActionResult UpdateTags(Guid postID, Guid authorID)
         {
             TagString model = new TagString()

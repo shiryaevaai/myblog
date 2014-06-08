@@ -1,0 +1,25 @@
+﻿@model IEnumerable<EpamTask.MyBlog.Entities.Tag>
+
+
+<div class="container-fluid">
+    <h4>Тэги:</h4>
+    <div>
+        @foreach (var item in Model)
+        {
+            
+            <span>               
+                @Html.ActionLink(item.Title, "GetUserPostsByTag", "Blog", new { 
+                               authorID = item.AuthorID,
+                               postID = item.PostID,
+                               title = item.Title,               
+                    }, 
+                null)
+            </span>
+
+            @Html.HiddenFor(modelItem => item.AuthorID)
+
+            @Html.HiddenFor(modelItem => item.PostID)
+
+        }
+    </div>
+</div>

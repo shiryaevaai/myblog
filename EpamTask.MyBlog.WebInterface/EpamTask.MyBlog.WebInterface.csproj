@@ -202,6 +202,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -216,6 +217,7 @@
     <Compile Include="Models\HtmlExtensions.cs" />
     <Compile Include="Models\ImageHelper.cs" />
     <Compile Include="Models\RegistrationModel.cs" />
+    <Compile Include="Models\SearchModel.cs" />
     <Compile Include="Models\TagString.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -246,6 +248,11 @@
     <Content Include="Views\Blog\DeletePost.cshtml" />
     <Content Include="Views\Blog\UpdateTags.cshtml" />
     <Content Include="Views\Blog\PostTags.cshtml" />
+    <Content Include="Views\Blog\UserTags.cshtml" />
+    <Content Include="Views\Blog\GetUserPostsByTag.cshtml" />
+    <Content Include="Views\Search\SearchResults.cshtml" />
+    <Content Include="Views\Search\SearchPostsByText.cshtml" />
+    <Content Include="Views\Search\SearchPostsByTextResults.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

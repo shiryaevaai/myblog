@@ -1,0 +1,162 @@
+﻿@model IEnumerable<EpamTask.MyBlog.WebInterface.Models.BlogPostModel>
+
+@{
+    ViewBag.Title = "GetUserPostsByTag";
+    var userID = Model.First().AuthorID;
+    var epigraph = BlogUserModel.GetUser(userID).BlogUserEpigraph;
+}
+
+@if (User.Identity.Name == BlogUserModel.GetUser(userID).BlogUserLogin)
+{
+    <h2>Мой блог</h2>
+}
+else
+{
+    <h2>@BlogUserModel.GetUser(userID).BlogUserLogin</h2>
+}
+
+<div class="container-fluid">
+    <div class="col-xs-3">
+
+        @Html.Action("ShowAvatarOrDefault", "User", new { id = userID })
+        @Html.ActionLink("О пользователе", "UserInfo", "User", new { id = userID }, null)
+        @Html.Action("UserTags", "Blog", new { userID = userID })
+
+    </div>
+    <div class="col-xs-9">
+        @if (!String.IsNullOrWhiteSpace(epigraph))
+        {
+            <h4>@epigraph</h4>
+        }
+
+
+        @if (Model.Count() == 0)
+        {
+            @:В блоге пока нет записей с этим тэгом
+        }
+        else
+        {
+            <table class="table">
+                <tr>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <div class="container-fluid">
+                                @Html.HiddenFor(modelItem => item.PostID)
+                                @Html.HiddenFor(modelItem => item.Privacy)
+                                @Html.HiddenFor(modelItem => item.AuthorID)
+
+                                <div class="container-fluid">
+
+                                    <div class="col-xs-9">
+                                        <h4>
+                                            @Html.DisplayFor(modelItem => item.PostTitle)
+                                        </h4>
+                                    </div>
+                                </div>
+
+                                <div class="container-fluid">
+                                    <div class="col-xs-9 pull-left">
+                                        @Html.DisplayFormattedData(item.PostContent)
+                                    </div>
+                                </div>
+
+                                <div class="container-fluid">
+                                    <div class="col-xs-9">
+                                        @Html.DisplayFor(modelItem => item.PostCreationTime)
+                                    </div>
+                                </div>
+
+                                <div class="container-fluid">
+                                    <div class="col-xs-12">
+                                        @Html.Action("PostTags", new { postID = item.PostID })
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+
+                        @if (User.Identity.Name == BlogUserModel.GetUser(item.AuthorID).BlogUserLogin)
+                        {
+                            <td>
+                                @Html.ActionLink("Комментарии",
+                                                 "PostAndComments",
+                                                 new { id = item.PostID })
+                                @Html.Action("GetCommentsNumber", new { postID = item.PostID })|
+                                @Html.ActionLink("Редактировать пост", "EditPost", "Blog", new { postID = item.PostID }, null) |
+                                @Html.ActionLink("Удалить пост", "DeletePost", "Blog", new { postID = item.PostID }, null)
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @Html.ActionLink("Комментарии",
+                                                 "PostAndComments",
+                                                 new { id = item.PostID })
+                            </td>
+                        }
+
+                    </tr>
+                }
+
+            </table>
+        }
+    </div>
+</div>
+
+
+@*<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PostID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PostCreationTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AuthorID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PostTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PostContent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Privacy)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PostID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PostCreationTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AuthorID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PostTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PostContent)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Privacy)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>*@

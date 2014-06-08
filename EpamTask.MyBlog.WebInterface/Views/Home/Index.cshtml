@@ -2,36 +2,16 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Главная страница</h2>
 
 <div class="container-fluid">
-    <div class="col-xs-12">
-        Fluid 12
-        <div class="container-fluid">
-            <div class="col-xs-6">
-                Fluid 6
-                <div class="container-fluid">
-                    <div class="col-xs-6">Fluid 6</div>
-                    <div class="col-xs-6">Fluid 6</div>
-                </div>
-            </div>
-            <div class="col-xs-6">Fluid 6</div>
+        <div class="col-xs-4">
+
+            @Html.Action("SearchPostsByText", "Search")
+            @*@Html.Action("SearchPostsByTag", "Search")*@
+
         </div>
-    </div>
-</div>
-
-<div class="container-fluid">
-        <div class="col-xs-4">Здесь будет поиск(по тэгам, по тексту, по имени)</div>
         <div class="col-xs-8">
             @Html.Action("GetAllPosts", "Blog")
         </div>
-    </div>
-
-.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1
-
-<div class="container">
-    <div class="row">
-        <div class="col-lg-4">...</div>
-        <div class="col-lg-8">...</div>
-    </div>
 </div>

@@ -291,6 +291,66 @@
             }
         }
 
+        public IEnumerable<BlogPost> GetPostsByText(string text)
+        {
+            using (var con = new SqlConnection(connectionString))
+            {
+                var command = new SqlCommand("SELECT [ID], [AuthorID], [Title], " +
+                    "[CreationTime], [Text], [Privacy] " +
+                    "FROM dbo.[BlogPosts] " +
+                    "WHERE ([Text] LIKE '%' + @text + '%') ORDER BY [CreationTime] DESC", con);
+
+                command.Parameters.Add(new SqlParameter("@text", text));
+
+                con.Open();
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    yield return new BlogPost()
+                    {
+                        PostID = (Guid)reader["ID"],
+                        AuthorID = (Guid)reader["AuthorID"],
+                        PostTitle = (string)reader["Title"],
+                        PostCreationTime = (DateTime)reader["CreationTime"],
+                        PostContent = (string)reader["Text"],
+                        Privacy = (string)reader["Privacy"],
+                    };
+                }
+            }
+        }
+
+        public IEnumerable<BlogPost> GetUserPostsByTag(Tag tag)
+        {
+            using (var con = new SqlConnection(connectionString))
+            {
+                var command = new SqlCommand("SELECT [ID], [AuthorID], [Title], " +
+                    "[CreationTime], [Text], [Privacy] " +
+                    "FROM dbo.[BlogPosts] INNER JOIN dbo.[Tags] " +
+                    "ON dbo.[BlogPosts].[ID] = dbo.[Tags].[PostID] " +
+                    "WHERE [Tag] = @tag AND [AuthorID]=@AuthorID ORDER BY [CreationTime] DESC", con);
+
+                command.Parameters.Add(new SqlParameter("@tag", tag.Title));
+                command.Parameters.Add(new SqlParameter("@AuthorID", tag.AuthorID));
+
+                con.Open();
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    yield return new BlogPost()
+                    {
+                        PostID = (Guid)reader["ID"],
+                        AuthorID = (Guid)reader["AuthorID"],
+                        PostTitle = (string)reader["Title"],
+                        PostCreationTime = (DateTime)reader["CreationTime"],
+                        PostContent = (string)reader["Text"],
+                        Privacy = (string)reader["Privacy"],
+                    };
+                }
+            }
+        }
+
         public bool DeletePostTags(Guid postID)
         {
             using (var con = new SqlConnection(connectionString))

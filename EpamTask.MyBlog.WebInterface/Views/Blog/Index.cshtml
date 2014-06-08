@@ -21,7 +21,7 @@ else
        
            @Html.Action("ShowAvatarOrDefault", "User", new { id=Model})
            @Html.ActionLink("О пользователе", "UserInfo", "User", new { id = Model }, null)
-           @*@Html.Action("BlogTags", "Blog", new { id = Model })*@
+           @Html.Action("UserTags", "Blog", new { userID = Model })
 
     </div>
     <div class="col-xs-9">

@@ -41,6 +41,11 @@ else
                             </div>
                         </div>
 
+                        <div class="container-fluid">
+                            <div class="col-xs-12">
+                                @Html.Action("PostTags", new { postID = item.PostID })
+                            </div>
+                        </div>
                     </div>
                 </td>
 
