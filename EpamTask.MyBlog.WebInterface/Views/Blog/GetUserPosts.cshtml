@@ -49,7 +49,8 @@ else
                     </div>
                 </td>
 
-                @if (User.Identity.Name == BlogUserModel.GetUser(item.AuthorID).BlogUserLogin)
+                @if (User.Identity.Name == BlogUserModel.GetUser(item.AuthorID).BlogUserLogin||
+                    User.IsInRole("Admin"))
                 {
                      <td>
                         @Html.ActionLink("Комментарии" , 

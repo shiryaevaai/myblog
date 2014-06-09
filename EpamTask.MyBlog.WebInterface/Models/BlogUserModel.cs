@@ -14,11 +14,10 @@
 
     public class BlogUserModel : IEquatable<BlogUserModel>
     {
-        public static string DefaultImage = BlogUserAvatar.DefaultUserImage;
-               
-        private List<string> tagCloud;
-
-        // private List<RoleModel> roleList;
+        public static string DefaultImage = BlogUserAvatar.DefaultUserImage;             
+ 
+        public List<Role> roleList;
+        public List<Role> hasNotRoleList;
 
         public BlogUserModel() 
         { 

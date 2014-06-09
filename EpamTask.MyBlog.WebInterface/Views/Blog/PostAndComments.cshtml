@@ -12,7 +12,8 @@
     @Html.HiddenFor(model => model.AuthorID)
 
     <div class="container-fluid">
-
+        <h5>@Html.ActionLink(BlogUserModel.GetUser(Model.AuthorID).BlogUserLogin, "Index", "Blog", new { id = Model.AuthorID }, null)
+        </h5>
         <div class="col-xs-12">
             <h4>
                 @Html.DisplayFor(model => model.PostTitle)
@@ -39,7 +40,8 @@
     </div>
 
 
-    @if (User.Identity.Name == BlogUserModel.GetUser(Model.AuthorID).BlogUserLogin)
+    @if (User.Identity.Name == BlogUserModel.GetUser(Model.AuthorID).BlogUserLogin ||
+                    User.IsInRole("Admin"))
     {
 
         <div class="container-fluid">

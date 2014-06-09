@@ -11,9 +11,9 @@
 
     using EpamTask.MyBlog.Logic;
     using EpamTask.MyBlog.Entities;
-    using System.Web.Http.Cors;
+   // using System.Web.Http.Cors;
 
-    [EnableCors("*", "*", "POST")]
+    //[EnableCors("*", "*", "POST")]
     public class AccountController : Controller
     {
         //

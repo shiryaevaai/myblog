@@ -1,0 +1,38 @@
+﻿@model IEnumerable<EpamTask.MyBlog.Entities.BlogUser>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Управление пользователями</h2>
+
+<table>
+    <tr>
+        <th>
+
+            @Html.Label("Список пользователей:")
+
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            @if (User.Identity.Name != item.BlogUserLogin)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.BlogUserLogin)
+
+                </td>
+                <td>
+                    @Html.ActionLink("Добавить роль", "AddRole", new { accountID = item.ID }) |
+                    @Html.ActionLink("Удалить роль", "DeleteRole", new { accountID = item.ID }) |
+                    @Html.ActionLink("Список ролей", "Details", new { accountID = item.ID }) |
+                    @Html.ActionLink("Удалить пользователя", "DeleteUser", new { accountID = item.ID }) 
+                </td>
+            }
+        </tr>
+    }
+
+</table>

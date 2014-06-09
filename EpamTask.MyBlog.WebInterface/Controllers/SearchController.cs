@@ -35,9 +35,9 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SearchPostsByTagResults(string tag)
+        public ActionResult SearchPostsByTagResults(SearchModel tag)
         {
-            var model = SearchModel.SearchPostsByTag(tag).ToList();
+            var model = SearchModel.SearchPostsByTag(tag.SearchText).ToList();
 
             if (model.Count != 0)
             {

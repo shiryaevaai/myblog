@@ -1,0 +1,24 @@
+﻿@model EpamTask.MyBlog.WebInterface.Models.SearchModel
+
+@using (Html.BeginForm("SearchPostsByTagResults", "Search", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal container-fluid">
+        <h4>Поиск по тэгам:</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.SearchText)
+                @Html.ValidationMessageFor(model => model.SearchText)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-4">
+                <input type="submit" value="Начать поиск" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}

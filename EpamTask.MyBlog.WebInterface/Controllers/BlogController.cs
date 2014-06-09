@@ -16,6 +16,7 @@
     {
         //
         // GET: /Blog/
+        //[Authorize(Roles = "Admin")]
         public ActionResult Index(Guid id)
         {
             return View(id);
