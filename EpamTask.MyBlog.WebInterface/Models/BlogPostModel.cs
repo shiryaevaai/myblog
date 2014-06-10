@@ -127,9 +127,9 @@
             return BusinessLogicHelper._logic.AddPost(post);
         }
 
-        public static IEnumerable<BlogPostModel> GetUserPosts(Guid id)
+        public static IEnumerable<BlogPostModel> GetUserPosts(Guid userID)
         {
-            var posts = BusinessLogicHelper._logic.GetUserPosts(id).ToList();
+            var posts = BusinessLogicHelper._logic.GetUserPosts(userID).ToList();
             foreach (var item in posts)
             {
                 BlogPostModel post = new BlogPostModel()
@@ -206,7 +206,37 @@
             if (!string.IsNullOrWhiteSpace(model.Tags))
             {
                 var tagArray = model.Tags.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-                if (BusinessLogicHelper._logic.DeletePostTags(model.PostID))
+
+                var hasTags = BusinessLogicHelper._logic.GetPostTags(model.PostID);
+
+                if (hasTags.Count()!=0)
+                {
+                    if (BusinessLogicHelper._logic.DeletePostTags(model.PostID))
+                    {
+                        if (tagArray.Count() != 0)
+                        {
+                            foreach (string tag in tagArray)
+                            {
+                                Tag newTag = new Tag()
+                                {
+                                    AuthorID = model.AuthorID,
+                                    PostID = model.PostID,
+                                    Title = tag,
+                                };
+
+                                if (!BusinessLogicHelper._logic.AddTagToPost(newTag))
+                                {
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
                 {
                     if (tagArray.Count() != 0)
                     {
@@ -225,9 +255,9 @@
                             }
                         }
                     }
-                }
+                }                
 
-                return true; 
+               return true; 
             }
             else
             {

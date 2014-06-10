@@ -15,11 +15,11 @@
 
     public class BlogController : Controller
     {
-        public ActionResult Index(Guid id)
+        public ActionResult Index(Guid userID)
         {
             try
             {
-                return View(id);
+                return View(userID);
             }
             catch (Exception ex)
             {
@@ -30,11 +30,11 @@
         }
 
         [ChildActionOnly]
-        public ActionResult GetUserPosts(Guid id)
+        public ActionResult GetUserPosts(Guid userID)
         {
             try
             {
-                var model = BlogPostModel.GetUserPosts(id).ToList();
+                var model = BlogPostModel.GetUserPosts(userID).ToList();
                 return PartialView(model);
             }
             catch (Exception ex)
@@ -61,13 +61,13 @@
             }
         }
 
-        public ActionResult CreatePost(Guid id)
+        public ActionResult CreatePost(Guid userID)
         {
             try
             {
                 BlogPostModel model = new BlogPostModel()
                 {
-                    AuthorID = id,
+                    AuthorID = userID,
                 };
 
                 return View(model);
@@ -90,7 +90,7 @@
                 {
                     if (BlogPostModel.CreatePost(model))
                     {
-                        return RedirectToAction("Index", "Blog", new { id = model.AuthorID });
+                        return RedirectToAction("Index", "Blog", new { userID = model.AuthorID });
                     }
                     else
                     {
@@ -110,11 +110,11 @@
             }            
         }
 
-        public ActionResult PostAndComments(Guid id)
+        public ActionResult PostAndComments(Guid postID)
         {
             try
             {
-                BlogPostModel model = BlogPostModel.GetPost(id);
+                BlogPostModel model = BlogPostModel.GetPost(postID);
                 return View(model);
             }
             catch (Exception ex)
@@ -126,11 +126,11 @@
         }
 
         [ChildActionOnly]
-        public ActionResult PostComments(Guid id)
+        public ActionResult PostComments(Guid postID)
         {
             try
             {
-                var model = BlogPostModel.GetPostComments(id);
+                var model = BlogPostModel.GetPostComments(postID);
                 return PartialView(model);
             }
             catch (Exception ex)
@@ -170,11 +170,12 @@
             {
                 if (CommentModel.AddComment(model))
                 {
-                    return RedirectToAction("Index", "Blog", new { id = BlogPostModel.GetPost(model.PostID).AuthorID });
+                    return RedirectToAction("Index", "Blog", new { userID = BlogPostModel.GetPost(model.PostID).AuthorID });
                 }
                 else
                 {
-                    return RedirectToAction("PostAndComments", "Blog", new { id = BlogPostModel.GetPost(model.PostID).AuthorID });
+                    //?????
+                    return RedirectToAction("PostAndComments", "Blog", new { postID = model.PostID });
                 }
             }
             catch (Exception ex)
@@ -208,7 +209,7 @@
             {
                 if (CommentModel.UpdateComment(model))
                 {
-                    return RedirectToAction("PostAndComments", "Blog", new { id = model.PostID });
+                    return RedirectToAction("PostAndComments", "Blog", new { postID = model.PostID });
                 }
                 else
                 {
@@ -246,7 +247,7 @@
             {
                 if (CommentModel.DeleteComment(model.CommentID))
                 {
-                    return RedirectToAction("PostAndComments", "Blog", new { id = model.PostID });
+                    return RedirectToAction("PostAndComments", "Blog", new { postID = model.PostID });
                 }
                 else
                 {
@@ -300,7 +301,7 @@
             {
                 if (EditPostModel.UpdatePost(model))
                 {
-                    return RedirectToAction("PostAndComments", "Blog", new { id = model.PostID });
+                    return RedirectToAction("PostAndComments", "Blog", new { postID = model.PostID });
                 }
                 else
                 {
@@ -338,11 +339,11 @@
             {
                 if (BlogPostModel.DeletePost(model.PostID))
                 {
-                    return RedirectToAction("PostAndComments", "Blog", new { id = model.PostID });
+                    return RedirectToAction("PostAndComments", "Blog", new { postID = model.PostID });
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Blog", new { id = model.AuthorID });
+                    return RedirectToAction("Index", "Blog", new { userID = model.AuthorID });
                 }
             }
             catch (Exception ex)
@@ -404,7 +405,7 @@
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Blog", new { id = authorID });
+                    return RedirectToAction("Index", "Blog", new { userID = authorID });
                 }
             }
             catch (Exception ex)
@@ -444,11 +445,11 @@
             {
                 if (BlogPostModel.UpdateTags(model))
                 {
-                    return RedirectToAction("PostAndComments", "Blog", new { id = model.PostID });
+                    return RedirectToAction("PostAndComments", "Blog", new { postID = model.PostID });
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Blog", new { id = model.AuthorID });
+                    return RedirectToAction("Index", "Blog", new { userID = model.AuthorID });
                 }
             }
             catch (Exception ex)

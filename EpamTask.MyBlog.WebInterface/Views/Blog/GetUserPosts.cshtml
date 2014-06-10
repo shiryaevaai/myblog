@@ -55,7 +55,7 @@ else
                      <td>
                         @Html.ActionLink("Комментарии" , 
                                          "PostAndComments", 
-                                         new { id = item.PostID })
+                                         new { postID = item.PostID })
                         @Html.Action("GetCommentsNumber", new { postID = item.PostID })|
                         @Html.ActionLink("Редактировать пост", "EditPost", "Blog", new { postID = item.PostID }, null) |
                         @Html.ActionLink("Удалить пост", "DeletePost", "Blog", new { postID = item.PostID }, null)
@@ -66,7 +66,7 @@ else
                      <td>
                          @Html.ActionLink("Комментарии",
                                          "PostAndComments", 
-                                         new { id = item.PostID }) 
+                                         new { postID = item.PostID }) 
                     </td>
                 }
                 

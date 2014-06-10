@@ -19,7 +19,7 @@ else
     <div class="col-xs-3">
 
         @Html.Action("ShowAvatarOrDefault", "User", new { id = userID })
-        @Html.ActionLink("О пользователе", "UserInfo", "User", new { id = userID }, null)
+        @Html.ActionLink("О пользователе", "UserInfo", "User", new { userID = userID }, null)
         @Html.Action("UserTags", "Blog", new { userID = userID })
 
     </div>
@@ -84,7 +84,7 @@ else
                             <td>
                                 @Html.ActionLink("Комментарии",
                                                  "PostAndComments",
-                                                 new { id = item.PostID })
+                                                 new { postID = item.PostID })
                                 @Html.Action("GetCommentsNumber", new { postID = item.PostID })|
                                 @Html.ActionLink("Редактировать пост", "EditPost", "Blog", new { postID = item.PostID }, null) |
                                 @Html.ActionLink("Удалить пост", "DeletePost", "Blog", new { postID = item.PostID }, null)
@@ -95,7 +95,7 @@ else
                             <td>
                                 @Html.ActionLink("Комментарии",
                                                  "PostAndComments",
-                                                 new { id = item.PostID })
+                                                 new { postID = item.PostID })
                             </td>
                         }
 

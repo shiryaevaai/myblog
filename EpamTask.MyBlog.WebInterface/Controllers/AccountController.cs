@@ -168,7 +168,7 @@
                 var user = BlogUserModel.GetUser(model.Login);
                 if (user.TryToLogin(user.BlogUserLogin, user.BlogUserPassword))
                 {
-                    return RedirectToAction("UserInfo", "User", new { id = user.ID });
+                    return RedirectToAction("UserInfo", "User", new { userID = user.ID });
                 }
 
                 return View(model);

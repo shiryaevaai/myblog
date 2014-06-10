@@ -51,7 +51,7 @@
     <div class="form-actions no-color">
         <input type="submit" value="Удалить" class="btn btn-default" />
         <div class="col-xs-6">
-            @Html.ActionLink("Перейти к посту", "PostAndComments", "Blog", new { id = Model.PostID }, null)
+            @Html.ActionLink("Перейти к посту", "PostAndComments", "Blog", new { postID = Model.PostID }, null)
         </div>
     </div>
     }

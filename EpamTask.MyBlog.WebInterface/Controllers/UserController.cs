@@ -15,11 +15,11 @@
 
     public class UserController : Controller
     {
-        public ActionResult UserInfo(Guid id)
+        public ActionResult UserInfo(Guid userID)
         {
             try
             {
-                var model = BlogUserModel.GetUser(id);
+                var model = BlogUserModel.GetUser(userID);
                 return View(model);
             }
             catch (Exception ex)
@@ -30,11 +30,11 @@
             }
         }
 
-        public ActionResult EditProfile(Guid id)
+        public ActionResult EditProfile(Guid userID)
         {
             try
             {
-                var model = BlogUserModel.GetUser(id);
+                var model = BlogUserModel.GetUser(userID);
                 EditUserModel m = new EditUserModel()
                 {
                     ID = model.ID,
@@ -58,7 +58,7 @@
             {
                 if (BlogUserModel.EditProfile(model))
                 { 
-                     return RedirectToAction("UserInfo", "User", new {id = model.ID});
+                     return RedirectToAction("UserInfo", "User", new {userID = model.ID});
                 }
                 else
                 {
@@ -78,8 +78,7 @@
         {
             try
             {
-                Guid UserID = id;
-                return PartialView(UserID);
+                return PartialView(id);
             }
             catch (Exception ex)
             {
@@ -97,11 +96,11 @@
             {
                 if (ImageHelper.SetUserAvatar(image, id))
                 {
-                    return RedirectToAction("UserInfo", "User", new { id = id });
+                    return RedirectToAction("UserInfo", "User", new { userID = id });
                 }
                 else
                 {
-                    return RedirectToAction("EditProfile", new { id = id });
+                    return RedirectToAction("EditProfile", new { userID = id });
                 }
             }
             catch (Exception ex)

@@ -16,11 +16,9 @@ else
 
 <div class="container-fluid">
     <div class="col-xs-3">
-        @*Здесь будет аватар, 
-    облако тэгов <br />*@
        
            @Html.Action("ShowAvatarOrDefault", "User", new { id=Model})
-           @Html.ActionLink("О пользователе", "UserInfo", "User", new { id = Model }, null)
+           @Html.ActionLink("О пользователе", "UserInfo", "User", new { userID = Model }, null)
            @Html.Action("UserTags", "Blog", new { userID = Model })
 
     </div>
@@ -31,6 +29,6 @@ else
         }
         
          
-    @Html.Action("GetUserPosts", "Blog", new { id = Model })
+    @Html.Action("GetUserPosts", "Blog", new { userID = Model })
     </div>
 </div>

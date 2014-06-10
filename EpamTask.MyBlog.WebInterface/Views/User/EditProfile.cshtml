@@ -11,27 +11,13 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        @*<h4>BlogUserModel</h4>*@
+
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.ID)
 
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.HasAvatar, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.HasAvatar)
-                @Html.ValidationMessageFor(model => model.HasAvatar)
-            </div>
-        </div>*@
         @Html.HiddenFor(model => model.HasAvatar)
 
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.BlogUserLogin, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.BlogUserLogin)
-                @Html.ValidationMessageFor(model => model.BlogUserLogin)
-            </div>
-        </div>*@
         @Html.HiddenFor(model => model.BlogUserLogin)
 
         <div class="form-group">

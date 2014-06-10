@@ -34,7 +34,7 @@
 
                                 <div class="col-xs-3">
                                     @Html.HiddenFor(modelItem => item.AuthorID)
-                                    @Html.ActionLink(BlogUserModel.GetUser(item.AuthorID).BlogUserLogin, "Index", "Blog", new { id = item.AuthorID }, null)
+                                    @Html.ActionLink(BlogUserModel.GetUser(item.AuthorID).BlogUserLogin, "Index", "Blog", new { userID = item.AuthorID }, null)
                                 </div>
 
                                 <div class="col-xs-3">
@@ -44,7 +44,7 @@
                                 <div class="container-fluid">
                                     <div class="col-xs-8 pull-left">
                                         @Html.HiddenFor(modelItem => item.PostTitle)
-                                        @Html.ActionLink(item.PostTitle, "PostAndComments", "Blog", new { id = item.PostID }, null)
+                                        @Html.ActionLink(item.PostTitle, "PostAndComments", "Blog", new { postID = item.PostID }, null)
                                     </div>
                                 </div>
 

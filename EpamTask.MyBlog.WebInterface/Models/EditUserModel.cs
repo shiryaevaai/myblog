@@ -46,6 +46,7 @@
         [Display(Name = "Дата регистрации")]
         public DateTime RegistrationTime { get; set; }
 
+        [Display(Name = "Эпиграф")]
         public string BlogUserEpigraph { get; set; }
 
         //[Required(ErrorMessage = "Необходимо ввести адрес электронной почты!")]
