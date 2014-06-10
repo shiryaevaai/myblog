@@ -87,8 +87,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Gender, new { @class = "control-label col-md-2" })
             <div class="col-md-8">
-                @Html.RadioButtonFor(model => model.Gender, true, true) Male
-                @Html.RadioButtonFor(model => model.Gender, false, false) Female
+                @Html.RadioButtonFor(model => model.Gender, true, true) Мужской
+                @Html.RadioButtonFor(model => model.Gender, false, false) Женский
                 @Html.ValidationMessageFor(model => model.Gender)
             </div>
         </div>

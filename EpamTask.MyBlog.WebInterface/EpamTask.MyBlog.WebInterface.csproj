@@ -106,6 +106,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="404.html" />
+    <Content Include="500.html" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -183,6 +185,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Log4Net.config" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
@@ -222,8 +225,7 @@
     <Compile Include="Models\EditUserModel.cs" />
     <Compile Include="Models\HtmlExtensions.cs" />
     <Compile Include="Models\ImageHelper.cs" />
-    <Compile Include="Models\Log4NetLogger.cs" />
-    <Compile Include="Models\LogUtility.cs" />
+    <Compile Include="Models\Log4NetManager.cs" />
     <Compile Include="Models\MyRoleProvider.cs" />
     <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Models\SearchModel.cs" />
@@ -268,6 +270,7 @@
     <Content Include="Views\Admin\DeleteRoleFromUser.cshtml" />
     <Content Include="Views\Admin\UserRoleList.cshtml" />
     <Content Include="Views\Admin\AddRoleToUser.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

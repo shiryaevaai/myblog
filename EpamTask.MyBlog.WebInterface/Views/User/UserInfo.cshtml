@@ -9,8 +9,7 @@
 @if (Model.HasAvatar)
 {
     <div class="row-fluid show-grid">
-        <div class="span1">
-            @*<img src="@Url.Action("Index", "Home")" class="img-details" />*@
+        <div class="span1">           
             <img src="/User/ShowAvatar?id=@Model.ID" class="img-details" />
         </div>
 
@@ -19,9 +18,23 @@
         <div class="span4"></div>
         <div class="span4"></div>
 
-    </div>
-    @*@Html.Action("ShowAvatar", new { id=Model.ID})*@
+    </div>   
 }
+else
+{
+    <div class="row-fluid show-grid">
+        <div class="span1">
+            <img src="/Content/DefaultUserAvatar.jpg" class="img-details" />
+        </div>
+
+        <div class="span1"></div>
+        <div class="span2"></div>
+        <div class="span4"></div>
+        <div class="span4"></div>
+
+    </div>   
+}
+
 
 <div class="container-fluid">
     @Html.HiddenFor(model => model.HasAvatar)

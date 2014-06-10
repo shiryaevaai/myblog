@@ -1,6 +1,7 @@
 ﻿namespace EpamTask.MyBlog.WebInterface.Controllers
 {
     using EpamTask.MyBlog.WebInterface.Models;
+    using log4net;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -12,19 +13,17 @@
     {
         public ActionResult Index()
         {  
-            Log4NetLogger logger = new Log4NetLogger();
-            logger.Info("Test message for Log4Net");
-
+            ILog logger = LogManager.GetLogger(typeof(HomeController));
+            
             try
             {
-                throw new Exception("A test exception");
+                return View();
             }
             catch (Exception ex)
             {
-                Console.WriteLine("ERROR - An error has occurred");
-            }
-
-            return View();
+                logger.Error(ex.Message);
+                return View("Error.chtml");
+            }            
         }
     }
 }

@@ -42,7 +42,9 @@
         [Required(ErrorMessage = "Необходимо ввести дату рождения пользователя!")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Дата рождения")]
+        [Display(Name = "Дата рождения в формате dd/mm/yyyy")]
+        [RegularExpression(@"(((0[1-9]|[1-2][0-9])\/(02))|((0[1-9]|[1-2][0-9]|30)\/(0[469]|11))|((0[1-9]|[1-2][0-9]|3[01])\/(0[13578]|1[02])))\/(19[0-9][0-9]|20[0-9][0-9])",
+            ErrorMessage = "Некорректная дата")]
         public DateTime BirthDate { get; set; }
 
         //==================================

@@ -1,5 +1,6 @@
 ﻿namespace EpamTask.MyBlog.WebInterface.Controllers
 {
+    using log4net;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -16,97 +17,161 @@
     //[EnableCors("*", "*", "POST")]
     public class AccountController : Controller
     {
-        //
-        // GET: /Account/
         public ActionResult Index()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(AccountController));
+                logger.Error(ex.Message);
+                return View("Error.chtml");
+            }
         }
 
-        //
-        // GET: /Account/Details/5
         public ActionResult Login(string returnUrl)
         {
-            ViewBag.returnUrl = returnUrl;
-            return View();
+            try
+            {
+                ViewBag.returnUrl = returnUrl;
+                return View();
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(AccountController));
+                logger.Error(ex.Message);
+                return View("Error.chtml");
+            }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(BlogUserModel model, string returnUrl)
         {
-            // returnUrl
-              if (model.TryToLogin(model.BlogUserLogin, model.BlogUserPassword))
+            try
+            {
+                if (model.TryToLogin(model.BlogUserLogin, model.BlogUserPassword))
                 {
-                    try
-                    {
-                        return Redirect(returnUrl);
-                    }
-                    catch
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
+                    return Redirect(returnUrl);
                 }
-
-            return View(model);
+                else
+                {
+                    return View(model);
+                }
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(AccountController));
+                logger.Error(ex.Message);
+                return View("Error.chtml");
+            }
         }
 
-       // [ChildActionOnly]
+        //?
+        [ChildActionOnly]
         public ActionResult UserInformation()
         {
-            return PartialView();
+            try
+            {
+                return PartialView();
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(AccountController));
+                logger.Error(ex.Message);
+                return View("Error.chtml");
+            }
         }
 
         [ChildActionOnly]
         public ActionResult UserNavBar(string username)
         {
-            var model = BlogUserModel.GetUser(username);
-            return PartialView(model);
+            try
+            {
+                var model = BlogUserModel.GetUser(username);
+                return PartialView(model);
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(AccountController));
+                logger.Error(ex.Message);
+                return View("Error.chtml");
+            }
         }
 
         public ActionResult Logout()
         {
-            return View();
+            try
+            {
+                return View();
+            } 
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(AccountController));
+                logger.Error(ex.Message);
+                return View("Error.chtml");
+            }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Logout(ConfirmationModel model)
         {
-            if (model.Confirm)
+            try
             {
-                BlogUserModel.Logout();
-            }
+                if (model.Confirm)
+                {
+                    BlogUserModel.Logout();
+                }
 
-            return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(AccountController));
+                logger.Error(ex.Message);
+                return View("Error.chtml");
+            }
         }
 
         [HttpGet]
         public ActionResult CreateAccount()
         {
-            //RegistrationModel model = new BlogUserModel() { };
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(AccountController));
+                logger.Error(ex.Message);
+                return View("Error.chtml");
+            }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateAccount(RegistrationModel model)
         {
-            BlogUserModel.CreateAccount(model);
-            var user = BlogUserModel.GetUser(model.Login);
-            if (user.TryToLogin(user.BlogUserLogin, user.BlogUserPassword))
+            try
             {
-                try
+                BlogUserModel.CreateAccount(model);
+                var user = BlogUserModel.GetUser(model.Login);
+                if (user.TryToLogin(user.BlogUserLogin, user.BlogUserPassword))
                 {
                     return RedirectToAction("UserInfo", "User", new { id = user.ID });
                 }
-                catch
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-            }
 
-            return View(model);
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(AccountController));
+                logger.Error(ex.Message);
+                return View("Error.chtml");
+            }
         }
 
         [OutputCache(Location = OutputCacheLocation.None, NoStore = true)]
