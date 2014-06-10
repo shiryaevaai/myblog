@@ -44,7 +44,6 @@
         [Required(ErrorMessage = "Необходимо ввести имя пользователя!")]
         [Display(Name = "Имя пользователя")]
         [StringLength(16, MinimumLength = 3, ErrorMessage = "Длина имени пользователя должна быть от 3 до 16 символов")]
-        //[Remote("CheckAccountName", "Account")]
         public string BlogUserLogin { get; set; }
 
         //==================================
@@ -71,7 +70,6 @@
 
         //==================================
         [Required(ErrorMessage = "Необходимо ввести адрес электронной почты!")]
-        //[Remote("CheckEmail", "Account")]
         [RegularExpression(@"([a-z0-9]([a-z_0-9\.\-]*[a-z0-9])?)@([a-z0-9]([a-z_0-9\-]*)[a-z0-9]\.)+([a-z]{2,6})", 
             ErrorMessage = "Некорректный адрес электронной почты")]
         public string Email { get; set; }
@@ -185,33 +183,7 @@
            // model.ID = account.ID;
             BusinessLogicHelper._logic.AddUser(account);
         }
-
-        //public static bool CheckAccountName(string Username)
-        //{
-        //    var list = BusinessLogicHelper._logic.GetAllUsers();
-        //    foreach (var user in list)
-        //    {
-        //        if (user.BlogUserLogin == Username)
-        //        {
-        //            return false;
-        //        }
-        //    }
-        //    return true;
-        //}
-
-        //public static bool CheckEmail(string email)
-        //{
-        //    var list = BusinessLogicHelper._logic.GetAllUsers();
-        //    foreach (var user in list)
-        //    {
-        //        if (user.Email == email)
-        //        {
-        //            return false;
-        //        }
-        //    }
-        //    return true;
-        //}
-
+        
         public static BlogUserModel GetUser(Guid id)
         {
             var user = BusinessLogicHelper._logic.GetUserByID(id);

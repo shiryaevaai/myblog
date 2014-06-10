@@ -59,12 +59,12 @@
         [Required(ErrorMessage = "Необходимо ввести пол!")]
         public bool Gender { get; set; }
 
-        public static bool CheckAccountName(string Username)
+        public static bool CheckAccountName(string username)
         {
             var list = BusinessLogicHelper._logic.GetAllUsers();
             foreach (var user in list)
             {
-                if (user.BlogUserLogin == Username)
+                if (user.BlogUserLogin == username)
                 {
                     return false;
                 }

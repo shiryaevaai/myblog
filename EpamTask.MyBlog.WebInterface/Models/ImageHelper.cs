@@ -9,11 +9,18 @@
     {
         public static string FileName { get; private set; }
 
-        public static void SetUserAvatar(HttpPostedFileBase file, Guid userID)
+        public static bool SetUserAvatar(HttpPostedFileBase file, Guid userID)
         {
             file.SaveAs(Path.Combine("D:\\", userID.ToString()));
-            BusinessLogicHelper._logic.SetUserAvatar(userID, File.ReadAllBytes(Path.Combine("D:\\", userID.ToString())));
             FileName = file.FileName;
+            if (BusinessLogicHelper._logic.SetUserAvatar(userID, File.ReadAllBytes(Path.Combine("D:\\", userID.ToString()))))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public static void SaveFile(HttpPostedFileBase file)

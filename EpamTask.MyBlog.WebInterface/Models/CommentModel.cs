@@ -88,7 +88,7 @@
             return res;
         }
 
-        public static void AddComment(CommentModel model)
+        public static bool AddComment(CommentModel model)
         {
             var comment = new PostComment()
             {
@@ -99,12 +99,12 @@
                 CommentText = model.CommentText,
             };
 
-            BusinessLogicHelper._logic.AddComment(comment);
+            return BusinessLogicHelper._logic.AddComment(comment);
         }
 
-        public static void DeleteComment(Guid guid)
+        public static bool DeleteComment(Guid guid)
         {
-            BusinessLogicHelper._logic.DeleteComment(guid);
+            return BusinessLogicHelper._logic.DeleteComment(guid);
         }
 
         public static CommentModel GetComment(Guid id)

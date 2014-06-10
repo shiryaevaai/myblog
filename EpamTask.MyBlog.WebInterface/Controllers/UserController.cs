@@ -1,5 +1,9 @@
 ﻿namespace EpamTask.MyBlog.WebInterface.Controllers
 {
+    using EpamTask.MyBlog.Entities;
+    using EpamTask.MyBlog.Logic;
+    using log4net;
+
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -9,32 +13,41 @@
     using System.Web.UI;
     using WebInterface.Models;
 
-    using EpamTask.MyBlog.Logic;
-    using EpamTask.MyBlog.Entities;
     public class UserController : Controller
     {
-        //
-        // GET: /User/
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         public ActionResult UserInfo(Guid id)
         {
-            var model = BlogUserModel.GetUser(id);
-            return View(model);
+            try
+            {
+                var model = BlogUserModel.GetUser(id);
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(UserController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            }
         }
 
         public ActionResult EditProfile(Guid id)
         {
-            var model = BlogUserModel.GetUser(id);
-            EditUserModel m = new EditUserModel()
+            try
             {
-               ID = model.ID,
-               BirthDate = model.BirthDate,
-            };
-            return View(m);
+                var model = BlogUserModel.GetUser(id);
+                EditUserModel m = new EditUserModel()
+                {
+                    ID = model.ID,
+                    BirthDate = model.BirthDate,
+                };
+                return View(m);
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(UserController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            }
         }
 
         [HttpPost]
@@ -52,59 +65,97 @@
                     return View(model);
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                return View(model);
+                ILog logger = LogManager.GetLogger(typeof(UserController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
             }
         }
 
         [ChildActionOnly]
         public ActionResult UploadImage(Guid id)
         {
-            Guid UserID = id;
-            return PartialView(UserID);
+            try
+            {
+                Guid UserID = id;
+                return PartialView(UserID);
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(UserController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            }
         }
 
         [HttpPost]
-       // [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public ActionResult UploadImage(Guid id, HttpPostedFileBase image)
         {
-            Guid UserID = id;
             try
             {
-                BlogUserModel user = BlogUserModel.GetUser(id);
-                ImageHelper.SetUserAvatar(image, id);
+                if (ImageHelper.SetUserAvatar(image, id))
+                {
+                    return RedirectToAction("UserInfo", "User", new { id = id });
+                }
+                else
+                {
+                    return RedirectToAction("EditProfile", new { id = id });
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return RedirectToAction("EditProfile", new { id = UserID });
-            }
-
-            return RedirectToAction("UserInfo", "User", new { id = UserID });
+                ILog logger = LogManager.GetLogger(typeof(UserController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            }            
         }
 
         public ActionResult ShowAvatar(Guid id)
         {
-            return File(ImageHelper.GetUserAvatar(id), "image/jpeg");
+            try
+            {
+                return File(ImageHelper.GetUserAvatar(id), "image/jpeg");
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(UserController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            }
         }
 
         [ChildActionOnly]
         public ActionResult ShowAvatarOrDefault(Guid id)
         {
-            var model = BlogUserModel.GetUser(id);
-            return PartialView(model);
+            try
+            {
+                var model = BlogUserModel.GetUser(id);
+                return PartialView(model);
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(UserController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            }
         }
 
         [ChildActionOnly]
         public ActionResult ShowThumbnailAvatarOrDefault(Guid id)
         {
-            var model = BlogUserModel.GetUser(id);
-            return PartialView(model);
+            try
+            {
+                var model = BlogUserModel.GetUser(id);
+                return PartialView(model);
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(UserController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            }
         }
-
-        //public ActionResult GetUserImage(string path)
-        //{
-        //    return File(FileWorker.GetFile(path), "image/jpeg", path);
-        //}
 	}
 }

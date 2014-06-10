@@ -1,5 +1,9 @@
 ﻿namespace EpamTask.MyBlog.WebInterface.Controllers
 {
+    using EpamTask.MyBlog.Logic;
+    using EpamTask.MyBlog.Entities;
+    using log4net;
+
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -9,113 +13,191 @@
     using System.Web.UI;
     using WebInterface.Models;
 
-    using EpamTask.MyBlog.Logic;
-    using EpamTask.MyBlog.Entities;
-
     public class BlogController : Controller
     {
-        //
-        // GET: /Blog/
-        //[Authorize(Roles = "Admin")]
         public ActionResult Index(Guid id)
         {
-            return View(id);
+            try
+            {
+                return View(id);
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(BlogController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            }
         }
 
         [ChildActionOnly]
         public ActionResult GetUserPosts(Guid id)
         {
-            var model = BlogPostModel.GetUserPosts(id).ToList();
-            return PartialView(model);
+            try
+            {
+                var model = BlogPostModel.GetUserPosts(id).ToList();
+                return PartialView(model);
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(BlogController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            }
         }
 
         [ChildActionOnly]
         public ActionResult GetAllPosts()
         {
-            var model = BlogPostModel.GetAllPosts().ToList();
-            return PartialView(model);
+            try
+            {
+                var model = BlogPostModel.GetAllPosts().ToList();
+                return PartialView(model);
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(BlogController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            }
         }
 
         public ActionResult CreatePost(Guid id)
         {
-            BlogPostModel model = new BlogPostModel()
+            try
             {
-                AuthorID = id,
-            };
+                BlogPostModel model = new BlogPostModel()
+                {
+                    AuthorID = id,
+                };
 
-            return View(model);
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(BlogController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            }
         }
 
-        //
-        // POST: /Account/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreatePost(BlogPostModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                if (BlogPostModel.CreatePost(model))
+                if (ModelState.IsValid)
                 {
-                    try
+                    if (BlogPostModel.CreatePost(model))
                     {
                         return RedirectToAction("Index", "Blog", new { id = model.AuthorID });
                     }
-                    catch
+                    else
                     {
                         return View(model);
                     }
-                }               
+                }
+                else
+                {
+                    return View(model);
+                }
             }
-
-            return View(model);
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(BlogController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            }            
         }
 
         public ActionResult PostAndComments(Guid id)
         {
-            BlogPostModel model = BlogPostModel.GetPost(id);
-            return View(model);
+            try
+            {
+                BlogPostModel model = BlogPostModel.GetPost(id);
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(BlogController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            }
         }
 
         [ChildActionOnly]
         public ActionResult PostComments(Guid id)
         {
-            var model = BlogPostModel.GetPostComments(id);
-            return PartialView(model);
+            try
+            {
+                var model = BlogPostModel.GetPostComments(id);
+                return PartialView(model);
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(BlogController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            }
         }
 
         [ChildActionOnly]
         public ActionResult AddComment(Guid postID, Guid authorID)
         {
-            var model = new CommentModel()
+            try
             {
-                PostID = postID,
-                AuthorID = authorID,                
-            };
+                var model = new CommentModel()
+                {
+                    PostID = postID,
+                    AuthorID = authorID,
+                };
 
-            return PartialView(model);           
+                return PartialView(model);
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(BlogController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddComment(CommentModel model)
         {
-            try 
-            { 
-                CommentModel.AddComment(model);
-            }
-            catch
+            try
             {
-                return RedirectToAction("Index", "Blog", new { id = BlogPostModel.GetPost( model.PostID).AuthorID });
+                if (CommentModel.AddComment(model))
+                {
+                    return RedirectToAction("Index", "Blog", new { id = BlogPostModel.GetPost(model.PostID).AuthorID });
+                }
+                else
+                {
+                    return RedirectToAction("PostAndComments", "Blog", new { id = BlogPostModel.GetPost(model.PostID).AuthorID });
+                }
             }
-
-            return RedirectToAction("Index", "Blog", new { id = BlogPostModel.GetPost(model.PostID).AuthorID });
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(BlogController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            }
         }
 
         public ActionResult EditComment(Guid commentID)
         {
-            var model = CommentModel.GetComment(commentID);
-
-            return View(model);
+            try
+            {
+                var model = CommentModel.GetComment(commentID);
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(BlogController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            }
         }
 
         [HttpPost]
@@ -133,16 +215,27 @@
                     return View(model);
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                return View(model);
-            }         
+                ILog logger = LogManager.GetLogger(typeof(BlogController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            }        
         }
 
         public ActionResult DeleteComment(Guid commentID)
         {
-            var model = CommentModel.GetComment(commentID);
-            return View(model);
+            try
+            {
+                var model = CommentModel.GetComment(commentID);
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(BlogController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            }
         }
 
         [HttpPost]
@@ -151,29 +244,52 @@
         {
             try
             {
-                CommentModel.DeleteComment(model.CommentID);
+                if (CommentModel.DeleteComment(model.CommentID))
+                {
+                    return RedirectToAction("PostAndComments", "Blog", new { id = model.PostID });
+                }
+                else
+                {
+                    return View(model);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return RedirectToAction("PostAndComments", "Blog", new { id = model.PostID});
-            }
-
-            return RedirectToAction("PostAndComments", "Blog", new { id = model.PostID});
+                ILog logger = LogManager.GetLogger(typeof(BlogController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            } 
         }
 
         [ChildActionOnly]
         public ActionResult GetCommentsNumber(Guid postID)
         {
-            int model = BlogPostModel.GetPostComments(postID).Count();
-
-            return PartialView(model);
+            try
+            {
+                int model = BlogPostModel.GetPostComments(postID).Count();
+                return PartialView(model);
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(BlogController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            } 
         }
 
         public ActionResult EditPost(Guid postID)
         {
-            var model = new EditPostModel(postID);
-
-            return View(model);
+            try
+            {
+                var model = new EditPostModel(postID);
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(BlogController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            } 
         }
 
         [HttpPost]
@@ -191,16 +307,27 @@
                     return View(model);
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                return View(model);
-            }           
+                ILog logger = LogManager.GetLogger(typeof(BlogController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            }            
         }
 
         public ActionResult DeletePost(Guid postID)
         {
-            var model = BlogPostModel.GetPost(postID);
-            return View(model);
+            try
+            {
+                var model = BlogPostModel.GetPost(postID);
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(BlogController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            } 
         }
 
         [HttpPost]
@@ -209,63 +336,104 @@
         {
             try
             {
-                BlogPostModel.DeletePost(model.PostID);
+                if (BlogPostModel.DeletePost(model.PostID))
+                {
+                    return RedirectToAction("PostAndComments", "Blog", new { id = model.PostID });
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Blog", new { id = model.AuthorID });
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return RedirectToAction("PostAndComments", "Blog", new { id = model.PostID });
-            }
-
-            return RedirectToAction("Index", "Blog", new { id = model.AuthorID });
+                ILog logger = LogManager.GetLogger(typeof(BlogController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            } 
         }
 
         [ChildActionOnly]
         public ActionResult PostTags(Guid postID)
         {
-            var model = BlogPostModel.GetPostTags(postID);
-
-            return PartialView(model);
+            try
+            {
+                var model = BlogPostModel.GetPostTags(postID);
+                return PartialView(model);
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(BlogController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            } 
         }
 
         [ChildActionOnly]
         public ActionResult UserTags(Guid userID)
         {
-            var model = BlogPostModel.GetUserTags(userID);
-
-            return PartialView(model);
+            try
+            {
+                var model = BlogPostModel.GetUserTags(userID);
+                return PartialView(model);
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(BlogController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            } 
         }
               
         public ActionResult GetUserPostsByTag(Guid authorID, Guid postID, string title)
         {
-            var tag = new Tag()
+            try
             {
-                AuthorID = authorID,
-                PostID = postID,
-                Title = title,
-            };
+                var tag = new Tag()
+                {
+                    AuthorID = authorID,
+                    PostID = postID,
+                    Title = title,
+                };
 
-            var model = BlogPostModel.GetUserPostsByTag(tag).ToList();
+                var model = BlogPostModel.GetUserPostsByTag(tag).ToList();
 
-            if (model.Count != 0)
-            {
-                return View(model);
+                if (model.Count != 0)
+                {
+                    return View(model);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Blog", new { id = authorID });
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return RedirectToAction("Index", "Blog", new { id = authorID });
-            }
+                ILog logger = LogManager.GetLogger(typeof(BlogController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            } 
         }
 
         [ChildActionOnly]
         public ActionResult UpdateTags(Guid postID, Guid authorID)
         {
-            TagString model = new TagString()
+            try
             {
-                PostID = postID,
-                AuthorID = authorID,
-            };
+                TagString model = new TagString()
+                {
+                    PostID = postID,
+                    AuthorID = authorID,
+                };
 
-            return PartialView(model);
+                return PartialView(model);
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(BlogController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            } 
         }
 
         [HttpPost]
@@ -274,24 +442,21 @@
         {
             try
             {
-                BlogPostModel.UpdateTags(model);
+                if (BlogPostModel.UpdateTags(model))
+                {
+                    return RedirectToAction("PostAndComments", "Blog", new { id = model.PostID });
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Blog", new { id = model.AuthorID });
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return RedirectToAction("PostAndComments", "Blog", new { id = model.PostID });
-            }
-
-            return RedirectToAction("Index", "Blog", new { id = model.AuthorID });
-        }
-
-        public ActionResult Feeds(Guid id)
-        {
-            return View();
-        }
-
-        public ActionResult Favourite(Guid id)
-        {
-            return View();
+                ILog logger = LogManager.GetLogger(typeof(BlogController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            } 
         }
 	}
 }

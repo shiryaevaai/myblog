@@ -21,7 +21,7 @@
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message);
+                logger.Error(ex.Message, ex);
                 return View("Error.chtml");
             }            
         }

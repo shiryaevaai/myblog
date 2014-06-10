@@ -110,12 +110,12 @@
             return res;
         }
       
-        public static bool CheckEmail(string email, Guid ID)
+        public static bool CheckEmail(string email, Guid id)
         {
             var list = BusinessLogicHelper._logic.GetAllUsers();
             foreach (var user in list)
             {
-                if (user.Email == email&&user.ID != ID)
+                if (user.Email == email&&user.ID != id)
                 {
                     return false;
                 }

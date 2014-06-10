@@ -1,5 +1,9 @@
 ﻿namespace EpamTask.MyBlog.WebInterface.Controllers
-{
+{    
+    using EpamTask.MyBlog.Entities;
+    using EpamTask.MyBlog.Logic;
+    using log4net;
+
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -9,66 +13,115 @@
     using System.Web.UI;
     using WebInterface.Models;
 
-    using EpamTask.MyBlog.Logic;
-    using EpamTask.MyBlog.Entities;
-
     public class SearchController : Controller
     {
-        //
-        // GET: /Search/
         public ActionResult Index()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(SearchController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            }
         }
 
         public ActionResult SearchResults(List<BlogPostModel> posts)
         {
-            return View(posts);
+            try
+            {
+                return View(posts);
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(SearchController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            }
         }
 
         [ChildActionOnly]
         public ActionResult SearchPostsByTag()
         {
-            SearchModel model = new SearchModel("Введите текст для поиска");
-            return PartialView(model);
+            try
+            {
+                SearchModel model = new SearchModel("Введите текст для поиска");
+                return PartialView(model);
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(SearchController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            }
         }       
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult SearchPostsByTagResults(SearchModel tag)
         {
-            var model = SearchModel.SearchPostsByTag(tag.SearchText).ToList();
+            try
+            {
+                var model = SearchModel.SearchPostsByTag(tag.SearchText).ToList();
 
-            if (model.Count != 0)
-            {
-                return View(model);
+                if (model.Count != 0)
+                {
+                    return View(model);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return RedirectToAction("Index", "Home");
+                ILog logger = LogManager.GetLogger(typeof(SearchController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
             }
         }
 
         [ChildActionOnly]
         public ActionResult SearchPostsByText()
         {
-            SearchModel model = new SearchModel("Введите текст для поиска");
-            return PartialView(model);
+            try
+            {
+                SearchModel model = new SearchModel("Введите текст для поиска");
+                return PartialView(model);
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(SearchController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult SearchPostsByTextResults(SearchModel text)
         {
-            var model = SearchModel.SearchPostsByText(text.SearchText).ToList();
+            try
+            {
+                var model = SearchModel.SearchPostsByText(text.SearchText).ToList();
 
-            if (model.Count != 0)
-            {
-                return View(model);
+                if (model.Count != 0)
+                {
+                    return View(model);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return RedirectToAction("Index", "Home");
+                ILog logger = LogManager.GetLogger(typeof(SearchController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
             }
         }
 	}

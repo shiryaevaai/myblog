@@ -1,5 +1,9 @@
 ﻿namespace EpamTask.MyBlog.WebInterface.Controllers
 {
+    using EpamTask.MyBlog.Logic;
+    using EpamTask.MyBlog.Entities;
+    using log4net;
+
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -9,34 +13,54 @@
     using System.Web.UI;
     using WebInterface.Models;
 
-    using EpamTask.MyBlog.Logic;
-    using EpamTask.MyBlog.Entities;
-
     public class AdminController : Controller
     {
         [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
-            var model = BusinessLogicHelper._logic.GetAllUsers();
-            return View(model);
+            try
+            {
+                var model = BusinessLogicHelper._logic.GetAllUsers();
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(AdminController));
+                logger.Error(ex.Message.ToString(), ex);
+                return View("Error.chtml");
+            }
         }
         
         [ChildActionOnly]
         public ActionResult UserInfo()
         {
-            return PartialView();
+            try
+            {
+                return PartialView();
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(AccountController));
+                logger.Error(ex.Message, ex);
+                return View("Error.chtml");
+            }
         }
 
-
-       //@Html.ActionLink("Удалить пользователя", "DeleteUser", "Admin", new { accountID = item.ID }, null) 
-
-        // GET: /Account/Delete/5
         [Authorize(Roles = "Admin")]
         public ActionResult DeleteRoleFromUser(Guid accountID)
         {
-            var model = BlogUserModel.GetUser(accountID);
-            model.roleList = MyRoleProvider.GetRolesForUser(accountID).ToList();
-            return View(model);
+            try
+            {
+                var model = BlogUserModel.GetUser(accountID);
+                model.roleList = MyRoleProvider.GetRolesForUser(accountID).ToList();
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(AccountController));
+                logger.Error(ex.Message, ex);
+                return View("Error.chtml");
+            }
         }
 
         // POST: /Account/Delete/5
@@ -47,22 +71,38 @@
         {
             try
             {
-                MyRoleProvider.DeleteRoleFromAccount(accountID, roleID);
-                return RedirectToAction("Index", "Admin");
+                if (MyRoleProvider.DeleteRoleFromAccount(accountID, roleID))
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+                else
+                {
+                    return RedirectToAction("DeleteRoleFromUser", new {accountID = accountID});
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                //var model = MyRoleProvider.GetAccount(AccountID);
-                return RedirectToAction("Index","Admin");
+                ILog logger = LogManager.GetLogger(typeof(AccountController));
+                logger.Error(ex.Message, ex);
+                return View("Error.chtml");
             }
         }
 
         [Authorize(Roles = "Admin")]
         public ActionResult AddRoleToUser(Guid accountID)
         {
-            var model = BlogUserModel.GetUser(accountID);
-            model.hasNotRoleList = MyRoleProvider.GetNoRolesForUser(accountID).ToList();
-            return View(model);
+            try
+            {
+                var model = BlogUserModel.GetUser(accountID);
+                model.hasNotRoleList = MyRoleProvider.GetNoRolesForUser(accountID).ToList();
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(AccountController));
+                logger.Error(ex.Message, ex);
+                return View("Error.chtml");
+            }
         }
 
         [HttpPost]
@@ -70,14 +110,24 @@
         [Authorize(Roles = "Admin")]
         public ActionResult AddRoleToUser(Guid accountID, Guid roleID)
         {
-            var model = BlogUserModel.GetUser(accountID);
-            if (MyRoleProvider.AddRoleToAccount(accountID, roleID))
+            try
             {
-                return RedirectToAction("Index", "Admin");
+                var model = BlogUserModel.GetUser(accountID);
+
+                if (MyRoleProvider.AddRoleToAccount(accountID, roleID))
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+                else
+                {
+                    return View(model);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return View(model);
+                ILog logger = LogManager.GetLogger(typeof(AccountController));
+                logger.Error(ex.Message, ex);
+                return View("Error.chtml");
             }
         }
 
@@ -85,8 +135,17 @@
         [ChildActionOnly]
         public ActionResult UserRoleList(Guid accountID)
         {
-            var model = MyRoleProvider.GetRolesForUser(accountID);
-            return PartialView(model);
+            try
+            {
+                var model = MyRoleProvider.GetRolesForUser(accountID);
+                return PartialView(model);
+            }        
+            catch (Exception ex)
+            {
+                ILog logger = LogManager.GetLogger(typeof(AccountController));
+                logger.Error(ex.Message, ex);
+                return View("Error.chtml");
+            }
         }
 	}
 }

@@ -196,36 +196,42 @@
             }
         }
 
-        public static void DeletePost(Guid guid)
+        public static bool DeletePost(Guid guid)
         {
-            BusinessLogicHelper._logic.DeletePost(guid);
+            return BusinessLogicHelper._logic.DeletePost(guid);
         }
 
-        public static void UpdateTags(TagString model)
+        public static bool UpdateTags(TagString model)
         {
             if (!string.IsNullOrWhiteSpace(model.Tags))
             {
                 var tagArray = model.Tags.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-                BusinessLogicHelper._logic.DeletePostTags(model.PostID);
-
-                if (tagArray.Count() != 0)
+                if (BusinessLogicHelper._logic.DeletePostTags(model.PostID))
                 {
-                    foreach (string tag in tagArray)
+                    if (tagArray.Count() != 0)
                     {
-                        Tag newTag = new Tag()
+                        foreach (string tag in tagArray)
                         {
-                            AuthorID = model.AuthorID,
-                            PostID = model.PostID,
-                            Title = tag,
-                        };
+                            Tag newTag = new Tag()
+                            {
+                                AuthorID = model.AuthorID,
+                                PostID = model.PostID,
+                                Title = tag,
+                            };
 
-                        BusinessLogicHelper._logic.AddTagToPost(newTag);
+                            if (!BusinessLogicHelper._logic.AddTagToPost(newTag))
+                            {
+                                return false;
+                            }
+                        }
                     }
                 }
+
+                return true; 
             }
             else
             {
-                BusinessLogicHelper._logic.DeletePostTags(model.PostID);
+                return BusinessLogicHelper._logic.DeletePostTags(model.PostID);
             }            
         }
 

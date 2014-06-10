@@ -26,7 +26,7 @@
             catch (Exception ex)
             {
                 ILog logger = LogManager.GetLogger(typeof(AccountController));
-                logger.Error(ex.Message);
+                logger.Error(ex.Message, ex);
                 return View("Error.chtml");
             }
         }
@@ -41,7 +41,7 @@
             catch (Exception ex)
             {
                 ILog logger = LogManager.GetLogger(typeof(AccountController));
-                logger.Error(ex.Message);
+                logger.Error(ex.Message, ex);
                 return View("Error.chtml");
             }
         }
@@ -54,7 +54,14 @@
             {
                 if (model.TryToLogin(model.BlogUserLogin, model.BlogUserPassword))
                 {
-                    return Redirect(returnUrl);
+                    if (!String.IsNullOrWhiteSpace(returnUrl))
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 else
                 {
@@ -64,7 +71,7 @@
             catch (Exception ex)
             {
                 ILog logger = LogManager.GetLogger(typeof(AccountController));
-                logger.Error(ex.Message);
+                logger.Error(ex.Message, ex);
                 return View("Error.chtml");
             }
         }
@@ -80,7 +87,7 @@
             catch (Exception ex)
             {
                 ILog logger = LogManager.GetLogger(typeof(AccountController));
-                logger.Error(ex.Message);
+                logger.Error(ex.Message, ex);
                 return View("Error.chtml");
             }
         }
@@ -96,7 +103,7 @@
             catch (Exception ex)
             {
                 ILog logger = LogManager.GetLogger(typeof(AccountController));
-                logger.Error(ex.Message);
+                logger.Error(ex.Message, ex);
                 return View("Error.chtml");
             }
         }
@@ -110,7 +117,7 @@
             catch (Exception ex)
             {
                 ILog logger = LogManager.GetLogger(typeof(AccountController));
-                logger.Error(ex.Message);
+                logger.Error(ex.Message, ex);
                 return View("Error.chtml");
             }
         }
@@ -131,7 +138,7 @@
             catch (Exception ex)
             {
                 ILog logger = LogManager.GetLogger(typeof(AccountController));
-                logger.Error(ex.Message);
+                logger.Error(ex.Message, ex);
                 return View("Error.chtml");
             }
         }
@@ -146,7 +153,7 @@
             catch (Exception ex)
             {
                 ILog logger = LogManager.GetLogger(typeof(AccountController));
-                logger.Error(ex.Message);
+                logger.Error(ex.Message, ex);
                 return View("Error.chtml");
             }
         }
@@ -169,15 +176,15 @@
             catch (Exception ex)
             {
                 ILog logger = LogManager.GetLogger(typeof(AccountController));
-                logger.Error(ex.Message);
+                logger.Error(ex.Message, ex);
                 return View("Error.chtml");
             }
         }
 
         [OutputCache(Location = OutputCacheLocation.None, NoStore = true)]
-        public JsonResult CheckAccountName(string Login)
+        public JsonResult CheckAccountName(string login)
         {
-            var result = RegistrationModel.CheckAccountName(Login);
+            var result = RegistrationModel.CheckAccountName(login);
 
             if (result)
             {
@@ -190,9 +197,9 @@
         }
 
         [OutputCache(Location = OutputCacheLocation.None, NoStore = true)]
-        public JsonResult CheckRegEmail(string Email)
+        public JsonResult CheckRegEmail(string email)
         {
-            var result = RegistrationModel.CheckEmail(Email);
+            var result = RegistrationModel.CheckEmail(email);
 
             if (result)
             {
@@ -205,9 +212,9 @@
         }
 
         [OutputCache(Location = OutputCacheLocation.None, NoStore = true)]
-        public JsonResult CheckEmail(string Email, Guid ID)
+        public JsonResult CheckEmail(string email, Guid ID)
         {
-            var result = EditUserModel.CheckEmail(Email, ID);
+            var result = EditUserModel.CheckEmail(email, ID);
 
             if (result)
             {
@@ -232,53 +239,6 @@
             {
                 return Json("Подтверждение должно быть эквивалентно паролю!", JsonRequestBehavior.AllowGet);
             }
-        }
-        //
-        // GET: /Account/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        //
-        // POST: /Account/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        //
-        // GET: /Account/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        //
-        // POST: /Account/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        }        
     }
 }
