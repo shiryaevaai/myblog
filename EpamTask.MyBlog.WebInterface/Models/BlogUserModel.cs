@@ -83,10 +83,6 @@
         public string About { get; set; }
 
         //==================================
-        [Display(Name = "Возраст")]
-        public int Age { get; set; }
-
-        //==================================
         [Display(Name = "Пол")]
         [Required(ErrorMessage = "Необходимо ввести пол!")]
         public bool Gender { get; set; }

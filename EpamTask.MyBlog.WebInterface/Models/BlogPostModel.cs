@@ -217,16 +217,23 @@
                         {
                             foreach (string tag in tagArray)
                             {
-                                Tag newTag = new Tag()
-                                {
-                                    AuthorID = model.AuthorID,
-                                    PostID = model.PostID,
-                                    Title = tag,
-                                };
-
-                                if (!BusinessLogicHelper._logic.AddTagToPost(newTag))
+                                if (tag.Length > 50)
                                 {
                                     return false;
+                                }
+                                else
+                                {
+                                    Tag newTag = new Tag()
+                                    {
+                                        AuthorID = model.AuthorID,
+                                        PostID = model.PostID,
+                                        Title = tag,
+                                    };
+
+                                    if (!BusinessLogicHelper._logic.AddTagToPost(newTag))
+                                    {
+                                        return false;
+                                    }
                                 }
                             }
                         }
@@ -242,16 +249,23 @@
                     {
                         foreach (string tag in tagArray)
                         {
-                            Tag newTag = new Tag()
-                            {
-                                AuthorID = model.AuthorID,
-                                PostID = model.PostID,
-                                Title = tag,
-                            };
-
-                            if (!BusinessLogicHelper._logic.AddTagToPost(newTag))
+                            if (tag.Length > 50)
                             {
                                 return false;
+                            }
+                            else
+                            {
+                                Tag newTag = new Tag()
+                                {
+                                    AuthorID = model.AuthorID,
+                                    PostID = model.PostID,
+                                    Title = tag,
+                                };
+
+                                if (!BusinessLogicHelper._logic.AddTagToPost(newTag))
+                                {
+                                    return false;
+                                }
                             }
                         }
                     }

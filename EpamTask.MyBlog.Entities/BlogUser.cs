@@ -2,25 +2,21 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Text;
+    using System.Text.RegularExpressions;
     using System.Threading.Tasks;
 
     public class BlogUser : IEquatable<BlogUser>
     {
-        [Required]
         private string blogUserLogin;
 
-        [Required]
         private string blogUserPassword;
 
-        [Required]
         private DateTime birthDate;
 
         private string blogUserEpigraph="";
 
-        [Required]
         private string email;
 
         private string skype="";
@@ -36,19 +32,7 @@
         public BlogUser() 
         { 
         }
-
-        //public BlogUser(string login, string password, DateTime birth, string e_mail)
-        //{
-        //    this.ID = Guid.NewGuid();
-        //    this.BlogUserLogin = login;
-        //    this.BlogUserPassword = password;
-        //    this.BirthDate = birth;
-        //    this.Email = e_mail;
-        //    this.RegistrationTime = DateTime.Now;
-        //    this.HasAvatar = false;
-        //}
-
-        [Required]
+      
         public Guid ID { get; set; }
 
         public bool HasAvatar
@@ -73,7 +57,14 @@
 
             set
             {
-                this.blogUserLogin = value;
+                if (value.Length >= 3 && value.Length <= 16)
+                {
+                    this.blogUserLogin = value;
+                }
+                else
+                {
+                    throw new ArgumentException("Длина имени пользователя должна быть от 3 до 16 символов");
+                }
             }
         }
 
@@ -86,7 +77,14 @@
 
             set
             {
-                this.blogUserPassword = value;
+                if (value.Length >= 6 && value.Length <= 16)
+                {
+                    this.blogUserPassword = value;
+                }
+                else
+                {
+                    throw new ArgumentException("Длина пароля должна быть от 6 до 16 символов");
+                }                
             }
         }
 
@@ -99,11 +97,22 @@
 
             set
             {
-                this.birthDate = value;
+                if (DateTime.Now < value)
+                {
+                    throw new ArgumentException("Неверный ввод даты рождения");
+                }
+                else
+                if (DateTime.Now.Year - value.Year > 150)
+                {
+                    throw new ArgumentException("Неверный ввод даты рождения");
+                }
+                else
+                {
+                    this.birthDate = value;
+                }                
             }
         }
 
-        [Required]
         public DateTime RegistrationTime { get; set; }
 
         public string BlogUserEpigraph
@@ -114,7 +123,8 @@
             }
 
             set
-            {
+            {    
+
                 this.blogUserEpigraph = value;
             }
         }
@@ -128,7 +138,17 @@
 
             set
             {
-                this.email = value;
+                Regex rgx = new Regex(@"([a-z0-9]([a-z_0-9\.\-]*[a-z0-9])?)@([a-z0-9]([a-z_0-9\-]*)[a-z0-9]\.)+([a-z]{2,6})");
+                MatchCollection matches = rgx.Matches(value);
+
+                if (matches.Count == 1)
+                {
+                    this.email = value;
+                }
+                else
+                {
+                    throw new ArgumentException("Некорректный адрес электронной почты");
+                }   
             }
         }
 
@@ -158,17 +178,7 @@
             }
         }
 
-        public int Age { get; set; }
-
         public bool Gender { get; set; }
-
-        // public void CreatePost(string content, List<string> taglist)
-        //{
-        //}
-
-        // public void UpdatePost(Guid postID, string content, List<string> taglist)
-        //{
-        //}
 
         bool IEquatable<BlogUser>.Equals(BlogUser other)
         {

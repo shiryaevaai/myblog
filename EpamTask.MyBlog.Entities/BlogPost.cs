@@ -53,7 +53,14 @@
 
             set
             {
-                this.postTitle = value;
+                if (value.Length <= 100)
+                {
+                    this.postTitle = value;
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
             }
         }
 
@@ -82,27 +89,7 @@
                 this.privacy = value;
             }
         }
-
-        public void LikePost(Guid userID)
-        {
-            this.likesList.Add(userID);
-        }
-
-        public void DislikePost(Guid userID)
-        {
-            this.dislikesList.Add(userID);
-        }
-
-        public void AddTag(string tag)
-        {
-            this.postTagList.Add(tag);
-        }
-
-        public void AddComment(string comment)
-        {
-            this.postCommentList.Add(comment);
-        }
-
+        
         bool IEquatable<BlogPost>.Equals(BlogPost other)
         {
             return Equals(other);

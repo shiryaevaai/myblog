@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
@@ -10,10 +9,6 @@
     public class PostComment : IEquatable<PostComment>
     {
         private string commentText;
-
-        private List<Guid> likesList;
-
-        private List<Guid> dislikesList;
 
         public PostComment()
         {
@@ -28,17 +23,13 @@
             this.CommentCreationTime = DateTime.Now;
         }
 
-        [Required]
         public Guid CommentID { get; set; }
 
-        [Required]
         public Guid AuthorID { get; set; }
-
-        [Required]
+        
         public Guid PostID { get; set; }
 
-        [Required]
-        public DateTime CommentCreationTime { get; set; }
+         public DateTime CommentCreationTime { get; set; }
 
         public string CommentText
         {
@@ -48,19 +39,16 @@
             }
 
             set
-            {
-                this.commentText = value;
+            {             
+                if (value.Length >= 3 && value.Length <= 250)
+                {
+                    this.commentText = value;
+                }
+                else
+                {
+                    throw new ArgumentException("Длина текста комментария должна быть от 3 до 250 символов");
+                }
             }
-        }
-
-        public void LikeComment(Guid userID)
-        {
-            this.likesList.Add(userID);
-        }
-
-        public void DislikeComment(Guid userID)
-        {
-            this.dislikesList.Add(userID);
         }
 
         bool IEquatable<PostComment>.Equals(PostComment other)
