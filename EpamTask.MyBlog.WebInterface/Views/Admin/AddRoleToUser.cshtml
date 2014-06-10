@@ -1,0 +1,43 @@
+﻿@model EpamTask.MyBlog.WebInterface.Models.BlogUserModel
+
+@{
+    var list = Model.hasNotRoleList;
+    ViewBag.Title = "AddRoleToUser";
+}
+
+<h2>Добавление роли для @Model.BlogUserLogin</h2>
+
+@if (list.Count() == 0)
+{
+    @Html.Label("Нет ролей для добавления")
+}
+else
+{
+    
+    foreach (var item in list) 
+    {       
+            using (Html.BeginForm())
+            {
+                @Html.ValidationSummary(true)
+                <fieldset>       
+                    <legend></legend>            
+
+                    <div class="editor-field">
+                     @Html.DisplayFor(modelItem => item.RoleName)
+                    </div>
+
+                    @Html.Hidden("accountID", Model.ID)
+                    @Html.Hidden("roleID", item.ID)
+                    @Html.AntiForgeryToken()
+                    <p>
+                        <input type="submit" value="Добавить" />
+                    </p>
+                </fieldset>
+            }          
+    }
+}
+
+
+<div>
+    @Html.ActionLink("Назад", "Index", "Admin")
+</div>

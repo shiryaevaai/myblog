@@ -6,33 +6,39 @@
 
 <h2>Управление пользователями</h2>
 
-<table>
-    <tr>
-        <th>
-
-            @Html.Label("Список пользователей:")
-
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<div class="container-fluid">
+    <table>
         <tr>
-            @if (User.Identity.Name != item.BlogUserLogin)
-            {
-                <td>
-                    @Html.DisplayFor(modelItem => item.BlogUserLogin)
+            <th>
 
-                </td>
-                <td>
-                    @Html.ActionLink("Добавить роль", "AddRole", new { accountID = item.ID }) |
-                    @Html.ActionLink("Удалить роль", "DeleteRole", new { accountID = item.ID }) |
-                    @Html.ActionLink("Список ролей", "Details", new { accountID = item.ID }) |
-                    @Html.ActionLink("Удалить пользователя", "DeleteUser", new { accountID = item.ID }) 
-                </td>
-            }
+                @Html.Label("Список пользователей:")
+
+            </th>
+            <th></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @if (User.Identity.Name != item.BlogUserLogin)
+                {
+                    <td class="col-xs-3">
+                        @Html.DisplayFor(modelItem => item.BlogUserLogin)
+
+                    </td>
+                    <td class="col-xs-3">
+                        @Html.Action("UserRoleList", "Admin", new { accountID = item.ID })
+
+                    </td>
+                    <td class ="col-xs-3">
+                        @Html.ActionLink("Добавить роль", "AddRoleToUser", "Admin", new { accountID = item.ID }, null) |
+                        @Html.ActionLink("Удалить роль", "DeleteRoleFromUser", "Admin", new { accountID = item.ID }, null) 
+              
+                        @*@Html.ActionLink("Удалить пользователя", "DeleteUser", "Admin", new { accountID = item.ID }, null)*@
+                    </td>
+                }
+            </tr>
+        }
+
+    </table>
+  </div>

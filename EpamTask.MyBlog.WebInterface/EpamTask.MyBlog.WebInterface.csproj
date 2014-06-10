@@ -258,6 +258,9 @@
     <Content Include="Views\Search\SearchPostsByTag.cshtml" />
     <Content Include="Views\Search\SearchPostsByTagResults.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\DeleteRoleFromUser.cshtml" />
+    <Content Include="Views\Admin\UserRoleList.cshtml" />
+    <Content Include="Views\Admin\AddRoleToUser.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,0 +1,41 @@
+﻿@model EpamTask.MyBlog.WebInterface.Models.BlogUserModel
+
+@{
+    var list = Model.roleList;
+    ViewBag.Title = "DeleteRoleFromUser";
+}
+
+<h2>Удаление ролей для @Model.BlogUserLogin</h2>
+@if (list.Count() == 0) 
+{
+    @Html.Label("У пользователя нет ролей")
+}
+else
+{ 
+    foreach (var item in list)
+    {
+
+        using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true)
+            <fieldset>
+                <legend></legend>
+
+                <div class="editor-field">
+                    @Html.DisplayFor(modelItem => item.RoleName)
+                </div>
+
+                @Html.Hidden("accountID", Model.ID)
+                @Html.Hidden("roleID", item.ID)
+                @Html.AntiForgeryToken()
+                <p>
+                    <input type="submit" value="Удалить" />
+                </p>
+            </fieldset>
+        }
+    }
+}
+
+<div>
+    @Html.ActionLink("Назад", "Index", "Admin")
+</div>

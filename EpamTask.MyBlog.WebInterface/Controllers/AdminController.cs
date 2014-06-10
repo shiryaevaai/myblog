@@ -27,12 +27,15 @@
             return PartialView();
         }
 
+
+       //@Html.ActionLink("Удалить пользователя", "DeleteUser", "Admin", new { accountID = item.ID }, null) 
+
         // GET: /Account/Delete/5
         [Authorize(Roles = "Admin")]
-        public ActionResult DeleteRole(Guid AccountID)
+        public ActionResult DeleteRoleFromUser(Guid accountID)
         {
-            var model = BlogUserModel.GetUser(AccountID);
-            model.roleList = MyRoleProvider.GetRolesForUser(AccountID).ToList();
+            var model = BlogUserModel.GetUser(accountID);
+            model.roleList = MyRoleProvider.GetRolesForUser(accountID).ToList();
             return View(model);
         }
 
@@ -40,12 +43,12 @@
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteRoleFromUser(Guid AccountID, Guid RoleID)
+        public ActionResult DeleteRoleFromUser(Guid accountID, Guid roleID)
         {
             try
             {
-                MyRoleProvider.DeleteRoleFromAccount(AccountID, RoleID);
-                return RedirectToAction("Index", "Account");
+                MyRoleProvider.DeleteRoleFromAccount(accountID, roleID);
+                return RedirectToAction("Index", "Admin");
             }
             catch
             {
@@ -55,22 +58,22 @@
         }
 
         [Authorize(Roles = "Admin")]
-        public ActionResult AddRole(Guid AccountID)
+        public ActionResult AddRoleToUser(Guid accountID)
         {
-            var model = BlogUserModel.GetUser(AccountID);
-            model.hasNotRoleList = MyRoleProvider.GetNoRolesForUser(AccountID).ToList();
+            var model = BlogUserModel.GetUser(accountID);
+            model.hasNotRoleList = MyRoleProvider.GetNoRolesForUser(accountID).ToList();
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult AddRole(Guid AccountID, Guid RoleID)
+        public ActionResult AddRoleToUser(Guid accountID, Guid roleID)
         {
-            var model = BlogUserModel.GetUser(AccountID);
-            if (MyRoleProvider.AddRoleToAccount(AccountID, RoleID))
+            var model = BlogUserModel.GetUser(accountID);
+            if (MyRoleProvider.AddRoleToAccount(accountID, roleID))
             {
-                return RedirectToAction("Index", "Account");
+                return RedirectToAction("Index", "Admin");
             }
             else
             {
@@ -79,16 +82,10 @@
         }
 
         [Authorize(Roles = "Admin")]
-        public ActionResult Details(Guid id)
+        [ChildActionOnly]
+        public ActionResult UserRoleList(Guid accountID)
         {
-            var model = BlogUserModel.GetUser(id);
-            return View(model);
-        }
-
-        [Authorize(Roles = "Admin")]
-        public ActionResult GetAccountRoles(Guid id)
-        {
-            var model = MyRoleProvider.GetRolesForUser(id);
+            var model = MyRoleProvider.GetRolesForUser(accountID);
             return PartialView(model);
         }
 	}
