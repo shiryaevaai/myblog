@@ -10,31 +10,22 @@
     using System.Web.Mvc;
     using System.Web.Security;
 
-    using EpamTask.MyBlog.Logic;
     using EpamTask.MyBlog.Entities;
+    using EpamTask.MyBlog.Logic;
 
     public class TagString
     {
-        //[Required(ErrorMessage = "Необходимо ввести текст тэга!")]
+        public TagString()
+        {
+        }
+
         [Display(Name = "Введите тэги, разделенные пробелами:")]
         public string Tags { get; set; }
 
-        //=============================================
         [HiddenInput(DisplayValue = false)]
         public Guid AuthorID { get; set; }
 
-        //=============================================
         [HiddenInput(DisplayValue = false)]
         public Guid PostID { get; set; }
-
-        public TagString()
-        {
-
-        }
-
-        //internal static void AddTags(TagString model)
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }

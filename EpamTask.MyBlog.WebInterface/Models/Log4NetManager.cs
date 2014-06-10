@@ -2,12 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Web;
     using log4net;
-    using log4net.Core;
     using log4net.Config;
-    using System.IO;
+    using log4net.Core;
 
     public class Log4NetManager
     {
@@ -32,7 +32,6 @@
 
                     //refresh settings of appender
                     adoAppender.ActivateOptions();
-
                 }
             }
         }

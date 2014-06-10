@@ -9,13 +9,11 @@
     using System.Web.Mvc;
     using System.Web.Security;
 
-    using EpamTask.MyBlog.Logic;
     using EpamTask.MyBlog.Entities;
+    using EpamTask.MyBlog.Logic;
 
     public class SearchModel
     {
-        public string SearchText { get; set; }
-
         public SearchModel()
         { 
         }
@@ -24,6 +22,9 @@
         {
             this.SearchText = searchText;
         }
+
+        public string SearchText { get; set; }
+
         public static IEnumerable<BlogPostModel> SearchPostsByTag(string tag)
         {
             var posts = BusinessLogicHelper._logic.GetPostsByTag(tag).ToList();

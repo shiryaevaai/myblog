@@ -21,7 +21,6 @@
 
         private IRolesDao _roles_dao;
 
-        // Add config parameter to check dal
         public MyBlogLogic()
         {
             this._comments_dao = new DAL.DB.CommentsDao();
@@ -29,19 +28,6 @@
             this._posts_dao = new DAL.DB.PostsDao();
             this._roles_dao = new DAL.DB.RolesDao();
         }
-
-        //public bool AddUser(string login, string password, DateTime birth, string e_mail)
-        //{
-        //    var user = new BlogUser(login, password, birth, e_mail);
-        //    if (this._users_dao.AddUser(user))
-        //    {
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
 
         public bool AddUser(BlogUser user)
         {           

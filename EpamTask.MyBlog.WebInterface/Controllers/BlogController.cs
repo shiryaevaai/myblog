@@ -1,9 +1,5 @@
 ﻿namespace EpamTask.MyBlog.WebInterface.Controllers
 {
-    using EpamTask.MyBlog.Logic;
-    using EpamTask.MyBlog.Entities;
-    using log4net;
-
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -12,6 +8,10 @@
     using System.Web.Mvc;
     using System.Web.UI;
     using WebInterface.Models;
+
+    using EpamTask.MyBlog.Entities;
+    using EpamTask.MyBlog.Logic;
+    using log4net;
 
     public class BlogController : Controller
     {

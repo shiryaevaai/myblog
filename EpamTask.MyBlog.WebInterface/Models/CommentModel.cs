@@ -42,53 +42,7 @@
         [StringLength(250, MinimumLength = 3, ErrorMessage = "Длина текста комментария должна быть от 3 до 250 символов")]
         public string CommentText { get; set; }
 
-        bool IEquatable<CommentModel>.Equals(CommentModel other)
-        {
-            return Equals(other);
-        }
-
-        public override bool Equals(Object obj)
-        {
-            if (obj == null)
-            {
-                return false;
-            }
-
-            CommentModel comObj = obj as CommentModel;
-            if (comObj == null)
-            {
-                return false;
-            }
-            else
-            {
-
-                if (this.CommentID == comObj.CommentID)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-
-        public override int GetHashCode()
-        {
-            int res = 0;
-            string g = this.CommentID.ToString();
-            for (int i = 0; i < g.Length; i++)
-            {
-                if (Char.IsDigit(g[i]))
-                {
-                    res += Int16.Parse(g[i].ToString());
-                }
-            }
-
-            return res;
-        }
-
-        public static bool AddComment(CommentModel model)
+         public static bool AddComment(CommentModel model)
         {
             var comment = new PostComment()
             {
@@ -132,6 +86,51 @@
             };
 
             return BusinessLogicHelper._logic.UpdateComment(comment);
+        }
+
+        bool IEquatable<CommentModel>.Equals(CommentModel other)
+        {
+            return Equals(other);
+        }
+
+        public override bool Equals(Object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+
+            CommentModel comObj = obj as CommentModel;
+            if (comObj == null)
+            {
+                return false;
+            }
+            else
+            {
+                if (this.CommentID == comObj.CommentID)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            int res = 0;
+            string g = this.CommentID.ToString();
+            for (int i = 0; i < g.Length; i++)
+            {
+                if (Char.IsDigit(g[i]))
+                {
+                    res += Int16.Parse(g[i].ToString());
+                }
+            }
+
+            return res;
         }
     }
 }

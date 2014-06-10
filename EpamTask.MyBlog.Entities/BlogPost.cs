@@ -13,14 +13,6 @@
 
         private string postContent;
 
-        private List<string> postTagList;
-
-        private List<string> postCommentList;
-
-        private List<Guid> likesList;
-
-        private List<Guid> dislikesList;
-
         private string privacy;
 
         public BlogPost() 
@@ -92,7 +84,7 @@
         
         bool IEquatable<BlogPost>.Equals(BlogPost other)
         {
-            return Equals(other);
+            return this.Equals(other);
         }
 
         public override bool Equals(Object obj)
@@ -109,7 +101,6 @@
             }
             else
             {
-
                 if (this.PostID == postObj.PostID)
                 {
                     return true;

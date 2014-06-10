@@ -67,6 +67,7 @@ else
                          @Html.ActionLink("Комментарии",
                                          "PostAndComments", 
                                          new { postID = item.PostID }) 
+                         @Html.Action("GetCommentsNumber", new { postID = item.PostID })
                     </td>
                 }
                 

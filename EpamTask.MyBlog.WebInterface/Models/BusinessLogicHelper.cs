@@ -5,8 +5,8 @@
     using System.Linq;
     using System.Web;
 
-    using EpamTask.MyBlog.Logic;
     using EpamTask.MyBlog.Entities;
+    using EpamTask.MyBlog.Logic;
 
     public class BusinessLogicHelper
     {

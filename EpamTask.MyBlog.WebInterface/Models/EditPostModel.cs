@@ -9,8 +9,9 @@
     using System.Web.Mvc;
     using System.Web.Security;
 
-    using EpamTask.MyBlog.Logic;
     using EpamTask.MyBlog.Entities;
+    using EpamTask.MyBlog.Logic;
+
     public class EditPostModel
     {
         public EditPostModel() 
@@ -53,7 +54,6 @@
         public string Privacy { get; set; }
 
         //================================
-
         public static bool UpdatePost(EditPostModel model)
         {
             var post = new BlogPost()

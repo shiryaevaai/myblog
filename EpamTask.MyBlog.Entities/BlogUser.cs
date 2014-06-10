@@ -15,19 +15,15 @@
 
         private DateTime birthDate;
 
-        private string blogUserEpigraph="";
+        private string blogUserEpigraph = "";
 
         private string email;
 
-        private string skype="";
+        private string skype = "";
 
-        private string about="";
+        private string about = "";
 
         private bool hasAvatar = false;
-
-        private List<string> tagCloud;
-
-        private List<Role> roleList;
 
         public BlogUser() 
         { 
@@ -124,7 +120,6 @@
 
             set
             {    
-
                 this.blogUserEpigraph = value;
             }
         }
@@ -182,7 +177,7 @@
 
         bool IEquatable<BlogUser>.Equals(BlogUser other)
         {
-            return Equals(other);
+            return this.Equals(other);
         }
 
         public override bool Equals(Object obj)
@@ -199,7 +194,6 @@
             }
             else
             {
-
                 if (this.ID == userObj.ID)
                 {
                     return true;

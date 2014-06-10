@@ -6,9 +6,15 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+
     public class Tag
     {
         private string title;
+
+        public Tag()
+        {
+        }
+
         public string Title
         {
             get
@@ -31,11 +37,7 @@
         
         public Guid AuthorID { get; set; }
 
-        //=============================================
+        // =============================================
         public Guid PostID { get; set; }
-
-        public Tag()
-        {
-        }
     }
 }

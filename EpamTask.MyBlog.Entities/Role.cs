@@ -10,19 +10,19 @@
 
     public class Role : IEquatable<Role>
     {
+        public Role()
+        {
+        }
+
         public Guid ID { get; set; }
 
         [Required]
         [StringLength(255, MinimumLength = 1, ErrorMessage = "Длина строки должна быть от 1 до 255 символов")]
         public string RoleName { get; set; }
 
-        public Role()
-        {
-        }
-
         bool IEquatable<Role>.Equals(Role other)
         {
-            return Equals(other);
+            return this.Equals(other);
         }
 
         public override bool Equals(Object obj)
@@ -39,7 +39,6 @@
             }
             else
             {
-
                 if (this.ID == roleObj.ID)
                 {
                     return true;

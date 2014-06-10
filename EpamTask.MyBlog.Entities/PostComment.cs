@@ -53,7 +53,7 @@
 
         bool IEquatable<PostComment>.Equals(PostComment other)
         {
-            return Equals(other);
+            return this.Equals(other);
         }
 
         public override bool Equals(Object obj)
@@ -70,7 +70,6 @@
             }
             else
             {
-
                 if (this.CommentID == comObj.CommentID)
                 {
                     return true;

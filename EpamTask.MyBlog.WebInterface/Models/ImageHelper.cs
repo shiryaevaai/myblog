@@ -5,6 +5,7 @@
     using System.IO;
     using System.Linq;
     using System.Web;
+
     public class ImageHelper
     {
         public static string FileName { get; private set; }
@@ -37,7 +38,6 @@
         public static byte[] GetFile()
         {
             return File.ReadAllBytes(FileName);
-        }
-            
+        }            
     }
 }

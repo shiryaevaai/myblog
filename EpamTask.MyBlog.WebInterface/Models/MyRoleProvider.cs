@@ -6,8 +6,8 @@
     using System.Web;
     using System.Web.Security;
 
-    using EpamTask.MyBlog.Logic;
     using EpamTask.MyBlog.Entities;
+    using EpamTask.MyBlog.Logic;
 
     public class MyRoleProvider : RoleProvider
     {
@@ -51,11 +51,6 @@
             var account = BusinessLogicHelper._logic.GetUserByID(ID);
             return BusinessLogicHelper._logic.GetNoAccountRoles(account.ID).ToList();
         }
-
-        //public static Account GetAccount(Guid id)
-        //{
-        //    return BusinessLogicHelper._logic.GetAccount(id);
-        //}
 
         public static bool DeleteRoleFromAccount(Guid AccountID, Guid RoleID)
         {

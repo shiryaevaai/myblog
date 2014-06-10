@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.UI;
-
-using EpamTask.MyBlog.Logic;
-using EpamTask.MyBlog.Entities;
-
-namespace EpamTask.MyBlog.WebInterface.Models
+﻿namespace EpamTask.MyBlog.WebInterface.Models
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web;
+    using System.Web.Mvc;
+    using System.Web.UI;
+
+    using EpamTask.MyBlog.Entities;
+    using EpamTask.MyBlog.Logic;
+
     public static class HtmlExtensions
     {        
         public static IHtmlString DisplayFormattedData(this HtmlHelper htmlHelper, string data)
@@ -35,7 +35,7 @@ namespace EpamTask.MyBlog.WebInterface.Models
                     string input = firstEdit[i];
                     string part;
 
-                    while (input.Length>50)
+                    while (input.Length > 50)
                     {
                         part = input.Substring(0, 50);
                         secondEdit.Add(part);
@@ -46,22 +46,7 @@ namespace EpamTask.MyBlog.WebInterface.Models
                 }
             }
 
-            var result = string.Join(
-                "<br/>",
-                secondEdit
-                    .Select(htmlHelper.Encode)
-            );
-
-            //var firstEdit = string.Join(
-            //    "<br/>",
-            //    data
-            //        .Split(new[] { Environment.NewLine }, StringSplitOptions.None)
-            //        .Select(htmlHelper.Encode)
-            //);
-
-
-
-            //string result="";
+            var result = string.Join("<br/>", secondEdit.Select(htmlHelper.Encode));            
 
             return new HtmlString(result);
         }

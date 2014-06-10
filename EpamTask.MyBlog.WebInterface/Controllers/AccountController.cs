@@ -1,6 +1,5 @@
 ﻿namespace EpamTask.MyBlog.WebInterface.Controllers
 {
-    using log4net;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -8,13 +7,12 @@
     using System.Web;
     using System.Web.Mvc;
     using System.Web.UI;
-    using WebInterface.Models;    
+    using WebInterface.Models;
 
-    using EpamTask.MyBlog.Logic;
     using EpamTask.MyBlog.Entities;
-   // using System.Web.Http.Cors;
+    using EpamTask.MyBlog.Logic;
+    using log4net;
 
-    //[EnableCors("*", "*", "POST")]
     public class AccountController : Controller
     {
         public ActionResult Index()

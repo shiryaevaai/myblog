@@ -9,8 +9,9 @@
     using System.Web.Mvc;
     using System.Web.Security;
 
-    using EpamTask.MyBlog.Logic;
     using EpamTask.MyBlog.Entities;
+    using EpamTask.MyBlog.Logic;
+
     public class RegistrationModel
     {
         public RegistrationModel() 
@@ -69,6 +70,7 @@
                     return false;
                 }
             }
+
             return true;
         }
 
@@ -96,7 +98,6 @@
             {
                 return false;
             }
-
         }
     }
 }

@@ -44,73 +44,7 @@
         [StringLength(20, MinimumLength = 3, ErrorMessage = "Длина должна быть от 3 до 20 символов")]
         public string Privacy { get; set; }
 
-        public void LikePost(Guid userID)
-        {
-            //this.likesList.Add(userID);
-        }
-
-        public void DislikePost(Guid userID)
-        {
-            //this.dislikesList.Add(userID);
-        }
-
-        public void AddTag(string tag)
-        {
-            //this.postTagList.Add(tag);
-        }
-
-        public void AddComment(string comment)
-        {
-            //this.postCommentList.Add(comment);
-        }
-
-        bool IEquatable<BlogPostModel>.Equals(BlogPostModel other)
-        {
-            return Equals(other);
-        }
-
-        public override bool Equals(Object obj)
-        {
-            if (obj == null)
-            {
-                return false;
-            }
-
-            BlogPostModel postObj = obj as BlogPostModel;
-            if (postObj == null)
-            {
-                return false;
-            }
-            else
-            {
-
-                if (this.PostID == postObj.PostID)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-
-        public override int GetHashCode()
-        {
-            int res = 0;
-            string g = this.PostID.ToString();
-            for (int i = 0; i < g.Length; i++)
-            {
-                if (Char.IsDigit(g[i]))
-                {
-                    res += Int16.Parse(g[i].ToString());
-                }
-            }
-
-            return res;
-        }
         //================================
-
         public static bool CreatePost(BlogPostModel model)
         {
             var post = new BlogPost()
@@ -306,6 +240,52 @@
 
                 yield return post;
             }
+        }
+
+
+        bool IEquatable<BlogPostModel>.Equals(BlogPostModel other)
+        {
+            return Equals(other);
+        }
+
+        public override bool Equals(Object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+
+            BlogPostModel postObj = obj as BlogPostModel;
+            if (postObj == null)
+            {
+                return false;
+            }
+            else
+            {
+                if (this.PostID == postObj.PostID)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            int res = 0;
+            string g = this.PostID.ToString();
+            for (int i = 0; i < g.Length; i++)
+            {
+                if (Char.IsDigit(g[i]))
+                {
+                    res += Int16.Parse(g[i].ToString());
+                }
+            }
+
+            return res;
         }
     }
 }

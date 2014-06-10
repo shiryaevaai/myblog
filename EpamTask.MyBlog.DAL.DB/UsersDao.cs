@@ -31,17 +31,13 @@
         {
             using (var con = new SqlConnection(connectionString))
             {
-                //var command = new SqlCommand("dbo.AddUser", con)
-                //{
-                //    CommandType = System.Data.CommandType.StoredProcedure,
-                //};
-
                 var command = new SqlCommand(
                     "INSERT INTO dbo.[Users] ([ID], [Login], [Password], " +
                     "[BirthDate], [Email], [RegistrationTime], " +
                     "[Epigraph], [About], [Gender], [Skype], [HasAvatar] )" +
                     "VALUES (@ID, @Login, @Password, @BirthDate, @Email, @RegistrationTime, @Epigraph, " +
-                    "@About, @Gender, @Skype, @HasAvatar)", con);
+                    "@About, @Gender, @Skype, @HasAvatar)", 
+                    con);
 
                 command.Parameters.Add(new SqlParameter("@ID", user.ID));
                 command.Parameters.Add(new SqlParameter("@Login", user.BlogUserLogin));
@@ -65,16 +61,13 @@
         {
             using (var con = new SqlConnection(connectionString))
             {
-                //var command = new SqlCommand("dbo.UpdateUser", con)
-                //{
-                //    CommandType = System.Data.CommandType.StoredProcedure,
-                //};
                 var command = new SqlCommand(
                     "UPDATE dbo.[Users] " +
                     "SET [Login]=@Login, [Password]=@Password, " +
                     "[BirthDate]=@BirthDate, [Email]=@Email, [HasAvatar]=@HasAvatar, " +
                     "[Epigraph]=@Epigraph, [About]=@About, [Gender]=@Gender, [Skype]=@Skype " +
-                    "WHERE [ID]=@ID", con);
+                    "WHERE [ID]=@ID", 
+                    con);
 
                 command.Parameters.Add(new SqlParameter("@ID", user.ID));
                 command.Parameters.Add(new SqlParameter("@Login", user.BlogUserLogin));
@@ -87,8 +80,7 @@
                 command.Parameters.Add(new SqlParameter("@Epigraph", user.BlogUserEpigraph));
                 command.Parameters.Add(new SqlParameter("@About", user.About));
                 command.Parameters.Add(new SqlParameter("@Gender", user.Gender));
-                command.Parameters.Add(new SqlParameter("@Skype", user.Skype));
-              
+                command.Parameters.Add(new SqlParameter("@Skype", user.Skype));             
 
                 con.Open();
                 var reader = command.ExecuteNonQuery();
@@ -100,11 +92,6 @@
         {
             using (var con = new SqlConnection(connectionString))
             {
-                // 
-                //var command = new SqlCommand("dbo.DeleteUser", con)
-                //{
-                //    CommandType = System.Data.CommandType.StoredProcedure,
-                //};
                 var command = new SqlCommand("DELETE FROM dbo.[Users] WHERE [ID] = @ID", con);
 
                 command.Parameters.Add(new SqlParameter("@ID", id));
@@ -123,11 +110,8 @@
                 var command = new SqlCommand("SELECT TOP 1 [ID], [Login], [Password], " +
                     "[BirthDate], [Email], [RegistrationTime], [HasAvatar], " +
                     "[Epigraph], [About], [Gender], [Skype] " +
-                    "FROM dbo.[Users] WHERE [ID] = @id", con);
-                //var command = new SqlCommand("dbo.GetUser", con)
-                //{
-                //    CommandType = System.Data.CommandType.StoredProcedure,
-                //}; 
+                    "FROM dbo.[Users] WHERE [ID] = @id", 
+                    con);
 
                 command.Parameters.Add(new SqlParameter("@id", id));
 
@@ -165,7 +149,8 @@
                 var command = new SqlCommand("SELECT TOP 1 [ID], [Login], [Password], " +
                     "[BirthDate], [Email], [RegistrationTime], [HasAvatar], " +
                     "[Epigraph], [About], [Gender], [Skype] " +
-                    "FROM dbo.[Users] WHERE [Login] = @Login", con);
+                    "FROM dbo.[Users] WHERE [Login] = @Login", 
+                    con);
                 
                 command.Parameters.Add(new SqlParameter("@Login", login));
 
@@ -204,10 +189,6 @@
                     "[BirthDate], [Email], [RegistrationTime], [HasAvatar], " +
                     "[Epigraph], [About], [Gender], [Skype] " + 
                     "FROM dbo.[Users]", con);
-                //var command = new SqlCommand("dbo.GetAllUsers", con)
-                //{
-                //    CommandType = System.Data.CommandType.StoredProcedure,
-                //}; 
 
                 con.Open();
                 var reader = command.ExecuteReader();
@@ -262,12 +243,11 @@
 
                         con.Open();
                         var reader = command.ExecuteNonQuery();
-                        return reader > 0 ? true : false;
-                        
+                        return reader > 0 ? true : false;                        
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return false;
             }
@@ -306,10 +286,6 @@
             using (var con = new SqlConnection(connectionString))
             {
                 var command = new SqlCommand("DELETE FROM dbo.[UserAvatars] WHERE [UserID] = @ID", con);
-                //var command = new SqlCommand("dbo.RemoveUserAvatar", con)
-                //{
-                //    CommandType = System.Data.CommandType.StoredProcedure,
-                //};
 
                 command.Parameters.Add(new SqlParameter("@ID", id));
 

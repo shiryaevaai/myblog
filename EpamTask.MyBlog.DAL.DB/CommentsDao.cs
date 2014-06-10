@@ -30,15 +30,11 @@
         {
             using (var con = new SqlConnection(connectionString))
             {
-                //var command = new SqlCommand("dbo.AddComment", con)
-                //{
-                //    CommandType = System.Data.CommandType.StoredProcedure,
-                //};
-
                 var command = new SqlCommand(
                    "INSERT INTO dbo.[Comments] ([ID], [AuthorID], [PostID], " +
                    "[Text], [CreationDate]) " +
-                   "VALUES (@ID, @AuthorID, @PostID, @Text, @CreationDate)", con);
+                   "VALUES (@ID, @AuthorID, @PostID, @Text, @CreationDate)", 
+                   con);
 
                 command.Parameters.Add(new SqlParameter("@ID", comment.CommentID));
                 command.Parameters.Add(new SqlParameter("@AuthorID", comment.AuthorID));
@@ -56,16 +52,12 @@
         {
             using (var con = new SqlConnection(connectionString))
             {
-                //var command = new SqlCommand("dbo.UpdateComment", con)
-                //{
-                //    CommandType = System.Data.CommandType.StoredProcedure,
-                //};
-
                 var command = new SqlCommand(
                    "UPDATE dbo.[Comments] " +
                    "SET [AuthorID]=@AuthorID, [PostID]=@PostID, " +
                    "[CreationDate]=@CreationDate, [Text]=@Text " +
-                   "WHERE [ID]=@ID", con);
+                   "WHERE [ID]=@ID", 
+                   con);
 
                 command.Parameters.Add(new SqlParameter("@ID", comment.CommentID));
                 command.Parameters.Add(new SqlParameter("@AuthorID", comment.AuthorID));
@@ -98,13 +90,11 @@
         {
             using (var con = new SqlConnection(connectionString))
             {
-                //var command = new SqlCommand("dbo.GetComment", con)
-                //{
-                //    CommandType = System.Data.CommandType.StoredProcedure,
-                //};
-                var command = new SqlCommand("SELECT TOP 1 [ID], [AuthorID], [PostID], " +
+                var command = new SqlCommand(
+                    "SELECT TOP 1 [ID], [AuthorID], [PostID], " +
                     "[CreationDate], [Text] " +
-                    "FROM dbo.[Comments] WHERE [ID] = @id", con);
+                    "FROM dbo.[Comments] WHERE [ID] = @id", 
+                    con);
 
                 command.Parameters.Add(new SqlParameter("@id", commentID));
 
@@ -133,13 +123,11 @@
         {
             using (var con = new SqlConnection(connectionString))
             {              
-                //var command = new SqlCommand("dbo.GetPostComments", con)
-                //{
-                //    CommandType = System.Data.CommandType.StoredProcedure,
-                //};
-                var command = new SqlCommand("SELECT [ID], [PostID], [AuthorID], " +
+                var command = new SqlCommand(
+                    "SELECT [ID], [PostID], [AuthorID], " +
                    "[CreationDate], [Text] " +
-                   "FROM dbo.[Comments] WHERE [PostID]=@PostID ORDER BY [CreationDate]", con);
+                   "FROM dbo.[Comments] WHERE [PostID]=@PostID ORDER BY [CreationDate]", 
+                   con);
 
                 command.Parameters.Add(new SqlParameter("@PostID", postID));
 

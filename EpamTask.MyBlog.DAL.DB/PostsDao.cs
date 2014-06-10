@@ -30,15 +30,11 @@
         {
             using (var con = new SqlConnection(connectionString))
             {
-                //var command = new SqlCommand("dbo.AddPost", con)
-                //{
-                //    CommandType = System.Data.CommandType.StoredProcedure,
-                //};
-
                 var command = new SqlCommand(
                    "INSERT INTO dbo.[BlogPosts] ([ID], [AuthorID], [Text], " +
                    "[CreationTime], [Title], [Privacy]) " +
-                   "VALUES (@ID, @AuthorID, @Text, @CreationTime, @Title, @Privacy)", con);
+                   "VALUES (@ID, @AuthorID, @Text, @CreationTime, @Title, @Privacy)", 
+                   con);
 
                 command.Parameters.Add(new SqlParameter("@ID", post.PostID));
                 command.Parameters.Add(new SqlParameter("@AuthorID", post.AuthorID));
@@ -57,15 +53,12 @@
         {
             using (var con = new SqlConnection(connectionString))
             {
-                //var command = new SqlCommand("dbo.UpdatePost", con)
-                //{
-                //    CommandType = System.Data.CommandType.StoredProcedure,
-                //};
                 var command = new SqlCommand(
                    "UPDATE dbo.[BlogPosts] " +
                    "SET [AuthorID]=@AuthorID, [Title]=@Title, " +
                    "[CreationTime]=@CreationTime, [Text]=@Text, [Privacy]=@Privacy " +
-                   "WHERE [ID]=@ID", con);
+                   "WHERE [ID]=@ID", 
+                   con);
 
                 command.Parameters.Add(new SqlParameter("@ID", post.PostID));
                 command.Parameters.Add(new SqlParameter("@AuthorID", post.AuthorID));
@@ -99,14 +92,11 @@
         {
             using (var con = new SqlConnection(connectionString))
             {
-                //var command = new SqlCommand("dbo.GetPost", con)
-                //{
-                //    CommandType = System.Data.CommandType.StoredProcedure,
-                //};
-
-                var command = new SqlCommand("SELECT TOP 1 [ID], [AuthorID], [Title], " +
+                var command = new SqlCommand(
+                    "SELECT TOP 1 [ID], [AuthorID], [Title], " +
                     "[CreationTime], [Text], [Privacy] " +
-                    "FROM dbo.[BlogPosts] WHERE [ID] = @id", con);
+                    "FROM dbo.[BlogPosts] WHERE [ID] = @id", 
+                    con);
 
                 command.Parameters.Add(new SqlParameter("@id", id));
 
@@ -136,14 +126,11 @@
         {
             using (var con = new SqlConnection(connectionString))
             {
-                var command = new SqlCommand("SELECT [ID], [AuthorID], [Title], " +
+                var command = new SqlCommand(
+                    "SELECT [ID], [AuthorID], [Title], " +
                     "[CreationTime], [Text], [Privacy] " +
-                    "FROM dbo.[BlogPosts] ORDER BY [CreationTime] DESC", con);
-
-                //var command = new SqlCommand("dbo.GetAllPosts", con)
-                //{
-                //    CommandType = System.Data.CommandType.StoredProcedure,
-                //};
+                    "FROM dbo.[BlogPosts] ORDER BY [CreationTime] DESC", 
+                    con);
 
                 con.Open();
                 var reader = command.ExecuteReader();
@@ -167,14 +154,12 @@
         {
             using (var con = new SqlConnection(connectionString))
             {
-                var command = new SqlCommand("SELECT [ID], [AuthorID], [Title], " +
+                var command = new SqlCommand(
+                    "SELECT [ID], [AuthorID], [Title], " +
                     "[CreationTime], [Text], [Privacy] " +
-                    "FROM dbo.[BlogPosts] WHERE [AuthorID] = @id ORDER BY [CreationTime] DESC", con);
+                    "FROM dbo.[BlogPosts] WHERE [AuthorID] = @id ORDER BY [CreationTime] DESC", 
+                    con);
 
-                //var command = new SqlCommand("dbo.GetUserPosts", con)
-                //{
-                //    CommandType = System.Data.CommandType.StoredProcedure,
-                //};
                 command.Parameters.Add(new SqlParameter("@ID", id));
 
                 con.Open();
@@ -201,7 +186,8 @@
             {
                 var command = new SqlCommand(
                    "INSERT INTO dbo.[Tags] ([UserID], [PostID], [Tag]) " +
-                   "VALUES (@UserID, @PostID, @Tag)", con);
+                   "VALUES (@UserID, @PostID, @Tag)", 
+                   con);
 
                 command.Parameters.Add(new SqlParameter("@UserID", tag.AuthorID));
                 command.Parameters.Add(new SqlParameter("@PostID", tag.PostID));
@@ -217,8 +203,10 @@
         {
             using (var con = new SqlConnection(connectionString))
             {
-                var command = new SqlCommand("SELECT [UserID], [PostID], [Tag] " +
-                   "FROM dbo.[Tags] WHERE [PostID] = @id ORDER BY [Tag]", con);
+                var command = new SqlCommand(
+                    "SELECT [UserID], [PostID], [Tag] " +
+                   "FROM dbo.[Tags] WHERE [PostID] = @id ORDER BY [Tag]", 
+                   con);
 
                 command.Parameters.Add(new SqlParameter("@id", postID));
 
@@ -241,8 +229,10 @@
         {
             using (var con = new SqlConnection(connectionString))
             {
-                var command = new SqlCommand("SELECT [UserID], [PostID], [Tag] " +
-                   "FROM dbo.[Tags] WHERE [UserID] = @id ORDER BY [Tag]", con);
+                var command = new SqlCommand(
+                    "SELECT [UserID], [PostID], [Tag] " +
+                   "FROM dbo.[Tags] WHERE [UserID] = @id ORDER BY [Tag]", 
+                   con);
 
                 command.Parameters.Add(new SqlParameter("@id", userID));
 
@@ -265,11 +255,13 @@
         {
             using (var con = new SqlConnection(connectionString))
             {
-                var command = new SqlCommand("SELECT [ID], [AuthorID], [Title], " +
+                var command = new SqlCommand(
+                    "SELECT [ID], [AuthorID], [Title], " +
                     "[CreationTime], [Text], [Privacy] " +
                     "FROM dbo.[BlogPosts] INNER JOIN dbo.[Tags] " +
                     "ON dbo.[BlogPosts].[ID] = dbo.[Tags].[PostID] " +
-                    "WHERE [Tag] = @tag ORDER BY [CreationTime] DESC", con);
+                    "WHERE [Tag] = @tag ORDER BY [CreationTime] DESC", 
+                    con);
 
                 command.Parameters.Add(new SqlParameter("@tag", tag));
 
@@ -295,10 +287,12 @@
         {
             using (var con = new SqlConnection(connectionString))
             {
-                var command = new SqlCommand("SELECT [ID], [AuthorID], [Title], " +
+                var command = new SqlCommand(
+                    "SELECT [ID], [AuthorID], [Title], " +
                     "[CreationTime], [Text], [Privacy] " +
                     "FROM dbo.[BlogPosts] " +
-                    "WHERE ([Text] LIKE '%' + @text + '%') ORDER BY [CreationTime] DESC", con);
+                    "WHERE ([Text] LIKE '%' + @text + '%') ORDER BY [CreationTime] DESC", 
+                    con);
 
                 command.Parameters.Add(new SqlParameter("@text", text));
 
@@ -324,11 +318,13 @@
         {
             using (var con = new SqlConnection(connectionString))
             {
-                var command = new SqlCommand("SELECT [ID], [AuthorID], [Title], " +
+                var command = new SqlCommand(
+                    "SELECT [ID], [AuthorID], [Title], " +
                     "[CreationTime], [Text], [Privacy] " +
                     "FROM dbo.[BlogPosts] INNER JOIN dbo.[Tags] " +
                     "ON dbo.[BlogPosts].[ID] = dbo.[Tags].[PostID] " +
-                    "WHERE [Tag] = @tag AND [AuthorID]=@AuthorID ORDER BY [CreationTime] DESC", con);
+                    "WHERE [Tag] = @tag AND [AuthorID]=@AuthorID ORDER BY [CreationTime] DESC", 
+                    con);
 
                 command.Parameters.Add(new SqlParameter("@tag", tag.Title));
                 command.Parameters.Add(new SqlParameter("@AuthorID", tag.AuthorID));

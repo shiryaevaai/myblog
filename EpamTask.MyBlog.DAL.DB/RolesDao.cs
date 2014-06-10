@@ -69,7 +69,9 @@
                     "SELECT dbo.[Roles].[ID], dbo.[Roles].[RoleName] " +
                     "FROM dbo.[Roles] INNER JOIN dbo.[UserRoles] " +
                     "ON dbo.[Roles].[ID] = dbo.[UserRoles].[RoleID] " +
-                    "WHERE dbo.[UserRoles].[UserID] = @UserID", con);
+                    "WHERE dbo.[UserRoles].[UserID] = @UserID", 
+                    con);
+
                 command.Parameters.Add(new SqlParameter("@UserID", id));
                 
                 con.Open();

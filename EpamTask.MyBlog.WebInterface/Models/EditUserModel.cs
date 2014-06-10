@@ -24,7 +24,6 @@
 
         public bool HasAvatar { get; set; }
 
-        //[Required(ErrorMessage = "Необходимо ввести имя пользователя!")]
         [Display(Name = "Имя пользователя")]
         [StringLength(16, MinimumLength = 3, ErrorMessage = "Длина имени пользователя должна быть от 3 до 16 символов")]
         [Remote("CheckAccountName", "Account")]
@@ -32,11 +31,9 @@
 
         [Display(Name = "Пароль")]
         [DataType(DataType.Password)]
-        //[Required]
         [StringLength(16, MinimumLength = 6, ErrorMessage = "Длина пароля должна быть от 6 до 16 символов")]
         public string BlogUserPassword { get; set; }
 
-       // [Required(ErrorMessage = "Необходимо ввести дату рождения пользователя!")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Дата рождения")]
@@ -49,7 +46,6 @@
         [Display(Name = "Эпиграф")]
         public string BlogUserEpigraph { get; set; }
 
-        //[Required(ErrorMessage = "Необходимо ввести адрес электронной почты!")]
         [Remote("CheckEmail", "Account", AdditionalFields = "ID")]
         [RegularExpression(@"([a-z0-9]([a-z_0-9\.\-]*[a-z0-9])?)@([a-z0-9]([a-z_0-9\-]*)[a-z0-9]\.)+([a-z]{2,6})", 
         ErrorMessage = "Некорректный адрес электронной почты")]
@@ -116,7 +112,7 @@
             var list = BusinessLogicHelper._logic.GetAllUsers();
             foreach (var user in list)
             {
-                if (user.Email == email&&user.ID != id)
+                if (user.Email == email && user.ID != id)
                 {
                     return false;
                 }
