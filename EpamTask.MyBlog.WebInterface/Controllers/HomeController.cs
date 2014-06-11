@@ -1,13 +1,14 @@
 ﻿namespace EpamTask.MyBlog.WebInterface.Controllers
 {
-    using EpamTask.MyBlog.WebInterface.Models;
-    using log4net;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
+
+    using EpamTask.MyBlog.WebInterface.Models;
+    using log4net;
 
     public class HomeController : Controller
     {

@@ -107,7 +107,8 @@
         {
             using (var con = new SqlConnection(connectionString))
             {
-                var command = new SqlCommand("SELECT TOP 1 [ID], [Login], [Password], " +
+                var command = new SqlCommand(
+                    "SELECT TOP 1 [ID], [Login], [Password], " +
                     "[BirthDate], [Email], [RegistrationTime], [HasAvatar], " +
                     "[Epigraph], [About], [Gender], [Skype] " +
                     "FROM dbo.[Users] WHERE [ID] = @id", 
@@ -146,7 +147,8 @@
         {
             using (var con = new SqlConnection(connectionString))
             {
-                var command = new SqlCommand("SELECT TOP 1 [ID], [Login], [Password], " +
+                var command = new SqlCommand(
+                    "SELECT TOP 1 [ID], [Login], [Password], " +
                     "[BirthDate], [Email], [RegistrationTime], [HasAvatar], " +
                     "[Epigraph], [About], [Gender], [Skype] " +
                     "FROM dbo.[Users] WHERE [Login] = @Login", 
@@ -185,10 +187,12 @@
         {
             using (var con = new SqlConnection(connectionString))
             {
-                 var command = new SqlCommand("SELECT [ID], [Login], [Password], " +
+                 var command = new SqlCommand(
+                    "SELECT [ID], [Login], [Password], " +
                     "[BirthDate], [Email], [RegistrationTime], [HasAvatar], " +
                     "[Epigraph], [About], [Gender], [Skype] " + 
-                    "FROM dbo.[Users]", con);
+                    "FROM dbo.[Users]", 
+                    con);
 
                 con.Open();
                 var reader = command.ExecuteReader();
@@ -247,7 +251,7 @@
                     }
                 }
             }
-            catch (Exception ex)
+            catch 
             {
                 return false;
             }
@@ -303,7 +307,8 @@
                 var command = new SqlCommand(
                     "UPDATE dbo.[Users] " +
                     "SET [HasAvatar]=@HasAvatar " +
-                    "WHERE [ID]=@ID", con);
+                    "WHERE [ID]=@ID", 
+                    con);
 
                 command.Parameters.Add(new SqlParameter("@ID", id));
                 command.Parameters.Add(new SqlParameter("@HasAvatar", true));

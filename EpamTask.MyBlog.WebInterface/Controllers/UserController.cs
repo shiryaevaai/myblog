@@ -7,11 +7,11 @@
     using System.Web;
     using System.Web.Mvc;
     using System.Web.UI;
-    using WebInterface.Models;
 
     using EpamTask.MyBlog.Entities;
     using EpamTask.MyBlog.Logic;
     using log4net;
+    using WebInterface.Models;
 
     public class UserController : Controller
     {
@@ -94,9 +94,16 @@
         {
             try
             {
-                if (ImageHelper.SetUserAvatar(image, id))
+                if (image != null)
                 {
-                    return RedirectToAction("UserInfo", "User", new { userID = id });
+                    if (ImageHelper.SetUserAvatar(image, id))
+                    {
+                        return RedirectToAction("UserInfo", "User", new { userID = id });
+                    }
+                    else
+                    {
+                        return RedirectToAction("EditProfile", new { userID = id });
+                    }
                 }
                 else
                 {
@@ -156,5 +163,5 @@
                 return View("Error.chtml");
             }
         }
-	}
+    }
 }

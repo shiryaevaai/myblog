@@ -9,8 +9,8 @@
     using System.Web.Mvc;
     using System.Web.Security;
 
-    using EpamTask.MyBlog.Logic;
     using EpamTask.MyBlog.Entities;
+    using EpamTask.MyBlog.Logic;
 
     public class EditUserModel : IEquatable<EditUserModel>
     {
@@ -37,6 +37,8 @@
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Дата рождения")]
+        [RegularExpression(@"(((0[1-9]|[1-2][0-9])\/(02))|((0[1-9]|[1-2][0-9]|30)\/(0[469]|11))|((0[1-9]|[1-2][0-9]|3[01])\/(0[13578]|1[02])))\/(19[0-9][0-9]|20[0-9][0-9])",
+            ErrorMessage = "Некорректная дата")]
         public DateTime BirthDate { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
@@ -60,10 +62,24 @@
         [Display(Name = "Пол")]
         [Required(ErrorMessage = "Необходимо ввести пол!")]
         public bool Gender { get; set; }
+        
+        public static bool CheckEmail(string email, Guid id)
+        {
+            var list = BusinessLogicHelper._logic.GetAllUsers();
+            foreach (var user in list)
+            {
+                if (user.Email == email && user.ID != id)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        } 
 
         bool IEquatable<EditUserModel>.Equals(EditUserModel other)
         {
-            return Equals(other);
+            return this.Equals(other);
         }
 
         public override bool Equals(Object obj)
@@ -80,7 +96,6 @@
             }
             else
             {
-
                 if (this.ID == userObj.ID)
                 {
                     return true;
@@ -105,20 +120,6 @@
             }
 
             return res;
-        }
-      
-        public static bool CheckEmail(string email, Guid id)
-        {
-            var list = BusinessLogicHelper._logic.GetAllUsers();
-            foreach (var user in list)
-            {
-                if (user.Email == email && user.ID != id)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }        
-        
+        }                  
     }
 }

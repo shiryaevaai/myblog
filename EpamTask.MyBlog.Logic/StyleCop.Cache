@@ -3,11 +3,14 @@
   <project key="-41710159">
     <configuration>DEBUG;TRACE</configuration>
   </project>
-  <sourcecode name="AssemblyInfo.cs" parser="StyleCop.CSharp.CsParser">
+  <project key="66609617">
+    <configuration>TRACE</configuration>
+  </project>
+  <sourcecode name="MyBlogLogic.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2014.04.01 10:18:24.000</styleCop>
       <settingsFile>2014.05.30 21:17:07.614</settingsFile>
-      <sourceFile>2014.05.30 21:06:18.486</sourceFile>
+      <sourceFile>2014.06.11 00:03:38.999</sourceFile>
       <parser>2014.04.01 10:18:24.000</parser>
       <StyleCop.CSharp.DocumentationRules>2014.04.01 10:18:24.000</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>1157575881</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -26,14 +29,11 @@
     </timestamps>
     <violations />
   </sourcecode>
-  <project key="66609617">
-    <configuration>TRACE</configuration>
-  </project>
-  <sourcecode name="MyBlogLogic.cs" parser="StyleCop.CSharp.CsParser">
+  <sourcecode name="AssemblyInfo.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2014.04.01 10:18:24.000</styleCop>
       <settingsFile>2014.05.30 21:17:07.614</settingsFile>
-      <sourceFile>2014.06.11 00:03:38.999</sourceFile>
+      <sourceFile>2014.05.30 21:06:18.486</sourceFile>
       <parser>2014.04.01 10:18:24.000</parser>
       <StyleCop.CSharp.DocumentationRules>2014.04.01 10:18:24.000</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>1157575881</StyleCop.CSharp.DocumentationRules.FilesHashCode>

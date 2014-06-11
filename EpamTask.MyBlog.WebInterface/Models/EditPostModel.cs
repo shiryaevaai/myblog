@@ -44,6 +44,7 @@
         public Guid AuthorID { get; set; }
 
         [Required(ErrorMessage = "Необходимо ввести название записи!")]
+        [StringLength(100, MinimumLength = 3, ErrorMessage = "Длина названия должна быть от 3 до 100 символов")]
         [Display(Name = "Название")]
         public string PostTitle { get; set; }
 

@@ -9,8 +9,8 @@
     using System.Web.Mvc;
     using System.Web.Security;
 
-    using EpamTask.MyBlog.Logic;
     using EpamTask.MyBlog.Entities;
+    using EpamTask.MyBlog.Logic;
 
     public class BlogPostModel : IEquatable<BlogPostModel>
     {        
@@ -44,7 +44,7 @@
         [StringLength(20, MinimumLength = 3, ErrorMessage = "Длина должна быть от 3 до 20 символов")]
         public string Privacy { get; set; }
 
-        //================================
+        // ================================
         public static bool CreatePost(BlogPostModel model)
         {
             var post = new BlogPost()
@@ -143,7 +143,7 @@
 
                 var hasTags = BusinessLogicHelper._logic.GetPostTags(model.PostID);
 
-                if (hasTags.Count()!=0)
+                if (hasTags.Count() != 0)
                 {
                     if (BusinessLogicHelper._logic.DeletePostTags(model.PostID))
                     {
@@ -242,10 +242,9 @@
             }
         }
 
-
         bool IEquatable<BlogPostModel>.Equals(BlogPostModel other)
         {
-            return Equals(other);
+            return this.Equals(other);
         }
 
         public override bool Equals(Object obj)

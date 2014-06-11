@@ -7,10 +7,11 @@
     using System.Web;
     using System.Web.Mvc;
     using System.Web.UI;
-    using WebInterface.Models;
+
     using EpamTask.MyBlog.Entities;
     using EpamTask.MyBlog.Logic;
     using log4net;
+    using WebInterface.Models;
 
     public class SearchController : Controller
     {
@@ -123,5 +124,5 @@
                 return View("Error.chtml");
             }
         }
-	}
+    }
 }

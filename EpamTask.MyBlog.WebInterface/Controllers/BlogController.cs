@@ -7,12 +7,13 @@
     using System.Web;
     using System.Web.Mvc;
     using System.Web.UI;
-    using WebInterface.Models;
 
     using EpamTask.MyBlog.Entities;
     using EpamTask.MyBlog.Logic;
     using log4net;
 
+    using WebInterface.Models;
+  
     public class BlogController : Controller
     {
         public ActionResult Index(Guid userID)
@@ -173,8 +174,7 @@
                     return RedirectToAction("Index", "Blog", new { userID = BlogPostModel.GetPost(model.PostID).AuthorID });
                 }
                 else
-                {
-                    //?????
+                {    
                     return RedirectToAction("PostAndComments", "Blog", new { postID = model.PostID });
                 }
             }
@@ -339,11 +339,11 @@
             {
                 if (BlogPostModel.DeletePost(model.PostID))
                 {
-                    return RedirectToAction("PostAndComments", "Blog", new { postID = model.PostID });
+                    return RedirectToAction("Index", "Blog", new { userID = model.AuthorID });
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Blog", new { userID = model.AuthorID });
+                    return RedirectToAction("PostAndComments", "Blog", new { postID = model.PostID });                    
                 }
             }
             catch (Exception ex)
@@ -459,5 +459,5 @@
                 return View("Error.chtml");
             } 
         }
-	}
+    }
 }

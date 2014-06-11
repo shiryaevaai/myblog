@@ -9,8 +9,8 @@
     using System.Web.Mvc;
     using System.Web.Security;
 
-    using EpamTask.MyBlog.Logic;
     using EpamTask.MyBlog.Entities;
+    using EpamTask.MyBlog.Logic;
 
     public class BlogUserModel : IEquatable<BlogUserModel>
     {
@@ -90,7 +90,7 @@
         //==================================
         bool IEquatable<BlogUserModel>.Equals(BlogUserModel other)
         {
-            return Equals(other);
+            return this.Equals(other);
         }
 
         public override bool Equals(Object obj)
@@ -107,7 +107,6 @@
             }
             else
             {
-
                 if (this.ID == userObj.ID)
                 {
                     return true;
